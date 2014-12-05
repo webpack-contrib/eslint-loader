@@ -42,6 +42,6 @@ module.exports = {
 }
 ```
 
-## [Changelog](CHANGELOG)
+## [Changelog](CHANGELOG.md)
 
 ## [License](LICENSE)
