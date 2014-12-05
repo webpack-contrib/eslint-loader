@@ -1,4 +1,4 @@
-# eslint-loader [![Build Status](http://img.shields.io/travis/eslint/eslint-loader.svg)](https://travis-ci.org/eslint/eslint-loader)
+# eslint-loader [![Build Status](http://img.shields.io/travis/MoOx/eslint-loader.svg)](https://travis-ci.org/MoOx/eslint-loader)
 
 > Webpack loader for cssnext
 
