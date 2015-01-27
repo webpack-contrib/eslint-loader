@@ -1,3 +1,7 @@
+# 0.2.1 - 2015-01-25
+
+- Upgrade eslint to 0.13.0
+
 # 0.2.0 - 2015-01-23
 
 - Upgrade eslint to 0.12.0
