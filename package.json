@@ -24,7 +24,7 @@
     "index.js"
   ],
   "peerDependencies": {
-    "eslint": "^0.13.0"
+    "eslint": "^0.14.1"
   },
   "dependencies": {
     "loader-utils": "^0.2.5",
@@ -33,7 +33,7 @@
     "strip-json-comments": "^1.0.2"
   },
   "devDependencies": {
-    "eslint": "^0.13.0",
+    "eslint": "^0.14.1",
     "jscs": "^1.8.1",
     "tape": "^3.0.3",
     "webpack": "^1.4.13"
