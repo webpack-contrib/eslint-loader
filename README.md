@@ -36,6 +36,10 @@ module.exports = {
 }
 ```
 
+#### `reporter` (default: wrapper eslint stylish reporter)
+
+Loader accepts a function that will have one argument: an array of eslint messages (object)
+
 #### `emitErrors` (default: `false`)
 
 Loader will returns error instead of warning if this option is set to true

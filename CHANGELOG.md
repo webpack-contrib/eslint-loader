@@ -1,4 +1,10 @@
-# 0.3.0 - 2015-012-10
+# 0.4.0 - 2015-02-23
+
+- Changed: upgrate to eslint 0.15.x
+- Changed: more readable default reporter
+- Added: `reporter` options allow to define a custom reporter function
+
+# 0.3.0 - 2015-02-10
 
 - Changed: upgrade to eslint 0.14.x
 

@@ -62,6 +62,9 @@ test("eslint-loader can return error if file is bad", function(t) {
 
     t.ok(stats.hasErrors(), "a bad file should return error if asked")
     t.notOk(stats.hasWarnings(), "a bad file should return no warning if error asked")
+
+    console.log("### Here is a example of the default reporter")
+    console.log("# " + stats.compilation.errors[0].message.split("\n").join("\n# "))
     t.end()
   })
 })
