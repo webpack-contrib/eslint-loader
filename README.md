@@ -26,6 +26,16 @@ module.exports = {
 
 ### Options
 
+You can path directly some [eslint options](http://eslint.org/docs/configuring/) by adding an `eslint` entry in you webpack config:
+
+```js
+module.exports = {
+  eslint: {
+    configFile: 'path/.eslintrc'
+  }
+}
+```
+
 #### `emitErrors` (default: `false`)
 
 Loader will returns error instead of warning if this option is set to true
