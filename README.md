@@ -26,7 +26,7 @@ module.exports = {
 
 ### Options
 
-You can path directly some [eslint options](http://eslint.org/docs/configuring/) by adding an `eslint` entry in you webpack config:
+You can pass directly some [eslint options](http://eslint.org/docs/configuring/) by adding an `eslint` entry in you webpack config:
 
 ```js
 module.exports = {
