@@ -38,7 +38,8 @@ module.exports = {
 
 #### `reporter` (default: wrapper eslint stylish reporter)
 
-Loader accepts a function that will have one argument: an array of eslint messages (object)
+Loader accepts a function that will have one argument: an array of eslint messages (object).
+The function must return the output as a string.
 
 #### `emitErrors` (default: `false`)
 
