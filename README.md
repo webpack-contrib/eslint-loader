@@ -43,7 +43,7 @@ The function must return the output as a string.
 
 #### `emitErrors` (default: `false`)
 
-Loader will returns error instead of warning if this option is set to true
+Loader will return errors instead of warnings if this option is set to true
 
 ```js
 module.exports = {
@@ -53,6 +53,22 @@ module.exports = {
   }
   eslint: {
     emitErrors: true
+  }
+}
+```
+
+#### `quiet` (default: `false`)
+
+Loader will process and report errors only and ignore warnings if this option is set to true
+
+```js
+module.exports = {
+  entry: "...",
+  module: {
+    // ...
+  }
+  eslint: {
+    quiet: true
   }
 }
 ```
