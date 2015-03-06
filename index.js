@@ -40,6 +40,28 @@ function lint(input, config, webpack) {
 }
 
 /**
+ * quiet filter
+ *
+ * @param {Object} config
+ * @return {Object}
+ */
+function quiet(config) {
+  var rules = config.rules;
+
+  Object.keys(rules).forEach(function(key) {
+    var rule = rules[key];
+
+    if (rule.constructor === Array && rule[0] === 1){
+      rules[key][0] = 0;
+    }
+    else if (rule === 1) {
+      rules[key] = 0;
+    }
+  });
+  return config;
+}
+
+/**
  * webpack loader
  *
  * @param  {String|Buffer} input
@@ -52,6 +74,12 @@ module.exports = function(input) {
 
   // sync
   var config = new Config(this.options.eslint).getConfig()
+
+  // remove warnings if quiet is set
+  if (this.options.eslint.quiet) {
+    config = quiet(config);
+  }
+
   lint(input, config, this)
   return input
 }

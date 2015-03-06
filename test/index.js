@@ -52,7 +52,10 @@ test("eslint-loader can return error if file is bad", function(t) {
   webpack(assign({
     entry: "./test/fixtures/bad.js",
     eslint: {
-      emitErrors: true
+      emitErrors: true,
+      rules: {
+        "no-unused-vars": 1
+      }
     }
   }, conf),
   function(err, stats) {
@@ -66,5 +69,28 @@ test("eslint-loader can return error if file is bad", function(t) {
     console.log("### Here is a example of the default reporter")
     console.log("# " + stats.compilation.errors[0].message.split("\n").join("\n# "))
     t.end()
+  })
+})
+
+test("eslint-loader only returns errors and not warnings if quiet is set", function(t) {
+  webpack(assign({
+    entry: "./test/fixtures/bad.js",
+    eslint: {
+      quiet: true,
+      rules: {
+        "no-unused-vars": 1
+      }
+    }
+  }, conf),
+  function(err, stats) {
+    if (err) {
+      throw err;
+    }
+
+    t.equal(Number(stats.compilation.warnings[0].message.match(/(\d+) warnings?/)[1]), 0, "the rules set as warnings should be ignored");
+
+    console.log("### Here is an example of the output when quiet is set to true");
+    console.log("# " + stats.compilation.warnings[0].message.split("\n").join("\n# "));
+    t.end();
   })
 })
