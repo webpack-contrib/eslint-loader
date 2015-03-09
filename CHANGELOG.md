@@ -1,6 +1,11 @@
+# 0.5.0 - 2015-03-08
+
+- Changed: upgrade to eslint 0.16.x
+- Added: quiet filter
+
 # 0.4.0 - 2015-02-23
 
-- Changed: upgrate to eslint 0.15.x
+- Changed: upgrade to eslint 0.15.x
 - Changed: more readable default reporter
 - Added: `reporter` options allow to define a custom reporter function
 
