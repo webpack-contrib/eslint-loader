@@ -57,7 +57,7 @@ module.exports = {
     reporter: require("eslint/lib/formatters/stylish"),
 
     // community reporter
-    reporter: require("eslint-friendly-formatter")
+    reporter: require("eslint-friendly-formatter"),
 
     // custom reporter
     reporter: function(results) {

@@ -1,6 +1,6 @@
 # 0.6.0 - 2015-02-11
 
-- Changed: `reporter` now automatically drop lines that contains the filename in the reporter output
+- Changed: `reporter` now automatically drop lines that contains the filename in the reporter output.
 That mean you can use official or community reporters without worring to see lot of lines with `<text>` as filename :)
 
 # 0.5.0 - 2015-02-11
