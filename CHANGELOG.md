@@ -1,6 +1,16 @@
+# 0.5.0 - 2015-02-11
+
+- Changed: upgrade to eslint 0.16.x
+- Changed: `emitErrors` is now `emitError`
+- Changed: loader now use `webpack.emitError` or `webpack.emitWarning` automatically (according to eslint configuration).
+You can still override by using `emitError` or `emitWarning` options to override this behavior
+- Added: `emitWarning` can force eslint to report warning instead of the default behavior (see above)
+- Added: `quiet` option to hide warnings
+
+
 # 0.4.0 - 2015-02-23
 
-- Changed: upgrate to eslint 0.15.x
+- Changed: upgrade to eslint 0.15.x
 - Changed: more readable default reporter
 - Added: `reporter` options allow to define a custom reporter function
 

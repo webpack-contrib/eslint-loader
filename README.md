@@ -41,9 +41,15 @@ module.exports = {
 Loader accepts a function that will have one argument: an array of eslint messages (object).
 The function must return the output as a string.
 
-#### `emitErrors` (default: `false`)
+#### Errors and Warning
 
-Loader will return errors instead of warnings if this option is set to true
+**By default the loader will auto adjust error reporting depending
+on eslint errors/warnings counts.**
+You can still force this behavior
+
+##### `emitError` (default: `false`)
+
+Loader will always returns errors if this option is set to `true`.
 
 ```js
 module.exports = {
@@ -56,6 +62,10 @@ module.exports = {
   }
 }
 ```
+
+##### `emitWarning` (default: `false`)
+
+Loader will always returns warning if option is set to `true`.
 
 #### `quiet` (default: `false`)
 

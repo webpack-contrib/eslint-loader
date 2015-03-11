@@ -1,34 +1,53 @@
 "use strict";
 
-var eslint = require("eslint").linter
-var Config = require("eslint/lib/config");
-
+var eslint = require("eslint")
 var stylish = require("eslint/lib/formatters/stylish")
+
+// eslint empty filename
+var TEXT = "<text>"
 
 /**
  * linter
  *
- * @param  {String|Buffer} input
- * @param  {Object} config
- * @param  {Object} webpack
+ * @param  {String|Buffer} input JavaScript string
+ * @param  {Object} config eslint configuration
+ * @param  {Object} webpack webpack instance
+ * @returns {void}
  */
 function lint(input, config, webpack) {
-  var res = eslint.verify(input, config)
-  if (res.length) {
-    var reporter = webpack.options.eslint.reporter || function(results) {
-      // in order to use eslint formatters
-      // we need to reproduce the object passed to them
-      var msgs = stylish([{
-        filePath: "",
-        messages: results
-      }]).split("\n")
-      // drop the line that should contains filepath we do not have
-      msgs.splice(0, 1)
+  var res = config.executeOnText(input)
+  // executeOnText ensure we will have res.results[0] only
 
-      return msgs.join("\n")
+  // quiet filter done now
+  // eslint allow rules to be specified in the input between comments
+  // so we can found warnings defined in the input itself
+  if (res.warningCount && webpack.options.eslint.quiet) {
+    res.warningCount = 0
+    res.results[0].warningCount = 0
+    res.results[0].messages = res.results[0].messages.filter(function(message) {
+      return message.severity !== 1
+    })
+  }
+
+  if (res.errorCount || res.warningCount) {
+    var reporter = webpack.options.eslint.reporter || function(results) {
+      return stylish(results).split("\n").filter(function(line) {
+        // drop the line that should contains filepath we do not have
+        return !line.match(TEXT)
+      }).join("\n")
     }
-    var messages = reporter(res)
-    var emitter = webpack.options.eslint.emitErrors ? webpack.emitError : webpack.emitWarning
+    var messages = reporter(res.results)
+
+    // default behavior: emit error only if we have errors
+    var emitter = res.errorCount ? webpack.emitError : webpack.emitWarning
+
+    // force emitError or emitWarning if user want this
+    if (webpack.options.eslint.emitError) {
+      emitter = webpack.emitError
+    }
+    else if (webpack.options.eslint.emitWarning) {
+      emitter = webpack.emitWarning
+    }
 
     if (emitter) {
       emitter(messages)
@@ -40,46 +59,20 @@ function lint(input, config, webpack) {
 }
 
 /**
- * quiet filter
- *
- * @param {Object} config
- * @return {Object}
- */
-function quiet(config) {
-  var rules = config.rules;
-
-  Object.keys(rules).forEach(function(key) {
-    var rule = rules[key];
-
-    if (rule.constructor === Array && rule[0] === 1){
-      rules[key][0] = 0;
-    }
-    else if (rule === 1) {
-      rules[key] = 0;
-    }
-  });
-  return config;
-}
-
-/**
  * webpack loader
  *
- * @param  {String|Buffer} input
- * @return {String|Buffer}
+ * @param  {String|Buffer} input JavaScript string
+ * @returns {String|Buffer} original input
  */
 module.exports = function(input) {
   this.options.eslint = this.options.eslint || {}
-
   this.cacheable()
 
-  // sync
-  var config = new Config(this.options.eslint).getConfig()
-
-  // remove warnings if quiet is set
-  if (this.options.eslint.quiet) {
-    config = quiet(config);
-  }
+  // sync loader
+  var config = new eslint.CLIEngine(this.options.eslint)
 
   lint(input, config, this)
+
+  // this loader do nothing
   return input
 }

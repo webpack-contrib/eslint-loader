@@ -1,3 +1,7 @@
-module.exports = {
-  value: "value"
-};
+"use strict";
+
+function test() {
+  return "value"
+}
+
+test()
