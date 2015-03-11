@@ -34,13 +34,11 @@
   },
   "devDependencies": {
     "eslint": "^0.15.0",
-    "jscs": "^1.8.1",
     "tape": "^3.0.3",
     "webpack": "^1.4.13"
   },
   "scripts": {
-    "jscs": "jscs *.js **/*.js",
-    "eslint": "eslint *.js **/*.js",
-    "test": "npm run jscs && npm run eslint && tape test/*.js"
+    "lint": "eslint .",
+    "test": "npm run lint && tape test/*.js"
   }
 }

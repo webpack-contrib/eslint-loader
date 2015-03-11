@@ -1,4 +1,3 @@
-dist
 node_modules
 
-test/output/bundle.js
+test/output/

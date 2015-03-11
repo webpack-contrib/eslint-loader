@@ -1,1 +1,4 @@
-.gitignore
+node_modules
+
+test/fixtures/
+test/output/
