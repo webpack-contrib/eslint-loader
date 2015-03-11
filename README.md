@@ -76,7 +76,7 @@ module.exports = {
 
 **By default the loader will auto adjust error reporting depending
 on eslint errors/warnings counts.**
-You can still force this behavior
+You can still force this behavior by using `emitError` **or** `emitWarning` options:
 
 ##### `emitError` (default: `false`)
 
