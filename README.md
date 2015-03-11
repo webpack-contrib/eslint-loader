@@ -36,10 +36,41 @@ module.exports = {
 }
 ```
 
-#### `reporter` (default: wrapper eslint stylish reporter)
+#### `reporter` (default: eslint stylish reporter)
 
 Loader accepts a function that will have one argument: an array of eslint messages (object).
 The function must return the output as a string.
+You can use official eslint reporters.
+**Please note that every lines with the filename will be skipped from output**
+because of the way the loader use eslint (just with a string of text, not a file - so no filename available)
+
+```js
+module.exports = {
+  entry: "...",
+  module: {
+    // ...
+  }
+  eslint: {
+    // several examples !
+
+    // default value
+    reporter: require("eslint/lib/formatters/stylish"),
+
+    // community reporter
+    reporter: require("eslint-friendly-formatter")
+
+    // custom reporter
+    reporter: function(results) {
+      // `results` format is available here
+      // http://eslint.org/docs/developer-guide/nodejs-api.html#executeonfiles()
+      
+      // you should return a string
+      // DO NOT USE console.*() directly !
+      return "OUTPUT"
+    }
+  }
+}
+```
 
 #### Errors and Warning
 

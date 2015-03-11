@@ -1,7 +1,6 @@
 "use strict";
 
 var eslint = require("eslint")
-var stylish = require("eslint/lib/formatters/stylish")
 
 // eslint empty filename
 var TEXT = "<text>"
@@ -30,13 +29,13 @@ function lint(input, config, webpack) {
   }
 
   if (res.errorCount || res.warningCount) {
-    var reporter = webpack.options.eslint.reporter || function(results) {
-      return stylish(results).split("\n").filter(function(line) {
+    var messages = webpack.options.eslint.reporter(res.results)
+    if (messages.indexOf(TEXT) > -1) {
+      messages = messages.split("\n").filter(function(line) {
         // drop the line that should contains filepath we do not have
         return !line.match(TEXT)
       }).join("\n")
     }
-    var messages = reporter(res.results)
 
     // default behavior: emit error only if we have errors
     var emitter = res.errorCount ? webpack.emitError : webpack.emitWarning
@@ -66,6 +65,7 @@ function lint(input, config, webpack) {
  */
 module.exports = function(input) {
   this.options.eslint = this.options.eslint || {}
+  this.options.eslint.reporter = this.options.eslint.reporter || require("eslint/lib/formatters/stylish")
   this.cacheable()
 
   // sync loader
