@@ -50,6 +50,12 @@ function lint(input, config, webpack) {
 
     if (emitter) {
       emitter(messages)
+      if (webpack.options.eslint.failOnError && res.errorCount) {
+        throw new Error("Module failed because of a eslint error.");
+      }
+      else if (webpack.options.eslint.failOnWarning && res.warningCount) {
+        throw new Error("Module failed because of a eslint warning.");
+      }
     }
     else {
       throw new Error("Your module system doesn't support emitWarning. Update available? \n" + messages)
