@@ -24,7 +24,7 @@
     "index.js"
   ],
   "peerDependencies": {
-    "eslint": "^0.16.0"
+    "eslint": ">=0.16.0 <1.x"
   },
   "dependencies": {
     "object-assign": "^2.0.0"
