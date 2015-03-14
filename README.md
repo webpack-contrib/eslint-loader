@@ -114,6 +114,38 @@ module.exports = {
 }
 ```
 
+##### `failOnWarning` (default: `false`)
+
+Loader will cause the module build to fail if there are any eslint warnings.
+
+```js
+module.exports = {
+  entry: "...",
+  module: {
+    // ...
+  }
+  eslint: {
+    failOnWarning: true
+  }
+}
+```
+
+##### `failOnError` (default: `false`)
+
+Loader will cause the module build to fail if there are any eslint errors.
+
+```js
+module.exports = {
+  entry: "...",
+  module: {
+    // ...
+  }
+  eslint: {
+    failOnError: true
+  }
+}
+```
+
 ## [Changelog](CHANGELOG.md)
 
 ## [License](LICENSE)
