@@ -1,9 +1,13 @@
-# 0.6.0 - 2015-02-11
+# 0.7.0 - 2015-03-15
+
+- Changed: upgrade to eslint 0.17.x
+
+# 0.6.0 - 2015-03-11
 
 - Changed: `reporter` now automatically drop lines that contains the filename in the reporter output.
-That mean you can use official or community reporters without worring to see lot of lines with `<text>` as filename :)
+That mean you can use official or community reporters without worrying to see lot of lines with `<text>` as filename :)
 
-# 0.5.0 - 2015-02-11
+# 0.5.0 - 2015-03-11
 
 - Changed: upgrade to eslint 0.16.x
 - Changed: `emitErrors` is now `emitError`
