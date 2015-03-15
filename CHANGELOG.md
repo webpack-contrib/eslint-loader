@@ -1,6 +1,8 @@
 # 0.7.0 - 2015-03-15
 
 - Changed: upgrade to eslint 0.17.x
+- Added: `failOnError` option
+- Added: `failOnWarning` option
 
 # 0.6.0 - 2015-03-11
 
