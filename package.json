@@ -24,13 +24,13 @@
     "index.js"
   ],
   "peerDependencies": {
-    "eslint": "^0.16.0"
+    "eslint": "^0.17.0"
   },
   "dependencies": {
     "object-assign": "^2.0.0"
   },
   "devDependencies": {
-    "eslint": "^0.16.0",
+    "eslint": "^0.17.0",
     "eslint-friendly-formatter": "^1.0.3",
     "tape": "^3.0.3",
     "webpack": "^1.4.13"
