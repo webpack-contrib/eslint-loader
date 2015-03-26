@@ -29,13 +29,8 @@ function lint(input, config, webpack) {
   }
 
   if (res.errorCount || res.warningCount) {
+    res.results.forEach(function(r) { r.filePath = webpack.resourcePath; });
     var messages = webpack.options.eslint.reporter(res.results)
-    if (messages.indexOf(TEXT) > -1) {
-      messages = messages.split("\n").filter(function(line) {
-        // drop the line that should contains filepath we do not have
-        return !line.match(TEXT)
-      }).join("\n")
-    }
 
     // default behavior: emit error only if we have errors
     var emitter = res.errorCount ? webpack.emitError : webpack.emitWarning

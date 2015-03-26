@@ -41,8 +41,6 @@ module.exports = {
 Loader accepts a function that will have one argument: an array of eslint messages (object).
 The function must return the output as a string.
 You can use official eslint reporters.
-**Please note that every lines with the filename will be skipped from output**
-because of the way the loader use eslint (just with a string of text, not a file - so no filename available)
 
 ```js
 module.exports = {
