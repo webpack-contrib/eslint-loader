@@ -30,7 +30,7 @@ function lint(input, config, webpack) {
 
   if (res.errorCount || res.warningCount) {
     res.results.forEach(function(r) { r.filePath = webpack.resourcePath; });
-    var messages = webpack.options.eslint.reporter(res.results)
+    var messages = webpack.options.eslint.formatter(res.results)
 
     // default behavior: emit error only if we have errors
     var emitter = res.errorCount ? webpack.emitError : webpack.emitWarning
@@ -66,7 +66,7 @@ function lint(input, config, webpack) {
  */
 module.exports = function(input) {
   this.options.eslint = this.options.eslint || {}
-  this.options.eslint.reporter = this.options.eslint.reporter || require("eslint/lib/formatters/stylish")
+  this.options.eslint.formatter = this.options.eslint.formatter || require("eslint/lib/formatters/stylish")
   this.cacheable()
 
   // sync loader
