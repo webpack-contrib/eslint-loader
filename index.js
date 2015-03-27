@@ -2,9 +2,6 @@
 
 var eslint = require("eslint")
 
-// eslint empty filename
-var TEXT = "<text>"
-
 /**
  * linter
  *
