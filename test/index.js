@@ -1,5 +1,3 @@
-"use strict";
-
 var test = require("tape")
 
 var webpack = require("webpack")

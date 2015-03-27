@@ -1,5 +1,3 @@
-"use strict";
-
 var eslint = require("eslint")
 
 /**
@@ -26,7 +24,10 @@ function lint(input, config, webpack) {
   }
 
   if (res.errorCount || res.warningCount) {
-    res.results.forEach(function(r) { r.filePath = webpack.resourcePath; });
+    // add filename for each results so formatter can have relevant filename
+    res.results.forEach(function(r) {
+      r.filePath = webpack.resourcePath
+    })
     var messages = webpack.options.eslint.formatter(res.results)
 
     // default behavior: emit error only if we have errors
@@ -43,10 +44,10 @@ function lint(input, config, webpack) {
     if (emitter) {
       emitter(messages)
       if (webpack.options.eslint.failOnError && res.errorCount) {
-        throw new Error("Module failed because of a eslint error.");
+        throw new Error("Module failed because of a eslint error.")
       }
       else if (webpack.options.eslint.failOnWarning && res.warningCount) {
-        throw new Error("Module failed because of a eslint warning.");
+        throw new Error("Module failed because of a eslint warning.")
       }
     }
     else {
