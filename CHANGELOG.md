@@ -1,3 +1,4 @@
+# 0.8.0 - 2015-03-27
 
 - Changed: `reporter` is now `formatter` option to fit eslint name
 - Changed: plugin is now async as it don't need to be sync
