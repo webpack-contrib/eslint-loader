@@ -20,9 +20,12 @@ var conf = {
 }
 
 test("eslint-loader don't throw error if file is ok", function(t) {
-  webpack(assign({
-    entry: "./test/fixtures/good.js",
-  }, conf),
+  webpack(assign({},
+    conf,
+    {
+      entry: "./test/fixtures/good.js",
+    }
+  ),
   function(err, stats) {
     if (err) {throw err}
 
@@ -32,10 +35,13 @@ test("eslint-loader don't throw error if file is ok", function(t) {
   })
 })
 
-test("eslint-loader can return warning", function(t) {
-  webpack(assign({
-    entry: "./test/fixtures/warn.js",
-  }, conf),
+test("eslreporterint-loader can return warning", function(t) {
+  webpack(assign({},
+    conf,
+    {
+      entry: "./test/fixtures/warn.js",
+    }
+  ),
   function(err, stats) {
     if (err) {throw err}
 
@@ -46,12 +52,15 @@ test("eslint-loader can return warning", function(t) {
 })
 
 test("eslint-loader only returns errors and not warnings if quiet is set", function(t) {
-  webpack(assign({
-    entry: "./test/fixtures/warn.js",
-    eslint: {
-      quiet: true,
-    },
-  }, conf),
+  webpack(assign({},
+    conf,
+    {
+      entry: "./test/fixtures/warn.js",
+      eslint: {
+        quiet: true,
+      },
+    }
+  ),
   function(err, stats) {
     if (err) {throw err}
 
@@ -62,9 +71,12 @@ test("eslint-loader only returns errors and not warnings if quiet is set", funct
 })
 
 test("eslint-loader can return error if file is bad", function(t) {
-  webpack(assign({
-    entry: "./test/fixtures/error.js",
-  }, conf),
+  webpack(assign({},
+    conf,
+    {
+      entry: "./test/fixtures/error.js",
+    }
+  ),
   function(err, stats) {
     if (err) {throw err}
 
@@ -74,12 +86,15 @@ test("eslint-loader can return error if file is bad", function(t) {
 })
 
 test("eslint-loader can force to emit error", function(t) {
-  webpack(assign({
-    entry: "./test/fixtures/warn.js",
-    eslint: {
-      emitError: true,
-    },
-  }, conf),
+  webpack(assign({},
+    conf,
+    {
+      entry: "./test/fixtures/warn.js",
+      eslint: {
+        emitError: true,
+      },
+    }
+  ),
   function(err, stats) {
     if (err) {throw err}
 
@@ -90,12 +105,15 @@ test("eslint-loader can force to emit error", function(t) {
 })
 
 test("eslint-loader can force to emit warning", function(t) {
-  webpack(assign({
-    entry: "./test/fixtures/error.js",
-    eslint: {
-      emitWarning: true,
-    },
-  }, conf),
+  webpack(assign({},
+    conf,
+    {
+      entry: "./test/fixtures/error.js",
+      eslint: {
+        emitWarning: true,
+      },
+    }
+  ),
   function(err, stats) {
     if (err) {throw err}
 
@@ -105,33 +123,64 @@ test("eslint-loader can force to emit warning", function(t) {
   })
 })
 
-test("eslint-loader can use eslint reporter", function(t) {
-  webpack(assign({
-    entry: "./test/fixtures/error.js",
-  }, conf),
+test("eslint-loader can use eslint formatter", function(t) {
+  webpack(assign({},
+    conf,
+    {
+      entry: "./test/fixtures/error.js",
+    }
+  ),
   function(err, stats) {
     if (err) {throw err}
 
-    console.log("### Here is a example of the default reporter")
+    console.log("### Here is a example of the default formatter")
     console.log("# " + stats.compilation.errors[0].message.split("\n").join("\n# "))
     t.ok(stats.compilation.errors[0].message, "webpack have some output")
     t.end()
   })
 })
 
-test("eslint-loader can use custom reporter", function(t) {
-  webpack(assign({
-    entry: "./test/fixtures/error.js",
-    eslint: {
-      reporter: require("eslint-friendly-formatter"),
-    },
-  }, conf),
+test("eslint-loader can use custom formatter", function(t) {
+  webpack(assign({},
+    conf,
+    {
+      entry: "./test/fixtures/error.js",
+      eslint: {
+        formatter: require("eslint-friendly-formatter"),
+      },
+    }
+  ),
   function(err, stats) {
     if (err) {throw err}
 
-    console.log("### Here is a example of another reporter")
+    console.log("### Here is a example of another formatter")
     console.log("# " + stats.compilation.errors[0].message.split("\n").join("\n# "))
-    t.ok(stats.compilation.errors[0].message, "webpack have some output with custom reporters")
+    t.ok(stats.compilation.errors[0].message, "webpack have some output with custom formatters")
+    t.end()
+  })
+})
+
+test("eslint-loader supports query strings parameters", function(t) {
+  webpack(assign({},
+    conf,
+    {
+      entry: "./test/fixtures/good-semi.js",
+      module: {
+        loaders: [
+          {
+            test: /\.js$/,
+            loader: "./index?{rules:[{semi:0}]}",
+            exclude: /node_modules/,
+          },
+        ],
+      },
+    }
+  ),
+  function(err, stats) {
+    if (err) {throw err}
+
+    t.notOk(stats.hasErrors(), "a good file doesn't give any error")
+    t.notOk(stats.hasWarnings(), "a good file doesn't give any warning")
     t.end()
   })
 })

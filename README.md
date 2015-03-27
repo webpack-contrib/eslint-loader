@@ -26,7 +26,25 @@ module.exports = {
 
 ### Options
 
-You can pass directly some [eslint options](http://eslint.org/docs/configuring/) by adding an `eslint` entry in you webpack config:
+You can pass directly some [eslint options](http://eslint.org/docs/user-guide/command-line-interface) by
+
+- Adding a query string to the loader for this loader usabe only
+
+```js
+{
+  module: {
+    loaders: [
+      {
+        test: /\.js$/,
+        loader: "eslint-loader?{rules:[{semi:0}]}",
+        exclude: /node_modules/,
+      },
+    ],
+  },
+}
+```
+
+- Adding an `eslint` entry in you webpack config for global options:
 
 ```js
 module.exports = {
@@ -36,11 +54,13 @@ module.exports = {
 }
 ```
 
-#### `reporter` (default: eslint stylish reporter)
+**Note that you can use both method in order to benefit from global & specific options**
+
+#### `formatter` (default: eslint stylish formatter)
 
 Loader accepts a function that will have one argument: an array of eslint messages (object).
 The function must return the output as a string.
-You can use official eslint reporters.
+You can use official eslint formatters.
 
 ```js
 module.exports = {
@@ -52,13 +72,13 @@ module.exports = {
     // several examples !
 
     // default value
-    reporter: require("eslint/lib/formatters/stylish"),
+    formatter: require("eslint/lib/formatters/stylish"),
 
-    // community reporter
-    reporter: require("eslint-friendly-formatter"),
+    // community formatter
+    formatter: require("eslint-friendly-formatter"),
 
-    // custom reporter
-    reporter: function(results) {
+    // custom formatter
+    formatter: function(results) {
       // `results` format is available here
       // http://eslint.org/docs/developer-guide/nodejs-api.html#executeonfiles()
       

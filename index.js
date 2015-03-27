@@ -1,5 +1,6 @@
 var eslint = require("eslint")
 var assign = require("object-assign")
+var loaderUtils = require("loader-utils")
 
 /**
  * linter
@@ -11,61 +12,51 @@ var assign = require("object-assign")
  * @return {void}
  */
 function lint(input, config, webpack, callback) {
-  try {
-    config = new eslint.CLIEngine(config)
+  var engine = new eslint.CLIEngine(config)
 
-    var res = config.executeOnText(input)
-    // executeOnText ensure we will have res.results[0] only
+  var res = engine.executeOnText(input)
+  // executeOnText ensure we will have res.results[0] only
 
-    // quiet filter done now
-    // eslint allow rules to be specified in the input between comments
-    // so we can found warnings defined in the input itself
-    if (res.warningCount && webpack.options.eslint.quiet) {
-      res.warningCount = 0
-      res.results[0].warningCount = 0
-      res.results[0].messages = res.results[0].messages.filter(function(message) {
-        return message.severity !== 1
-      })
-    }
-
-    if (res.errorCount || res.warningCount) {
-      // add filename for each results so formatter can have relevant filename
-      res.results.forEach(function(r) {
-        r.filePath = webpack.resourcePath
-      })
-      var messages = webpack.options.eslint.formatter(res.results)
-
-      // default behavior: emit error only if we have errors
-      var emitter = res.errorCount ? webpack.emitError : webpack.emitWarning
-
-      // force emitError or emitWarning if user want this
-      if (webpack.options.eslint.emitError) {
-        emitter = webpack.emitError
-      }
-      else if (webpack.options.eslint.emitWarning) {
-        emitter = webpack.emitWarning
-      }
-
-      if (emitter) {
-        emitter(messages)
-        if (webpack.options.eslint.failOnError && res.errorCount) {
-          throw new Error("Module failed because of a eslint error.")
-        }
-        else if (webpack.options.eslint.failOnWarning && res.warningCount) {
-          throw new Error("Module failed because of a eslint warning.")
-        }
-      }
-      else {
-        throw new Error("Your module system doesn't support emitWarning. Update available? \n" + messages)
-      }
-    }
+  // quiet filter done now
+  // eslint allow rules to be specified in the input between comments
+  // so we can found warnings defined in the input itself
+  if (res.warningCount && config.quiet) {
+    res.warningCount = 0
+    res.results[0].warningCount = 0
+    res.results[0].messages = res.results[0].messages.filter(function(message) {
+      return message.severity !== 1
+    })
   }
-  catch(e) {
-    if (!callback) {
-      this.callback(e)
+
+  if (res.errorCount || res.warningCount) {
+    // add filename for each results so formatter can have relevant filename
+    res.results.forEach(function(r) {
+      r.filePath = webpack.resourcePath
+    })
+    var messages = config.formatter(res.results)
+
+    // default behavior: emit error only if we have errors
+    var emitter = res.errorCount ? webpack.emitError : webpack.emitWarning
+
+    // force emitError or emitWarning if user want this
+    if (config.emitError) {
+      emitter = webpack.emitError
+    }
+    else if (config.emitWarning) {
+      emitter = webpack.emitWarning
+    }
+
+    if (emitter) {
+      emitter(messages)
+      if (config.failOnError && res.errorCount) {
+        throw new Error("Module failed because of a eslint error.")
+      }
+      else if (config.failOnWarning && res.warningCount) {
+        throw new Error("Module failed because of a eslint warning.")
+      }
     }
     else {
-      callback(e)
+      throw new Error("Your module system doesn't support emitWarning. Update available? \n" + messages)
     }
   }
 
@@ -81,21 +72,32 @@ function lint(input, config, webpack, callback) {
  * @returns {String|Buffer} original input
  */
 module.exports = function(input) {
-  this.options.eslint = this.options.eslint || {}
-  this.options.eslint.formatter = this.options.eslint.formatter || require("eslint/lib/formatters/stylish")
+  var config = assign(
+    // loader defaults
+    {
+      formatter: require("eslint/lib/formatters/stylish"),
+    },
+    // user defaults
+    this.options.eslint || {},
+    // loader query string
+    loaderUtils.parseQuery(this.query)
+  )
   this.cacheable()
 
   var callback = this.async()
-  var config = assign({}, this.options.eslint || {})
-
   // sync
-  if (typeof callback !== "function") {
+  if (!callback) {
     lint(input, config, this)
 
     return input
   }
   // async
   else {
-    lint(input, config, this, callback)
+    try {
+      lint(input, config, this, callback)
+    }
+    catch(e) {
+      callback(e)
+    }
   }
 }
