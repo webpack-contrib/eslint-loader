@@ -1,3 +1,7 @@
+# 0.9.0 - 2015-03-29
+
+- Changed: upgrade to eslint 0.18.x
+
 # 0.8.0 - 2015-03-27
 
 - Changed: `reporter` is now `formatter` option to fit eslint name
