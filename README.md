@@ -12,11 +12,42 @@ $ npm install eslint-loader
 
 In your webpack configuration
 
-```js
+```javascript
 module.exports = {
   // ...
   module: {
     loaders: [
+      {test: /\.js$/, loader: "eslint-loader", exclude: /node_modules/}
+    ]
+  }
+  // ...
+}
+```
+
+When using with transpiling loaders (like `babel-loader`), make sure they are in correct order
+(bottom to top). Otherwise files will be check after being processed by `babel-loader`
+
+```javascript
+module.exports = {
+  // ...
+  module: {
+    loaders: [
+      {test: /\.js$/, loader: "babel-loader", exclude: /node_modules/}
+      {test: /\.js$/, loader: "eslint-loader", exclude: /node_modules/}
+    ]
+  }
+  // ...
+}
+```
+
+To be safe, you can use `preLoaders` section to check source files, not modified
+by other loaders (like `babel-loader`)
+
+```js
+module.exports = {
+  // ...
+  module: {
+    preLoaders: [
       {test: /\.js$/, loader: "eslint-loader", exclude: /node_modules/}
     ]
   }
@@ -33,7 +64,7 @@ You can pass directly some [eslint options](http://eslint.org/docs/user-guide/co
 ```js
 {
   module: {
-    loaders: [
+    preLoaders: [
       {
         test: /\.js$/,
         loader: "eslint-loader?{rules:[{semi:0}]}",
