@@ -129,7 +129,7 @@ You can still force this behavior by using `emitError` **or** `emitWarning` opti
 
 ##### `emitError` (default: `false`)
 
-Loader will always returns errors if this option is set to `true`.
+Loader will always return errors if this option is set to `true`.
 
 ```js
 module.exports = {
@@ -145,7 +145,7 @@ module.exports = {
 
 ##### `emitWarning` (default: `false`)
 
-Loader will always returns warning if option is set to `true`.
+Loader will always return warnings if option is set to `true`.
 
 #### `quiet` (default: `false`)
 
