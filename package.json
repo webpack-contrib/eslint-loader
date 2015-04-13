@@ -24,7 +24,7 @@
     "index.js"
   ],
   "peerDependencies": {
-    "eslint": "0.x"
+    "eslint": "^0.19.0"
   },
   "dependencies": {
     "loader-utils": "^0.2.7",
