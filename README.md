@@ -138,7 +138,7 @@ module.exports = {
     // ...
   }
   eslint: {
-    emitErrors: true
+    emitError: true
   }
 }
 ```
