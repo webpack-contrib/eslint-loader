@@ -1,4 +1,8 @@
-# 0.10.0 - 2015-034-13
+# 0.11.0 - 2015-04-27
+
+- Changed: upgrade to eslint 0.20.x
+
+# 0.10.0 - 2015-04-13
 
 - Changed: upgrade to eslint 0.19.x
 
