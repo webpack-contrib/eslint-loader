@@ -1,6 +1,6 @@
 {
   "name": "eslint-loader",
-  "version": "0.11.0",
+  "version": "0.11.1",
   "description": "eslint loader (for webpack)",
   "keywords": [
     "lint",
@@ -24,7 +24,7 @@
     "index.js"
   ],
   "peerDependencies": {
-    "eslint": ">= 0.17 <=0.20"
+    "eslint": "0.17 - 0.20"
   },
   "dependencies": {
     "loader-utils": "^0.2.7",

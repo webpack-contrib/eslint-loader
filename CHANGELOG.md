@@ -1,3 +1,7 @@
+# 0.11.1 - 2015-04-27
+
+- Fixed: eslint range from 0.17 to 0.20
+
 # 0.11.0 - 2015-04-27
 
 - Changed: upgrade to eslint 0.20.x
