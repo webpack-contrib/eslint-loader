@@ -1,3 +1,7 @@
+# 0.11.2 - 2015-05-11
+
+- Fixed: eslint range from 0.17 to 0.21
+
 # 0.11.1 - 2015-04-27
 
 - Fixed: eslint range from 0.17 to 0.20
