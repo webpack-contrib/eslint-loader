@@ -14,7 +14,7 @@ var loaderUtils = require("loader-utils")
 function lint(input, config, webpack, callback) {
   var engine = new eslint.CLIEngine(config)
 
-  var resourcePath = webpack.resourcePath;
+  var resourcePath = webpack.resourcePath
   var cwd = process.cwd()
 
   // remove cwd from resource path in case webpack has been started from project
