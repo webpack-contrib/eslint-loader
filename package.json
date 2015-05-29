@@ -31,7 +31,7 @@
     "object-assign": "^2.0.0"
   },
   "devDependencies": {
-    "eslint": "^0.19.0",
+    "eslint": "^0.21.2",
     "eslint-friendly-formatter": "^1.0.3",
     "tape": "^4.0.0",
     "webpack": "^1.8.4"
