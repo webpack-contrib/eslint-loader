@@ -17,6 +17,12 @@ var conf = {
       },
     ],
   },
+  // this disables the use of .eslintignore, since it contains the fixture
+  // folder to skip for the global linting, but here we want the opposite
+  // (we only use .eslintignore to the test that checks this)
+  eslint: {
+    ignore: false,
+  },
 }
 
 test("eslint-loader don't throw error if file is ok", function(t) {
@@ -56,9 +62,9 @@ test("eslint-loader only returns errors and not warnings if quiet is set", funct
     conf,
     {
       entry: "./test/fixtures/warn.js",
-      eslint: {
+      eslint: assign({}, conf.eslint, {
         quiet: true,
-      },
+      }),
     }
   ),
   function(err, stats) {
@@ -90,9 +96,9 @@ test("eslint-loader can force to emit error", function(t) {
     conf,
     {
       entry: "./test/fixtures/warn.js",
-      eslint: {
+      eslint: assign({}, conf.eslint, {
         emitError: true,
-      },
+      }),
     }
   ),
   function(err, stats) {
@@ -109,9 +115,9 @@ test("eslint-loader can force to emit warning", function(t) {
     conf,
     {
       entry: "./test/fixtures/error.js",
-      eslint: {
+      eslint: assign({}, conf.eslint, {
         emitWarning: true,
-      },
+      }),
     }
   ),
   function(err, stats) {
@@ -145,9 +151,9 @@ test("eslint-loader can use custom formatter", function(t) {
     conf,
     {
       entry: "./test/fixtures/error.js",
-      eslint: {
+      eslint: assign(conf.eslint, {
         formatter: require("eslint-friendly-formatter"),
-      },
+      }),
     }
   ),
   function(err, stats) {
@@ -181,6 +187,26 @@ test("eslint-loader supports query strings parameters", function(t) {
 
     t.notOk(stats.hasErrors(), "a good file doesn't give any error")
     t.notOk(stats.hasWarnings(), "a good file doesn't give any warning")
+    t.end()
+  })
+})
+
+test("eslint-loader ignores files present in .eslintignore", function(t) {
+  webpack(assign({},
+    conf,
+    {
+      entry: "./test/fixtures/ignore.js",
+      eslint: assign({}, conf.eslint, {
+        // we want to enable ignore, so eslint will parse .eslintignore and
+        // should skip the file specified above
+        ignore: true,
+      }),
+    }
+  ),
+  function(err, stats) {
+    if (err) {throw err}
+
+    t.ok(stats.hasWarnings(), "an ignored file gives a warning")
     t.end()
   })
 })
