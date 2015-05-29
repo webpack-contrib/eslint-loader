@@ -14,7 +14,16 @@ var loaderUtils = require("loader-utils")
 function lint(input, config, webpack, callback) {
   var engine = new eslint.CLIEngine(config)
 
-  var res = engine.executeOnText(input)
+  var resourcePath = webpack.resourcePath
+  var cwd = process.cwd()
+
+  // remove cwd from resource path in case webpack has been started from project
+  // root, to allow having relative paths in .eslintignore
+  if (resourcePath.indexOf(cwd) === 0) {
+    resourcePath = resourcePath.substr(cwd.length + 1)
+  }
+
+  var res = engine.executeOnText(input, resourcePath)
   // executeOnText ensure we will have res.results[0] only
 
   // quiet filter done now
