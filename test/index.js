@@ -17,9 +17,9 @@ var conf = {
       },
     ],
   },
-  // this disables the use of .eslintignore, since it contains the fixture
-  // folder to skip for the global linting, but here we want the opposite
-  // (we only use .eslintignore to the test that checks this)
+  // this disables the use of .eslintignore, since it contains the fixtures
+  // folder to skip it on the global linting, but here we want the opposite
+  // (we only use .eslintignore on the test that checks this)
   eslint: {
     ignore: false,
   },
