@@ -151,7 +151,7 @@ test("eslint-loader can use custom formatter", function(t) {
     conf,
     {
       entry: "./test/fixtures/error.js",
-      eslint: assign(conf.eslint, {
+      eslint: assign({}, conf.eslint, {
         formatter: require("eslint-friendly-formatter"),
       }),
     }
