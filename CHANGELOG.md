@@ -1,3 +1,8 @@
+# 0.12.0 - 2015-06-04
+
+- Changed: upgrade to eslint 0.22.x
+- Fixed: respect .eslintrc files in directory tree ([#21](https://github.com/MoOx/eslint-loader/issues/21))
+
 # 0.11.2 - 2015-05-11
 
 - Fixed: eslint range from 0.17 to 0.21

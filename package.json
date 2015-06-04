@@ -1,9 +1,10 @@
 {
   "name": "eslint-loader",
-  "version": "0.11.2",
+  "version": "0.12.0",
   "description": "eslint loader (for webpack)",
   "keywords": [
     "lint",
+    "linter",
     "eslint",
     "loader",
     "webpack"
@@ -24,14 +25,14 @@
     "index.js"
   ],
   "peerDependencies": {
-    "eslint": "0.17 - 0.21"
+    "eslint": "0.21 - 0.22"
   },
   "dependencies": {
     "loader-utils": "^0.2.7",
     "object-assign": "^2.0.0"
   },
   "devDependencies": {
-    "eslint": "^0.21.2",
+    "eslint": "^0.22.1",
     "eslint-friendly-formatter": "^1.0.3",
     "tape": "^4.0.0",
     "webpack": "^1.8.4"
