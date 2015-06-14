@@ -1,7 +1,8 @@
 # 0.12.0 - 2015-06-04
 
 - Changed: upgrade to eslint 0.22.x
-- Fixed: respect .eslintrc files in directory tree ([#21](https://github.com/MoOx/eslint-loader/issues/21))
+- Fixed: respect .eslintrc/eslintignore files in directory tree
+([#21](https://github.com/MoOx/eslint-loader/issues/21))
 
 # 0.11.2 - 2015-05-11
 
@@ -37,16 +38,21 @@
 
 # 0.6.0 - 2015-03-11
 
-- Changed: `reporter` now automatically drop lines that contains the filename in the reporter output.
-That mean you can use official or community reporters without worrying to see lot of lines with `<text>` as filename :)
+- Changed: `reporter` now automatically drop lines that contains the filename in
+the reporter output.
+That mean you can use official or community reporters without worrying to see
+lot of lines with `<text>` as filename :)
 
 # 0.5.0 - 2015-03-11
 
 - Changed: upgrade to eslint 0.16.x
 - Changed: `emitErrors` is now `emitError`
-- Changed: loader now use `webpack.emitError` or `webpack.emitWarning` automatically (according to eslint configuration).
-You can still override by using `emitError` or `emitWarning` options to override this behavior
-- Added: `emitWarning` can force eslint to report warning instead of the default behavior (see above)
+- Changed: loader now use `webpack.emitError` or `webpack.emitWarning`
+automatically (according to eslint configuration).
+You can still override by using `emitError` or `emitWarning` options to override
+this behavior
+- Added: `emitWarning` can force eslint to report warning instead of the default
+behavior (see above)
 - Added: `quiet` option to hide warnings
 
 
@@ -67,7 +73,8 @@ You can still override by using `emitError` or `emitWarning` options to override
 # 0.2.0 - 2015-01-23
 
 - Changed: upgrade to eslint 0.12.x
-- Added: enable loading of eslint config from webpack config, `.eslintrc`, or `package.json`
+- Added: enable loading of eslint config from webpack config, `.eslintrc`, or
+`package.json`
 
 # 0.1.0 - 2014-12-05
 
