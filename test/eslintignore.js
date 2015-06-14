@@ -18,7 +18,7 @@ test("eslint-loader ignores files present in .eslintignore", function(t) {
   function(err, stats) {
     if (err) {throw err}
 
-    t.ok(stats.hasWarnings(), "an ignored file gives a warning")
+    t.notOk(stats.hasWarnings(), "an ignored doesn't give a warning")
     t.end()
   })
 })

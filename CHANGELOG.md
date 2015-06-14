@@ -1,3 +1,8 @@
+# 0.13.0 - 2015-06-14
+
+- Changed: a file that should be ignored doesn't trigger a warning
+([#44](https://github.com/MoOx/eslint-loader/issues/44))
+
 # 0.12.0 - 2015-06-04
 
 - Changed: upgrade to eslint 0.22.x
