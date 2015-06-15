@@ -12,7 +12,7 @@ test("eslint-loader supports query strings parameters", function(t) {
         loaders: [
           {
             test: /\.js$/,
-            loader: "./index?{rules:[{semi:0}]}",
+            loader: "./index?{rules:{semi:0}}",
             exclude: /node_modules/,
           },
         ],
@@ -22,7 +22,9 @@ test("eslint-loader supports query strings parameters", function(t) {
   function(err, stats) {
     if (err) {throw err}
 
+    // console.log(stats.compilation.errors)
     t.notOk(stats.hasErrors(), "a good file doesn't give any error")
+    // console.log(stats.compilation.warnings)
     t.notOk(stats.hasWarnings(), "a good file doesn't give any warning")
     t.end()
   })

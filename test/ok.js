@@ -13,7 +13,9 @@ test("eslint-loader don't throw error if file is ok", function(t) {
   function(err, stats) {
     if (err) {throw err}
 
+    // console.log(stats.compilation.errors)
     t.notOk(stats.hasErrors(), "a good file doesn't give any error")
+    // console.log(stats.compilation.warnings)
     t.notOk(stats.hasWarnings(), "a good file doesn't give any warning")
     t.end()
   })

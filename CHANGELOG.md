@@ -1,3 +1,7 @@
+# 0.14.0 - 2015-06-15
+
+- Added: support for eslint 0.23.x
+
 # 0.13.0 - 2015-06-14
 
 - Changed: a file that should be ignored doesn't trigger a warning
