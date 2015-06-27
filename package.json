@@ -24,15 +24,12 @@
     "LICENSE",
     "index.js"
   ],
-  "peerDependencies": {
-    "eslint": "0.21 - 0.23"
-  },
   "dependencies": {
+  	"eslint": "^0.24.0",
     "loader-utils": "^0.2.7",
     "object-assign": "^2.0.0"
   },
   "devDependencies": {
-    "eslint": "^0.23.0",
     "eslint-friendly-formatter": "^1.0.3",
     "tape": "^4.0.0",
     "webpack": "^1.8.4"
