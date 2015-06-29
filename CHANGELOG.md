@@ -1,3 +1,7 @@
+# 0.14.1 - 2015-06-15
+
+- Fixed: support for eslint 0.24.x
+
 # 0.14.0 - 2015-06-15
 
 - Added: support for eslint 0.23.x
