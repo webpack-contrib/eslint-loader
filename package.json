@@ -25,17 +25,17 @@
     "index.js"
   ],
   "peerDependencies": {
-    "eslint": "0.21 - 0.24"
+    "eslint": "0.21 - 0.24 || 1.0.0-rc-1"
   },
   "dependencies": {
-    "loader-utils": "^0.2.7",
-    "object-assign": "^2.0.0"
+    "loader-utils": "^0.2.10",
+    "object-assign": "^3.0.0"
   },
   "devDependencies": {
-    "eslint": "^0.24.0",
-    "eslint-friendly-formatter": "^1.0.3",
+    "eslint": "1.0.0-rc-1",
+    "eslint-friendly-formatter": "^1.1.0",
     "tape": "^4.0.0",
-    "webpack": "^1.8.4"
+    "webpack": "^1.10.1"
   },
   "scripts": {
     "lint": "eslint .",

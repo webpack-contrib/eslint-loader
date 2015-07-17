@@ -23,4 +23,7 @@ rules:
   # enforce comma at eol (never before)
   comma-style: [2, "last"]
 
+  # undefined variables
+  no-undef: 2
+
   valid-jsdoc: 2
