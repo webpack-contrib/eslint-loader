@@ -11,10 +11,15 @@ test("eslint-loader can return error if file is bad", function(t) {
     }
   ),
   function(err, stats) {
-    if (err) {throw err}
+    if (err) {
+      throw err
+    }
 
     // console.log(stats.compilation.errors)
-    t.ok(stats.hasErrors(), "a file that contains eslint errors should return error")
+    t.ok(
+      stats.hasErrors(),
+      "a file that contains eslint errors should return error"
+    )
     t.end()
   })
 })

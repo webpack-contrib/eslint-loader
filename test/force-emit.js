@@ -14,12 +14,17 @@ test("eslint-loader can force to emit error", function(t) {
     }
   ),
   function(err, stats) {
-    if (err) {throw err}
+    if (err) {
+      throw err
+    }
 
     // console.log(stats.compilation.errors)
     t.ok(stats.hasErrors(), "a file should return error if asked")
     // console.log(stats.compilation.warnings)
-    t.notOk(stats.hasWarnings(), "a file should return no warning if error asked")
+    t.notOk(
+      stats.hasWarnings(),
+      "a file should return no warning if error asked"
+    )
     t.end()
   })
 })
@@ -35,7 +40,9 @@ test("eslint-loader can force to emit warning", function(t) {
     }
   ),
   function(err, stats) {
-    if (err) {throw err}
+    if (err) {
+      throw err
+    }
 
     // console.log(stats.compilation.warnings)
     t.ok(stats.hasWarnings(), "a file should return warning if asked")

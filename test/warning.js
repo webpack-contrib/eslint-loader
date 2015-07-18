@@ -11,13 +11,21 @@ test("eslint-loader can return warning", function(t) {
     }
   ),
   function(err, stats) {
-    if (err) {throw err}
+    if (err) {
+      throw err
+    }
 
     // console.log(stats.compilation.warnings)
-    t.ok(stats.hasWarnings(), "a file that contains eslint warning should return warning")
+    t.ok(
+      stats.hasWarnings(),
+      "a file that contains eslint warning should return warning"
+    )
 
     // console.log(stats.compilation.errors)
-    t.notOk(stats.hasErrors(), "a bad file should return no error if it contains only warning by default")
+    t.notOk(
+      stats.hasErrors(),
+      "a bad file should return no error if it contains only warning by default"
+    )
     t.end()
   })
 })

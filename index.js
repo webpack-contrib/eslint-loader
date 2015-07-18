@@ -40,9 +40,10 @@ function lint(input, config, webpack, callback) {
     if (res.warningCount && config.quiet) {
       res.warningCount = 0
       res.results[0].warningCount = 0
-      res.results[0].messages = res.results[0].messages.filter(function(message) {
-        return message.severity !== 1
-      })
+      res.results[0].messages = res.results[0].messages
+        .filter(function(message) {
+          return message.severity !== 1
+        })
     }
 
     if (res.errorCount || res.warningCount) {
@@ -73,7 +74,11 @@ function lint(input, config, webpack, callback) {
         }
       }
       else {
-        throw new Error("Your module system doesn't support emitWarning. Update available? \n" + messages)
+        throw new Error(
+          "Your module system doesn't support emitWarning. " +
+          "Update available? \n" +
+          messages
+        )
       }
     }
   }

@@ -3,6 +3,7 @@ var webpack = require("webpack")
 var assign = require("object-assign")
 var conf = require("./utils/conf")
 
+/* eslint-disable no-console */
 test("eslint-loader can use eslint formatter", function(t) {
   webpack(assign({},
     conf,
@@ -11,10 +12,17 @@ test("eslint-loader can use eslint formatter", function(t) {
     }
   ),
   function(err, stats) {
-    if (err) {throw err}
+    if (err) {
+      throw err
+    }
 
     console.log("### Here is a example of the default formatter")
-    console.log("# " + stats.compilation.errors[0].message.split("\n").join("\n# "))
+    console.log(
+      "# " +
+      stats.compilation.errors[0].message
+        .split("\n")
+        .join("\n# ")
+    )
     t.ok(stats.compilation.errors[0].message, "webpack have some output")
     t.end()
   })
@@ -31,11 +39,21 @@ test("eslint-loader can use custom formatter", function(t) {
     }
   ),
   function(err, stats) {
-    if (err) {throw err}
+    if (err) {
+      throw err
+    }
 
     console.log("### Here is a example of another formatter")
-    console.log("# " + stats.compilation.errors[0].message.split("\n").join("\n# "))
-    t.ok(stats.compilation.errors[0].message, "webpack have some output with custom formatters")
+    console.log(
+      "# " +
+      stats.compilation.errors[0].message
+        .split("\n")
+        .join("\n# ")
+    )
+    t.ok(
+      stats.compilation.errors[0].message,
+      "webpack have some output with custom formatters"
+    )
     t.end()
   })
 })
