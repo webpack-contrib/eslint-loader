@@ -57,7 +57,7 @@ module.exports = {
 
 ### Options
 
-You can pass directly some [eslint options](http://eslint.org/docs/user-guide/command-line-interface) by
+You can pass [eslint options](http://eslint.org/docs/user-guide/command-line-interface) directly by
 
 - Adding a query string to the loader for this loader usabe only
 
@@ -75,7 +75,7 @@ You can pass directly some [eslint options](http://eslint.org/docs/user-guide/co
 }
 ```
 
-- Adding an `eslint` entry in you webpack config for global options:
+- Adding an `eslint` entry in your webpack config for global options:
 
 ```js
 module.exports = {
