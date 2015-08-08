@@ -1,3 +1,9 @@
+# 1.0.0- 2015-08-08
+
+- Added: support for eslint 1.x
+- Removed: support for eslint 1.x-rc*
+- Removed: support for eslint 0.x
+
 # 0.14.2 - 2015-07-18
 
 - Fixed: support for eslint 1.x-rc

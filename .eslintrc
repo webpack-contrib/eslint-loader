@@ -23,6 +23,8 @@ rules:
   dot-location: [2, "property"]
 
   one-var: [2, "never"]
+  #no-var: [2]
+  prefer-const: [2]
   no-bitwise: [2]
 
   object-curly-spacing: [2, "never"]
