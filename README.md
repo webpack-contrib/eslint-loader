@@ -136,7 +136,7 @@ module.exports = {
   entry: "...",
   module: {
     // ...
-  }
+  },
   eslint: {
     emitError: true
   }
@@ -156,7 +156,7 @@ module.exports = {
   entry: "...",
   module: {
     // ...
-  }
+  },
   eslint: {
     quiet: true
   }
@@ -172,7 +172,7 @@ module.exports = {
   entry: "...",
   module: {
     // ...
-  }
+  },
   eslint: {
     failOnWarning: true
   }
@@ -188,7 +188,7 @@ module.exports = {
   entry: "...",
   module: {
     // ...
-  }
+  },
   eslint: {
     failOnError: true
   }
