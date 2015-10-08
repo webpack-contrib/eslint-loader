@@ -87,6 +87,11 @@ module.exports = {
 
 **Note that you can use both method in order to benefit from global & specific options**
 
+#### `fix` (default: false)
+
+This option will enable
+[ESLint autofix feature](http://eslint.org/docs/user-guide/command-line-interface#fix).
+
 #### `formatter` (default: eslint stylish formatter)
 
 Loader accepts a function that will have one argument: an array of eslint messages (object).
@@ -112,7 +117,7 @@ module.exports = {
     formatter: function(results) {
       // `results` format is available here
       // http://eslint.org/docs/developer-guide/nodejs-api.html#executeonfiles()
-      
+
       // you should return a string
       // DO NOT USE console.*() directly !
       return "OUTPUT"
