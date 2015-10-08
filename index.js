@@ -119,7 +119,7 @@ module.exports = function(input) {
     try {
       lint(input, config, this, callback)
     }
-    catch(e) {
+    catch (e) {
       callback(e)
     }
   }
