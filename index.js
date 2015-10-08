@@ -46,6 +46,11 @@ function lint(input, config, webpack, callback) {
         })
     }
 
+    // if enabled, use eslint auto-fixing where possible
+    if (config.fix && res.results[0].output) {
+      eslint.CLIEngine.outputFixes(res)
+    }
+
     if (res.errorCount || res.warningCount) {
       // add filename for each results so formatter can have relevant filename
       res.results.forEach(function(r) {
