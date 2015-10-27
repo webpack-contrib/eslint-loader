@@ -92,6 +92,9 @@ module.exports = {
 This option will enable
 [ESLint autofix feature](http://eslint.org/docs/user-guide/command-line-interface#fix).
 
+**Be careful, this option might generate webpack to enter an infinite build loop if
+some issues cannot be fixed properly.**
+
 #### `formatter` (default: eslint stylish formatter)
 
 Loader accepts a function that will have one argument: an array of eslint messages (object).
