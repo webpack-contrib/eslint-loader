@@ -72,10 +72,10 @@ function lint(input, config, webpack, callback) {
       if (emitter) {
         emitter(messages)
         if (config.failOnError && res.errorCount) {
-          throw new Error("Module failed because of a eslint error.")
+          throw new Error("Module failed because of a eslint error.\n" + messages)
         }
         else if (config.failOnWarning && res.warningCount) {
-          throw new Error("Module failed because of a eslint warning.")
+          throw new Error("Module failed because of a eslint warning.\n" + messages)
         }
       }
       else {
