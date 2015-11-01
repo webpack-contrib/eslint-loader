@@ -1,3 +1,7 @@
+# 1.1.1 - 2015-10-08
+
+- Fixed: `failOnError` and `failOnWarning` now print messages.
+
 # 1.1.0 - 2015-10-08
 
 - Added: `fix` option to enable ESLint auto fix feature.
