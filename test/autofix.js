@@ -5,7 +5,7 @@ var conf = require("./utils/conf")
 var fs = require("fs")
 
 // clone the "fixable" file, so that we do not lose the original contents
-// when the fixes are applied to disk 
+// when the fixes are applied to disk
 test("setup", function(t) {
   fs
     .createReadStream("./test/fixtures/fixable.js")
