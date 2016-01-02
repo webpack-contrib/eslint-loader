@@ -8,10 +8,9 @@ var loaderUtils = require("loader-utils")
  * @param {String|Buffer} input JavaScript string
  * @param {Object} config eslint configuration
  * @param {Object} webpack webpack instance
- * @param {Function} callback optional callback for async loader
  * @return {void}
  */
-function lint(input, config, webpack, callback) {
+function lint(input, config, webpack) {
   var engine = new eslint.CLIEngine(config)
 
   var resourcePath = webpack.resourcePath
@@ -89,19 +88,16 @@ function lint(input, config, webpack, callback) {
       }
     }
   }
-
-  if (callback) {
-    callback(null, input)
-  }
 }
 
 /**
  * webpack loader
  *
  * @param  {String|Buffer} input JavaScript string
- * @returns {String|Buffer} original input
+ * @param {Object} map input source map
+ * @return {void}
  */
-module.exports = function(input) {
+module.exports = function(input, map) {
   var config = assign(
     // loader defaults
     {
@@ -113,21 +109,6 @@ module.exports = function(input) {
     loaderUtils.parseQuery(this.query)
   )
   this.cacheable()
-
-  var callback = this.async()
-  // sync
-  if (!callback) {
-    lint(input, config, this)
-
-    return input
-  }
-  // async
-  else {
-    try {
-      lint(input, config, this, callback)
-    }
-    catch (e) {
-      callback(e)
-    }
-  }
+  lint(input, config, this)
+  this.callback(null, input, map)
 }
