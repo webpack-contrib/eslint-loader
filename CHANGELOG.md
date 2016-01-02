@@ -1,3 +1,9 @@
+# 1.2.0 - 2016-01-02
+
+- Added: this loader now pass down the input source map to the next chained
+loader if it exists
+([#70](https://github.com/MoOx/eslint-loader/pull/70)).
+
 # 1.1.1 - 2015-10-08
 
 - Fixed: `failOnError` and `failOnWarning` now print messages.
