@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "loader-utils": "^0.2.7",
-    "object-assign": "^3.0.0"
+    "object-assign": "^4.0.1"
   },
   "devDependencies": {
     "eslint": "^1.6.0",
