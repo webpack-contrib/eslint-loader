@@ -1,6 +1,6 @@
 {
   "name": "eslint-loader",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "eslint loader (for webpack)",
   "keywords": [
     "lint",
@@ -25,12 +25,14 @@
   "devDependencies": {
     "eslint": "^1.6.0",
     "eslint-friendly-formatter": "^1.0.3",
+    "npmpub": "^3.0.1",
     "tape": "^4.0.0",
     "webpack": "^1.8.4"
   },
   "scripts": {
     "lint": "eslint .",
     "tape": "tape test/*.js",
-    "test": "npm run lint && npm run tape"
+    "test": "npm run lint && npm run tape",
+    "release": "npmpub"
   }
 }

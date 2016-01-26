@@ -1,3 +1,8 @@
+# 1.2.1 - 2016-01-26
+
+- Updated: object-assign dependency
+([#77](https://github.com/MoOx/eslint-loader/pull/77))
+
 # 1.2.0 - 2016-01-02
 
 - Added: this loader now pass down the input source map to the next chained
