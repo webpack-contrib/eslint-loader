@@ -30,8 +30,7 @@ function lint(input, config, webpack) {
     res.warningCount === 1 &&
     res.results[0].messages[0] &&
     res.results[0].messages[0].message &&
-    res.results[0].messages[0].message.indexOf(".eslintignore") > -1 &&
-    res.results[0].messages[0].message.indexOf("--no-ignore") > -1
+    res.results[0].messages[0].message.indexOf("ignore") > 1
   )) {
     // quiet filter done now
     // eslint allow rules to be specified in the input between comments
