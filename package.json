@@ -16,14 +16,14 @@
     "index.js"
   ],
   "peerDependencies": {
-    "eslint": "^1.6.0"
+    "eslint": ">=1.6.0 <3.0.0"
   },
   "dependencies": {
     "loader-utils": "^0.2.7",
     "object-assign": "^4.0.1"
   },
   "devDependencies": {
-    "eslint": "^1.6.0",
+    "eslint": "^2.0.0",
     "eslint-friendly-formatter": "^1.0.3",
     "npmpub": "^3.0.1",
     "tape": "^4.0.0",
