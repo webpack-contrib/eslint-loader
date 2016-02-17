@@ -1,3 +1,8 @@
+# 1.3.0 - 2016-02-17
+
+- Added: support for eslint@^2.0.0
+([#81](https://github.com/MoOx/eslint-loader/pull/81))
+
 # 1.2.1 - 2016-01-26
 
 - Updated: object-assign dependency
