@@ -56,7 +56,7 @@ module.exports = {
 
 ### Options
 
-You can pass [eslint options](http://eslint.org/docs/user-guide/command-line-interface) directly by
+You can pass [eslint options](http://eslint.org/docs/developer-guide/nodejs-api#cliengine) directly by
 
 - Adding a query string to the loader for this loader usage only
 
