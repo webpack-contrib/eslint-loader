@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "eslint": "^2.0.0",
-    "eslint-friendly-formatter": "^1.0.3",
+    "eslint-friendly-formatter": "^2.0.4",
     "npmpub": "^3.0.1",
     "tape": "^4.0.0",
     "webpack": "^1.8.4"
