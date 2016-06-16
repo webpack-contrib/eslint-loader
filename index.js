@@ -1,11 +1,13 @@
 var eslint = require("eslint")
 var assign = require("object-assign")
 var loaderUtils = require("loader-utils")
-var crypto = require('crypto')
-var fs = require('fs');
+var crypto = require("crypto")
+var fs = require("fs")
+var findCacheDir = require("find-cache-dir")
 
-var engine = null;
-var cache = null;
+var engine = null
+var cache = null
+var cachePath = null
 
 /**
  * linter
@@ -25,11 +27,11 @@ function lint(input, config, webpack) {
     resourcePath = resourcePath.substr(cwd.length + 1)
   }
 
-  var res;
+  var res
   // If cache is enable and the data are the same as in the cache, just
   // use them
-  if (cache) {
-    var inputMD5 = crypto.createHash("md5").update(input).digest("hex");
+  if (config.cache) {
+    var inputMD5 = crypto.createHash("md5").update(input).digest("hex")
     if (cache[resourcePath] && cache[resourcePath].hash === inputMD5) {
       res = cache[resourcePath].res
     }
@@ -40,12 +42,12 @@ function lint(input, config, webpack) {
     res = engine.executeOnText(input, resourcePath, true)
 
     // Save new results in the cache
-    if (cache) {
+    if (config.cache) {
       cache[resourcePath] = {
         hash: inputMD5,
-        res: res
+        res: res,
       }
-      fs.writeFileSync(config.cache, JSON.stringify(cache));
+      fs.writeFileSync(cachePath, JSON.stringify(cache))
     }
   }
 
@@ -141,17 +143,25 @@ module.exports = function(input, map) {
   }
 
   // Read the cached information only once and if enable
-  if (cache === null ) {
+  if (cache === null) {
     if (config.cache) {
+      var thunk = findCacheDir({
+        name: "eslint-loader",
+        thunk: true,
+        create: true,
+      })
+      cachePath = thunk("data.json")
       try {
-        var cacheFileContent = fs.readFileSync(config.cache);
+        var cacheFileContent = fs.readFileSync(cachePath)
         if (cacheFileContent) {
-          cache = JSON.parse(cacheFileContent);
+          cache = JSON.parse(cacheFileContent)
         }
-      } catch (e) {
-        cache = {};
       }
-    } else {
+      catch (e) {
+        cache = {}
+      }
+    }
+    else {
       cache = false
     }
   }
