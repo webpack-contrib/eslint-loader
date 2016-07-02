@@ -1,3 +1,6 @@
+- Added: support for eslint@^3.0.0
+([#96](https://github.com/MoOx/eslint-loader/issues/96))
+
 # 1.3.0 - 2016-02-17
 
 - Added: support for eslint@^2.0.0
