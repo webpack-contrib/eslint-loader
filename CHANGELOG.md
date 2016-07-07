@@ -1,4 +1,9 @@
-# 1.4.0 - 2016-02-17
+# 1.4.1 - 2016-06-07
+
+- Fixed: .eslintignore is not ignored anymore (eslint 3.x regression)
+  ([#99](https://github.com/MoOx/eslint-loader/pull/99) - @waiterZen)
+
+# 1.4.0 - 2016-06-02
 
 - Added: support for eslint@^3.0.0
 ([#96](https://github.com/MoOx/eslint-loader/issues/96))
