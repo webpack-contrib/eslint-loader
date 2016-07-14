@@ -94,6 +94,14 @@ This option will enable
 **Be careful, this option might cause webpack to enter an infinite build loop if
 some issues cannot be fixed properly.**
 
+#### `cache` (default: false)
+
+This option will enable caching of the linting results into a file.
+This is particullarly usefull to reduce linting time when doing full build.
+
+The cache is writting inside the `./node_modules/.cache` directory, thanks to the usage
+of the [find-cache-dir](https://www.npmjs.com/package/find-cache-dir) module.
+
 #### `formatter` (default: eslint stylish formatter)
 
 Loader accepts a function that will have one argument: an array of eslint messages (object).
