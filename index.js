@@ -152,10 +152,7 @@ module.exports = function(input, map) {
       })
       cachePath = thunk("data.json")
       try {
-        var cacheFileContent = fs.readFileSync(cachePath)
-        if (cacheFileContent) {
-          cache = JSON.parse(cacheFileContent)
-        }
+        cache = require(cachePath)
       }
       catch (e) {
         cache = {}
