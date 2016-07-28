@@ -1,6 +1,13 @@
 var eslint = require("eslint")
 var assign = require("object-assign")
 var loaderUtils = require("loader-utils")
+var crypto = require("crypto")
+var fs = require("fs")
+var findCacheDir = require("find-cache-dir")
+
+var engine = null
+var cache = null
+var cachePath = null
 
 /**
  * linter
@@ -11,8 +18,6 @@ var loaderUtils = require("loader-utils")
  * @return {void}
  */
 function lint(input, config, webpack) {
-  var engine = new eslint.CLIEngine(config)
-
   var resourcePath = webpack.resourcePath
   var cwd = process.cwd()
 
@@ -22,7 +27,30 @@ function lint(input, config, webpack) {
     resourcePath = resourcePath.substr(cwd.length + 1)
   }
 
-  var res = engine.executeOnText(input, resourcePath, true)
+  var res
+  // If cache is enable and the data are the same as in the cache, just
+  // use them
+  if (config.cache) {
+    var inputMD5 = crypto.createHash("md5").update(input).digest("hex")
+    if (cache[resourcePath] && cache[resourcePath].hash === inputMD5) {
+      res = cache[resourcePath].res
+    }
+  }
+
+  // Re-lint the text if the cache off or miss
+  if (!res) {
+    res = engine.executeOnText(input, resourcePath, true)
+
+    // Save new results in the cache
+    if (config.cache) {
+      cache[resourcePath] = {
+        hash: inputMD5,
+        res: res,
+      }
+      fs.writeFileSync(cachePath, JSON.stringify(cache))
+    }
+  }
+
   // executeOnText ensure we will have res.results[0] only
 
   // skip ignored file warning
@@ -108,6 +136,33 @@ module.exports = function(input, map) {
     loaderUtils.parseQuery(this.query)
   )
   this.cacheable()
+
+  // Create the engine only once
+  if (engine === null) {
+    engine = new eslint.CLIEngine(config)
+  }
+
+  // Read the cached information only once and if enable
+  if (cache === null) {
+    if (config.cache) {
+      var thunk = findCacheDir({
+        name: "eslint-loader",
+        thunk: true,
+        create: true,
+      })
+      cachePath = thunk("data.json")
+      try {
+        cache = require(cachePath)
+      }
+      catch (e) {
+        cache = {}
+      }
+    }
+    else {
+      cache = false
+    }
+  }
+
   lint(input, config, this)
   this.callback(null, input, map)
 }

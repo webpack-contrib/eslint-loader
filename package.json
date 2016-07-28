@@ -19,6 +19,7 @@
     "eslint": ">=1.6.0 <4.0.0"
   },
   "dependencies": {
+    "find-cache-dir": "^0.1.1",
     "loader-utils": "^0.2.7",
     "object-assign": "^4.0.1"
   },
