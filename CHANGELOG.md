@@ -1,3 +1,8 @@
+# 1.5.0 - 2016-07-28
+
+- Added: `cache` options
+  ([#93](https://github.com/MoOx/eslint-loader/pull/93) - @genintho)
+
 # 1.4.1 - 2016-06-07
 
 - Fixed: .eslintignore is not ignored anymore (eslint 3.x regression)
