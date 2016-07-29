@@ -97,9 +97,9 @@ some issues cannot be fixed properly.**
 #### `cache` (default: false)
 
 This option will enable caching of the linting results into a file.
-This is particullarly usefull to reduce linting time when doing full build.
+This is particularly useful in reducing linting time when doing a full build.
 
-The cache is writting inside the `./node_modules/.cache` directory, thanks to the usage
+The cache file is written to the `./node_modules/.cache` directory, thanks to the usage
 of the [find-cache-dir](https://www.npmjs.com/package/find-cache-dir) module.
 
 #### `formatter` (default: eslint stylish formatter)
