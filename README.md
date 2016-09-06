@@ -4,7 +4,7 @@
 
 ## Install
 
-```bash
+```console
 $ npm install eslint-loader --save-dev
 ```
 
