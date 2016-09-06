@@ -5,14 +5,14 @@
 ## Install
 
 ```console
-$ npm install eslint-loader
+$ npm install eslint-loader --save-dev
 ```
 
 ## Usage
 
 In your webpack configuration
 
-```javascript
+```js
 module.exports = {
   // ...
   module: {
@@ -27,7 +27,7 @@ module.exports = {
 When using with transpiling loaders (like `babel-loader`), make sure they are in correct order
 (bottom to top). Otherwise files will be check after being processed by `babel-loader`
 
-```javascript
+```js
 module.exports = {
   // ...
   module: {
