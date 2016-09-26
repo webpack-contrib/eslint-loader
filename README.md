@@ -54,6 +54,22 @@ module.exports = {
 }
 ```
 
+[webpack@2.1.0-beta.23 has breaking changes](https://github.com/webpack/webpack/releases). 
+`preLoaders`  is removed  from the webpack^2.1.0-beta.23. so move it to `loaders` and using [enforce: "pre"]  instead.
+
+```js
+module.exports = {
+  // ...
+  module: {
+    loaders: [
+      {enforce: "pre", test: /\.js$/,  loader: "eslint-loader", exclude: /node_modules/}
+      // ... other loader
+    ]
+  }
+  // ...
+}
+```
+
 ### Options
 
 You can pass [eslint options](http://eslint.org/docs/developer-guide/nodejs-api#cliengine) directly by
@@ -223,3 +239,5 @@ remove `NoErrorsPlugin` from webpack config.
 ## [Changelog](CHANGELOG.md)
 
 ## [License](LICENSE)
+
+
