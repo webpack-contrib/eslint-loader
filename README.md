@@ -229,6 +229,7 @@ module.exports = {
 ##### `outputReport` (default: `false`)
 Write the output of the errors to a file
 
+The `filePath` is relative to the webpack config: output.path
 You can pass in a different formatter for the output file, if none is passed in the default/configured formatter will be used
 
 ```js
@@ -239,7 +240,7 @@ module.exports = {
   },
   eslint: {
     outputReport: {
-      filename: 'checkstyle.xml',
+      filePath: 'checkstyle.xml',
       formatter: require('eslint/lib/formatters/checkstyle')
     }
   }

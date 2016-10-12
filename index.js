@@ -93,7 +93,7 @@ function lint(input, config, webpack) {
         else {
           reportOutput = messages
         }
-        webpack.emitFile(config.outputReport.filename, reportOutput)
+        webpack.emitFile(config.outputReport.filePath, reportOutput)
       }
 
       // default behavior: emit error only if we have errors
