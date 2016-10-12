@@ -54,7 +54,7 @@ module.exports = {
 }
 ```
 
-[webpack@2.1.0-beta.23 has breaking changes](https://github.com/webpack/webpack/releases). 
+[webpack@2.1.0-beta.23 has breaking changes](https://github.com/webpack/webpack/releases).
 `preLoaders`  is removed  from the webpack^2.1.0-beta.23. so move it to `loaders` and using [enforce: "pre"]  instead.
 
 ```js
@@ -226,6 +226,27 @@ module.exports = {
 }
 ```
 
+##### `outputReport` (default: `false`)
+Write the output of the errors to a file
+
+You can pass in a different formatter for the output file, if none is passed in the default/configured formatter will be used
+
+```js
+module.exports = {
+  entry: "...",
+  module: {
+    // ...
+  },
+  eslint: {
+    outputReport: {
+      filename: 'checkstyle.xml',
+      formatter: require('eslint/lib/formatters/checkstyle')
+    }
+  }
+}
+```
+
+
 ## Gotchas
 
 ### NoErrorsPlugin
@@ -239,5 +260,3 @@ remove `NoErrorsPlugin` from webpack config.
 ## [Changelog](CHANGELOG.md)
 
 ## [License](LICENSE)
-
-
