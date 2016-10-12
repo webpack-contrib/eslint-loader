@@ -54,7 +54,7 @@ module.exports = {
 }
 ```
 
-[webpack@2.1.0-beta.23 has breaking changes](https://github.com/webpack/webpack/releases).
+[webpack@2.1.0-beta.23 has breaking changes](https://github.com/webpack/webpack/releases). 
 `preLoaders`  is removed  from the webpack^2.1.0-beta.23. so move it to `loaders` and using [enforce: "pre"]  instead.
 
 ```js
