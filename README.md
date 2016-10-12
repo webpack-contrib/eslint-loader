@@ -227,7 +227,7 @@ module.exports = {
 ```
 
 ##### `outputReport` (default: `false`)
-Write the output of the errors to a file
+Write the output of the errors to a file, for example a checkstyle xml file for use for reporting on Jenkins CI
 
 The `filePath` is relative to the webpack config: output.path
 You can pass in a different formatter for the output file, if none is passed in the default/configured formatter will be used
