@@ -226,6 +226,28 @@ module.exports = {
 }
 ```
 
+##### `outputReport` (default: `false`)
+Write the output of the errors to a file, for example a checkstyle xml file for use for reporting on Jenkins CI
+
+The `filePath` is relative to the webpack config: output.path
+You can pass in a different formatter for the output file, if none is passed in the default/configured formatter will be used
+
+```js
+module.exports = {
+  entry: "...",
+  module: {
+    // ...
+  },
+  eslint: {
+    outputReport: {
+      filePath: 'checkstyle.xml',
+      formatter: require('eslint/lib/formatters/checkstyle')
+    }
+  }
+}
+```
+
+
 ## Gotchas
 
 ### NoErrorsPlugin
@@ -239,5 +261,3 @@ remove `NoErrorsPlugin` from webpack config.
 ## [Changelog](CHANGELOG.md)
 
 ## [License](LICENSE)
-
-

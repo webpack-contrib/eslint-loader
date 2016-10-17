@@ -84,6 +84,18 @@ function lint(input, config, webpack) {
       })
       var messages = config.formatter(res.results)
 
+      if (config.outputReport) {
+        var reportOutput
+        // if a different formatter is passed in as an option use that
+        if (config.outputReport.formatter) {
+          reportOutput = config.outputReport.formatter(res.results)
+        }
+        else {
+          reportOutput = messages
+        }
+        webpack.emitFile(config.outputReport.filePath, reportOutput)
+      }
+
       // default behavior: emit error only if we have errors
       var emitter = res.errorCount ? webpack.emitError : webpack.emitWarning
 
