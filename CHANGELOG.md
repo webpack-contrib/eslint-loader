@@ -1,3 +1,8 @@
+# 1.6.0 - 2016-10-17
+
+- Added: Option to generate report file
+  ([#118](https://github.com/MoOx/eslint-loader/pull/118) - @vidhill)
+
 # 1.5.0 - 2016-07-28
 
 - Added: `cache` options
