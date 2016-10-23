@@ -19,7 +19,7 @@ test("eslint-loader should respect custom configFile paths", function(t) {
             test: /\.js$/,
             loader: "./index",
             query: {
-              configFile: './test/utils/eslint-config-quotes-single',
+              configFile: "./test/utils/eslint-config-quotes-single",
             },
             exclude: /node_modules/,
           },
@@ -61,7 +61,7 @@ test("eslint-loader should handle multiple configFile paths", function(t) {
             test: /\.js$/,
             loader: "./index",
             query: {
-              configFile: './test/utils/eslint-config-quotes-single',
+              configFile: "./test/utils/eslint-config-quotes-single",
             },
             exclude: /node_modules/,
           },
@@ -69,7 +69,7 @@ test("eslint-loader should handle multiple configFile paths", function(t) {
             test: /\.js$/,
             loader: "./index",
             query: {
-              configFile: './test/utils/eslint-config-semi',
+              configFile: "./test/utils/eslint-config-semi",
             },
             exclude: /node_modules/,
           },
