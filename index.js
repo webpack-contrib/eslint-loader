@@ -5,7 +5,7 @@ var crypto = require("crypto")
 var fs = require("fs")
 var findCacheDir = require("find-cache-dir")
 
-var engine = null
+var engine = {}
 var cache = null
 var cachePath = null
 
@@ -28,10 +28,11 @@ function lint(input, config, webpack) {
   }
 
   var res
+  var inputMD5
   // If cache is enable and the data are the same as in the cache, just
   // use them
   if (config.cache) {
-    var inputMD5 = crypto.createHash("md5").update(input).digest("hex")
+    inputMD5 = crypto.createHash("md5").update(input).digest("hex")
     if (cache[resourcePath] && cache[resourcePath].hash === inputMD5) {
       res = cache[resourcePath].res
     }
@@ -39,7 +40,7 @@ function lint(input, config, webpack) {
 
   // Re-lint the text if the cache off or miss
   if (!res) {
-    res = engine.executeOnText(input, resourcePath, true)
+    res = engine[config.configFile].executeOnText(input, resourcePath, true)
 
     // Save new results in the cache
     if (config.cache) {
@@ -149,9 +150,9 @@ module.exports = function(input, map) {
   )
   this.cacheable()
 
-  // Create the engine only once
-  if (engine === null) {
-    engine = new eslint.CLIEngine(config)
+  // Create an engine instance for every unique config file string specified
+  if (engine[config.configFile] === undefined) {
+    engine[config.configFile] = new eslint.CLIEngine(config)
   }
 
   // Read the cached information only once and if enable
