@@ -93,7 +93,10 @@ function lint(input, config, webpack) {
         else {
           reportOutput = messages
         }
-        webpack.emitFile(config.outputReport.filePath, reportOutput)
+        var filePath = loaderUtils.interpolateName(webpack, config.outputReport.filePath, {
+          content: res.results.map(function(r){ return r.source }).join("\n")
+        });
+        webpack.emitFile(filePath, reportOutput)
       }
 
       // default behavior: emit error only if we have errors
