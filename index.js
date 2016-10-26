@@ -4,8 +4,9 @@ var loaderUtils = require("loader-utils")
 var crypto = require("crypto")
 var fs = require("fs")
 var findCacheDir = require("find-cache-dir")
+var objectHash = require("object-hash")
 
-var engine = null
+var engines = {}
 var cache = null
 var cachePath = null
 
@@ -39,7 +40,8 @@ function lint(input, config, webpack) {
 
   // Re-lint the text if the cache off or miss
   if (!res) {
-    res = engine.executeOnText(input, resourcePath, true)
+    var configHash = objectHash(config)
+    res = engines[configHash].executeOnText(input, resourcePath, true)
 
     // Save new results in the cache
     if (config.cache) {
@@ -149,9 +151,10 @@ module.exports = function(input, map) {
   )
   this.cacheable()
 
-  // Create the engine only once
-  if (engine === null) {
-    engine = new eslint.CLIEngine(config)
+  // Create the engine only once per config
+  var configHash = objectHash(config)
+  if (!engines[configHash]) {
+    engines[configHash] = new eslint.CLIEngine(config)
   }
 
   // Read the cached information only once and if enable

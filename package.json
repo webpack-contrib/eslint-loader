@@ -21,7 +21,8 @@
   "dependencies": {
     "find-cache-dir": "^0.1.1",
     "loader-utils": "^0.2.7",
-    "object-assign": "^4.0.1"
+    "object-assign": "^4.0.1",
+    "object-hash": "^1.1.4"
   },
   "devDependencies": {
     "eslint": "^3.0.0",
