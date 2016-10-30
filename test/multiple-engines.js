@@ -3,7 +3,7 @@ var webpack = require("webpack")
 var assign = require("object-assign")
 var conf = require("./utils/conf")
 
-test("eslint-loader will create an engine for each unique config", function(t) { // eslint-disable-line max-len
+test.only("eslint-loader will create an engine for each unique config", function(t) { // eslint-disable-line max-len
   webpack(assign({},
     conf,
     {
@@ -25,7 +25,7 @@ test("eslint-loader will create an engine for each unique config", function(t) {
             loader: "./index",
             query: {
               rules: {
-                quotes: [1, "double"],
+                semi: [1, "always"],
               },
             },
             exclude: /node_modules/,
@@ -40,8 +40,18 @@ test("eslint-loader will create an engine for each unique config", function(t) {
     }
 
     t.ok(
-      stats.compilation.warnings.length === 1,
-      "should report a single error because only one config causes an error"
+      stats.compilation.warnings.length === 2,
+      "should report an error for each config"
+    )
+
+    t.ok(
+      stats.compilation.warnings.find(warning => /quotes/.test(warning)),
+      "should have a warning about quotes"
+    )
+
+    t.ok(
+      stats.compilation.warnings.find(warning => /semi/.test(warning)),
+      "should have a warning about semi"
     )
 
     t.end()
