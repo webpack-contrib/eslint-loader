@@ -1,3 +1,9 @@
+# 1.6.1 - 2016-11-02
+
+- Fixed: multiples config per instance are now supported
+  ([#105](https://github.com/MoOx/eslint-loader/issues/105) -
+  @jaythomas and @jameslnewell)
+
 # 1.6.0 - 2016-10-17
 
 - Added: Option to generate report file
