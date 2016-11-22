@@ -3,7 +3,7 @@ var webpack = require("webpack")
 var assign = require("object-assign")
 var conf = require("./utils/conf")
 
-test.only("eslint-loader will create an engine for each unique config", function(t) { // eslint-disable-line max-len
+test("eslint-loader will create an engine for each unique config", function(t) { // eslint-disable-line max-len
   webpack(assign({},
     conf,
     {
