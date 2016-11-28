@@ -100,6 +100,8 @@ module.exports = {
 }
 ```
 
+Note that the config option you provide will be passed to the `CLIEngine`. This is a different set of options than what you'd specify in `package.json` or `.eslintrc`. See the [eslint docs](http://eslint.org/docs/developer-guide/nodejs-api#cliengine) for more detail.
+
 **Note that you can use both methods in order to benefit from global & specific options**
 
 #### `fix` (default: false)
@@ -107,7 +109,7 @@ module.exports = {
 This option will enable
 [ESLint autofix feature](http://eslint.org/docs/user-guide/command-line-interface#fix).
 
-**Be careful, this option might cause webpack to enter an infinite build loop if
+**Be careful: this option might cause webpack to enter an infinite build loop if
 some issues cannot be fixed properly.**
 
 #### `cache` (default: false)
