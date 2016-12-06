@@ -54,7 +54,7 @@ module.exports = {
 }
 ```
 
-[webpack@2.1.0-beta.23 has breaking changes](https://github.com/webpack/webpack/releases). 
+[webpack@2.1.0-beta.23 has breaking changes](https://github.com/webpack/webpack/releases).
 `preLoaders`  is removed  from the webpack^2.1.0-beta.23. so move it to `loaders` and using [enforce: "pre"]  instead.
 
 ```js
@@ -259,6 +259,14 @@ will fail the build. No matter what error settings are used for `eslint-loader`.
 
 So if you want to see ESLint warnings in console during development using `WebpackDevServer`
 remove `NoErrorsPlugin` from webpack config.
+
+### Defining `configFile` or using `eslint -c path/.eslintrc`
+
+Bear in mind that when you define `configFile`, `eslint` doesn't automatically look for
+`.eslintrc` files in the directory of the file to be linted. More information is available
+in official eslint documentation in section [_Using Configuration Files_](http://eslint.org/docs/user-guide/configuring#using-configuration-files).
+
+Related issues: [#129](https://github.com/MoOx/eslint-loader/issues/129).
 
 ## [Changelog](CHANGELOG.md)
 
