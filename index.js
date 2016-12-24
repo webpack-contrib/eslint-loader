@@ -99,7 +99,7 @@ function lint(input, config, webpack) {
       }
 
       // default behavior: emit error only if we have errors
-      var emitter = res.errorCount ? webpack.emitError : webpack.emitWarning
+      var emitter = (res.errorCount && config.failOnError) ? webpack.emitError : webpack.emitWarning
 
       // force emitError or emitWarning if user want this
       if (config.emitError) {
