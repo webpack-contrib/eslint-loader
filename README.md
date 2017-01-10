@@ -59,16 +59,20 @@ module.exports = {
 
 ```js
 module.exports = {
-  // ...
+  // entry, output, other top-level options ...
   module: {
-    loaders: [
-      {enforce: "pre", test: /\.js$/,  loader: "eslint-loader", exclude: /node_modules/}
-      // ... other loader
-    ]
-  }
-  // ...
-}
-```
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        enforce: 'pre',
+        use: [{loader: 'eslint-loader', options: {rules: {semi: 0}}],
+      },
+      // other rules
+    ],
+  },
+  // no need for plugins
+};```
 
 ### Options
 
