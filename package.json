@@ -29,8 +29,7 @@
     "eslint": "^3.0.0",
     "eslint-friendly-formatter": "^2.0.4",
     "npmpub": "^3.0.1",
-    "tape": "^4.0.0",
-    "webpack": "^1.8.4"
+    "webpack": "^2.2.0-rc.4"
   },
   "scripts": {
     "lint": "eslint .",
