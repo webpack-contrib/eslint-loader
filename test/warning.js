@@ -1,11 +1,10 @@
-var test = require("tape")
+var test = require("ava")
 var webpack = require("webpack")
-var assign = require("object-assign")
 var conf = require("./utils/conf")
 
-test("eslint-loader can return warning", function(t) {
-  webpack(assign({},
-    conf,
+test.cb("eslint-loader can return warning", function(t) {
+  t.plan(2)
+  webpack(conf(
     {
       entry: "./test/fixtures/warn.js",
     }
@@ -16,13 +15,13 @@ test("eslint-loader can return warning", function(t) {
     }
 
     // console.log(stats.compilation.warnings)
-    t.ok(
+    t.true(
       stats.hasWarnings(),
       "a file that contains eslint warning should return warning"
     )
 
     // console.log(stats.compilation.errors)
-    t.notOk(
+    t.false(
       stats.hasErrors(),
       "a bad file should return no error if it contains only warning by default"
     )

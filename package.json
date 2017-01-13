@@ -25,6 +25,7 @@
     "object-hash": "^1.1.4"
   },
   "devDependencies": {
+    "ava": "^0.17.0",
     "eslint": "^3.0.0",
     "eslint-friendly-formatter": "^2.0.4",
     "npmpub": "^3.0.1",
@@ -33,8 +34,14 @@
   },
   "scripts": {
     "lint": "eslint .",
-    "tape": "tape test/*.js",
-    "test": "npm run lint && npm run tape",
+    "ava": "ava",
+    "test": "npm run lint && npm run ava",
     "release": "npmpub"
+  },
+  "ava": {
+    "files": [
+      "test/*.js"
+    ],
+    "verbose": true
   }
 }

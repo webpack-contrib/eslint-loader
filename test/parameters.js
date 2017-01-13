@@ -1,11 +1,10 @@
-var test = require("tape")
+var test = require("ava")
 var webpack = require("webpack")
-var assign = require("object-assign")
 var conf = require("./utils/conf")
 
-test("eslint-loader supports query strings parameters", function(t) {
-  webpack(assign({},
-    conf,
+test.cb("eslint-loader supports query strings parameters", function(t) {
+  t.plan(2)
+  webpack(conf(
     {
       entry: "./test/fixtures/good-semi.js",
       module: {
@@ -25,9 +24,9 @@ test("eslint-loader supports query strings parameters", function(t) {
     }
 
     // console.log(stats.compilation.errors)
-    t.notOk(stats.hasErrors(), "a good file doesn't give any error")
+    t.false(stats.hasErrors(), "a good file doesn't give any error")
     // console.log(stats.compilation.warnings)
-    t.notOk(stats.hasWarnings(), "a good file doesn't give any warning")
+    t.false(stats.hasWarnings(), "a good file doesn't give any warning")
     t.end()
   })
 })
