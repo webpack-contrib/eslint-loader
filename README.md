@@ -72,7 +72,8 @@ module.exports = {
     ],
   },
   // no need for plugins
-};```
+};
+```
 
 ### Options
 
