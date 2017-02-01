@@ -1,9 +1,17 @@
 language: node_js
 
 node_js:
+  - 7
   - 6
   - 5
   - 4
 
+env:
+  - WEBPACK_VERSION=2
+  - WEBPACK_VERSION=1
+
 matrix:
   fast_finish: true
+
+before_script:
+  - npm install webpack@$WEBPACK_VERSION

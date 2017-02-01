@@ -1,18 +1,17 @@
-var test = require("tape")
+var test = require("ava")
 var webpack = require("webpack")
-var assign = require("object-assign")
 var conf = require("./utils/conf")
 
-test("eslint-loader ignores files present in .eslintignore", function(t) {
-  webpack(assign({},
-    conf,
+test.cb("eslint-loader ignores files present in .eslintignore", function(t) {
+  t.plan(1)
+  webpack(conf(
     {
       entry: "./test/fixtures/ignore.js",
-      eslint: assign({}, conf.eslint, {
-        // we want to enable ignore, so eslint will parse .eslintignore and
-        // should skip the file specified above
-        ignore: true,
-      }),
+    },
+    {
+      // we want to enable ignore, so eslint will parse .eslintignore and
+      // should skip the file specified above
+      ignore: true,
     }
   ),
   function(err, stats) {
@@ -21,7 +20,7 @@ test("eslint-loader ignores files present in .eslintignore", function(t) {
     }
 
     // console.log(stats.compilation.warnings)
-    t.notOk(stats.hasWarnings(), "an ignored doesn't give a warning")
+    t.false(stats.hasWarnings(), "an ignored doesn't give a warning")
     t.end()
   })
 })

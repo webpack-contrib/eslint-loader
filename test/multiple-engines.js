@@ -1,11 +1,10 @@
-var test = require("tape")
+var test = require("ava")
 var webpack = require("webpack")
-var assign = require("object-assign")
 var conf = require("./utils/conf")
 
-test("eslint-loader will create an engine for each unique config", function(t) { // eslint-disable-line max-len
-  webpack(assign({},
-    conf,
+test.cb("eslint-loader will create an engine for each unique config", function(t) { // eslint-disable-line max-len
+  t.plan(3)
+  webpack(conf(
     {
       entry: "./test/fixtures/good.js",
       module: {
@@ -39,17 +38,17 @@ test("eslint-loader will create an engine for each unique config", function(t) {
       throw err
     }
 
-    t.ok(
+    t.true(
       stats.compilation.warnings.length === 2,
       "should report an error for each config"
     )
 
-    t.ok(
+    t.truthy(
       stats.compilation.warnings.find(warning => /quotes/.test(warning)),
       "should have a warning about quotes"
     )
 
-    t.ok(
+    t.truthy(
       stats.compilation.warnings.find(warning => /semi/.test(warning)),
       "should have a warning about semi"
     )

@@ -1,11 +1,10 @@
-var test = require("tape")
+var test = require("ava")
 var webpack = require("webpack")
-var assign = require("object-assign")
 var conf = require("./utils/conf")
 
-test("eslint-loader can return error if file is bad", function(t) {
-  webpack(assign({},
-    conf,
+test.cb("eslint-loader can return error if file is bad", function(t) {
+  t.plan(1)
+  webpack(conf(
     {
       entry: "./test/fixtures/error.js",
     }
@@ -16,7 +15,7 @@ test("eslint-loader can return error if file is bad", function(t) {
     }
 
     // console.log(stats.compilation.errors)
-    t.ok(
+    t.true(
       stats.hasErrors(),
       "a file that contains eslint errors should return error"
     )
