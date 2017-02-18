@@ -166,7 +166,7 @@ module.exports = function(input, map) {
         thunk: true,
         create: true,
       })
-      cachePath = thunk("data.json") || os.tmpdir() + '/data.json'
+      cachePath = thunk("data.json") || os.tmpdir() + "/data.json"
       try {
         cache = require(cachePath)
       }
