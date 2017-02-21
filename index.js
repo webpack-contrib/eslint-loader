@@ -147,7 +147,7 @@ module.exports = function(input, map) {
     // user defaults
     this.options.eslint || {},
     // loader query string
-    loaderUtils.parseQuery(this.query)
+    loaderUtils.getOptions(this)
   )
   this.cacheable()
 
