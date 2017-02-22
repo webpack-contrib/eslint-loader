@@ -1,3 +1,8 @@
+# 1.6.3 - 2017-02-22
+
+- Fixed: ignore cache when eslint rules have changed
+  ([#151](https://github.com/MoOx/eslint-loader/pull/151) - @wrakky)
+
 # 1.6.2 - 2017-02-22
 
 - Fixed: fallback to OS temp directory if findCacheDir fails

@@ -1,6 +1,6 @@
 {
   "name": "eslint-loader",
-  "version": "1.6.2",
+  "version": "1.6.3",
   "description": "eslint loader (for webpack)",
   "keywords": [
     "lint",
