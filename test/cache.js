@@ -1,25 +1,18 @@
-var test = require("tape")
+var test = require("ava")
 var webpack = require("webpack")
-var assign = require("object-assign")
 var conf = require("./utils/conf")
 var fs = require("fs")
 
 var cacheFilePath = "./node_modules/.cache/eslint-loader/data.json"
 
-test("eslint-loader can cache results", function(t) {
-
-  // delete the require cache for eslint-loader otherwise any previously run
-  // tests will have initialised the cache as false and prevent this test
-  // from creating the cache file
-  delete require.cache[require.resolve("../index.js")]
-
-  webpack(assign({},
-    conf,
+test.cb("eslint-loader can cache results", function(t) {
+  t.plan(2)
+  webpack(conf(
     {
       entry: "./test/fixtures/cache.js",
-      eslint: {
-        cache: true,
-      },
+    },
+    {
+      cache: true,
     }
   ),
   function(err) {
@@ -50,7 +43,6 @@ test("eslint-loader can cache results", function(t) {
 })
 
 // delete the cache file once tests have completed
-test("teardown", function(t) {
+test.after.always("teardown", function() {
   fs.unlinkSync(cacheFilePath)
-  t.end()
 })
