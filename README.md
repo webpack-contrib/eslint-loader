@@ -16,10 +16,17 @@ In your webpack configuration
 module.exports = {
   // ...
   module: {
-    loaders: [
-      {test: /\.js$/, loader: "eslint-loader", exclude: /node_modules/}
-    ]
-  }
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: "eslint-loader",
+        options: {
+          // eslint options (if necessary)
+        }
+      },
+    ],
+  },
   // ...
 }
 ```
@@ -31,83 +38,54 @@ When using with transpiling loaders (like `babel-loader`), make sure they are in
 module.exports = {
   // ...
   module: {
-    loaders: [
-      {test: /\.js$/, loaders: [ "babel-loader", "eslint-loader" ], exclude: /node_modules/},
-    ]
-  }
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: [
+          "babel-loader",
+          "eslint-loader",
+        ],
+      },
+    ],
+  },
   // ...
 }
 ```
 
-To be safe, you can use `preLoaders` section to check source files, not modified
+To be safe, you can use `enforce: "pre"` section to check source files, not modified
 by other loaders (like `babel-loader`)
 
 ```js
 module.exports = {
   // ...
   module: {
-    preLoaders: [
-      {test: /\.js$/, loader: "eslint-loader", exclude: /node_modules/}
-    ]
-  }
+    rules: [
+      {
+        enforce: "pre",
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: "eslint-loader",
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: "babel-loader",
+      },
+    ],
+  },
   // ...
 }
 ```
 
-[webpack@2.2.0-rc.3 has breaking changes](https://github.com/webpack/webpack/releases).
-`preLoaders`  is removed  from the webpack^2.1.0-beta.23. so move it to `rules` and use `enforce: "pre"`  instead.
-
-```js
-module.exports = {
-  // entry, output, other top-level options ...
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        enforce: 'pre',
-        use: [{loader: 'eslint-loader', options: {rules: {semi: 0}}}],
-      },
-      // other rules
-    ],
-  },
-  // no need for plugins
-};
-```
-
 ### Options
 
-You can pass [eslint options](http://eslint.org/docs/developer-guide/nodejs-api#cliengine) directly by
+You can pass [eslint options](http://eslint.org/docs/developer-guide/nodejs-api#cliengine)
+using standard webpack [loader options](https://webpack.js.org/configuration/module/#useentry).
 
-- Adding a query string to the loader for this loader usage only
-
-```js
-{
-  module: {
-    preLoaders: [
-      {
-        test: /\.js$/,
-        loader: "eslint-loader?{rules:{semi:0}}",
-        exclude: /node_modules/,
-      },
-    ],
-  },
-}
-```
-
-- Adding an `eslint` entry in your webpack config for global options:
-
-```js
-module.exports = {
-  eslint: {
-    configFile: 'path/.eslintrc'
-  }
-}
-```
-
-Note that the config option you provide will be passed to the `CLIEngine`. This is a different set of options than what you'd specify in `package.json` or `.eslintrc`. See the [eslint docs](http://eslint.org/docs/developer-guide/nodejs-api#cliengine) for more detail.
-
-**Note that you can use both methods in order to benefit from global & specific options**
+Note that the config option you provide will be passed to the `CLIEngine`.
+This is a different set of options than what you'd specify in `package.json` or `.eslintrc`.
+See the [eslint docs](http://eslint.org/docs/developer-guide/nodejs-api#cliengine) for more detail.
 
 #### `fix` (default: false)
 
@@ -135,27 +113,33 @@ You can use official eslint formatters.
 module.exports = {
   entry: "...",
   module: {
-    // ...
-  }
-  eslint: {
-    // several examples !
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: "eslint-loader",
+        options: {
+          // several examples !
 
-    // default value
-    formatter: require("eslint/lib/formatters/stylish"),
+          // default value
+          formatter: require("eslint/lib/formatters/stylish"),
 
-    // community formatter
-    formatter: require("eslint-friendly-formatter"),
+          // community formatter
+          formatter: require("eslint-friendly-formatter"),
 
-    // custom formatter
-    formatter: function(results) {
-      // `results` format is available here
-      // http://eslint.org/docs/developer-guide/nodejs-api.html#executeonfiles()
+          // custom formatter
+          formatter: function(results) {
+            // `results` format is available here
+            // http://eslint.org/docs/developer-guide/nodejs-api.html#executeonfiles()
 
-      // you should return a string
-      // DO NOT USE console.*() directly !
-      return "OUTPUT"
-    }
-  }
+            // you should return a string
+            // DO NOT USE console.*() directly !
+            return "OUTPUT"
+          }
+        }
+      },
+    ],
+  },
 }
 ```
 
@@ -173,11 +157,17 @@ Loader will always return errors if this option is set to `true`.
 module.exports = {
   entry: "...",
   module: {
-    // ...
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: "eslint-loader",
+        options: {
+          emitError: true,
+        }
+      },
+    ],
   },
-  eslint: {
-    emitError: true
-  }
 }
 ```
 
@@ -193,11 +183,17 @@ Loader will process and report errors only and ignore warnings if this option is
 module.exports = {
   entry: "...",
   module: {
-    // ...
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: "eslint-loader",
+        options: {
+          quiet: true,
+        }
+      },
+    ],
   },
-  eslint: {
-    quiet: true
-  }
 }
 ```
 
@@ -209,11 +205,17 @@ Loader will cause the module build to fail if there are any eslint warnings.
 module.exports = {
   entry: "...",
   module: {
-    // ...
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: "eslint-loader",
+        options: {
+          failOnWarning: true,
+        }
+      },
+    ],
   },
-  eslint: {
-    failOnWarning: true
-  }
 }
 ```
 
@@ -225,11 +227,17 @@ Loader will cause the module build to fail if there are any eslint errors.
 module.exports = {
   entry: "...",
   module: {
-    // ...
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: "eslint-loader",
+        options: {
+          failOnError: true,
+        }
+      },
+    ],
   },
-  eslint: {
-    failOnError: true
-  }
 }
 ```
 
@@ -243,14 +251,20 @@ You can pass in a different formatter for the output file, if none is passed in 
 module.exports = {
   entry: "...",
   module: {
-    // ...
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: "eslint-loader",
+        options: {
+          outputReport: {
+            filePath: 'checkstyle.xml',
+            formatter: require('eslint/lib/formatters/checkstyle')
+          }
+        }
+      },
+    ],
   },
-  eslint: {
-    outputReport: {
-      filePath: 'checkstyle.xml',
-      formatter: require('eslint/lib/formatters/checkstyle')
-    }
-  }
 }
 ```
 
@@ -268,10 +282,11 @@ remove `NoErrorsPlugin` from webpack config.
 ### Defining `configFile` or using `eslint -c path/.eslintrc`
 
 Bear in mind that when you define `configFile`, `eslint` doesn't automatically look for
-`.eslintrc` files in the directory of the file to be linted. More information is available
-in official eslint documentation in section [_Using Configuration Files_](http://eslint.org/docs/user-guide/configuring#using-configuration-files).
+`.eslintrc` files in the directory of the file to be linted.
+More information is available in official eslint documentation in section [_Using Configuration Files_](http://eslint.org/docs/user-guide/configuring#using-configuration-files).
+See [#129](https://github.com/MoOx/eslint-loader/issues/129).
 
-Related issues: [#129](https://github.com/MoOx/eslint-loader/issues/129).
+---
 
 ## [Changelog](CHANGELOG.md)
 
