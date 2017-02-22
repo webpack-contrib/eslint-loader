@@ -1,3 +1,10 @@
+# 1.6.2 - 2017-02-22
+
+- Fixed: fallback to OS temp directory if findCacheDir fails
+  ([#154](https://github.com/MoOx/eslint-loader/pull/154) - @viankakrisna)
+- Fixed: `loader-utils` deprecation warning by upgrading to v1.0.0
+  ([#155](https://github.com/MoOx/eslint-loader/pull/155) - @fknussel)
+
 # 1.6.1 - 2016-11-02
 
 - Fixed: multiples config per instance are now supported
