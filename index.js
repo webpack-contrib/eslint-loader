@@ -8,6 +8,7 @@ var objectHash = require("object-hash")
 var os = require("os")
 
 var engines = {}
+var rules = {}
 var cache = null
 var cachePath = null
 
@@ -29,25 +30,39 @@ function lint(input, config, webpack) {
     resourcePath = resourcePath.substr(cwd.length + 1)
   }
 
+  // get engine
+  var configHash = objectHash(config)
+  var engine = engines[configHash]
+  var rulesHash = rules[configHash]
+
   var res
   // If cache is enable and the data are the same as in the cache, just
   // use them
   if (config.cache) {
+    // just get rules hash once per engine for performance reasons
+    if (!rulesHash) {
+      rulesHash = objectHash(engine.getConfigForFile(resourcePath))
+      rules[configHash] = rulesHash
+    }
     var inputMD5 = crypto.createHash("md5").update(input).digest("hex")
-    if (cache[resourcePath] && cache[resourcePath].hash === inputMD5) {
+    if (
+      cache[resourcePath] &&
+      cache[resourcePath].hash === inputMD5 &&
+      cache[resourcePath].rules === rulesHash
+    ) {
       res = cache[resourcePath].res
     }
   }
 
   // Re-lint the text if the cache off or miss
   if (!res) {
-    var configHash = objectHash(config)
-    res = engines[configHash].executeOnText(input, resourcePath, true)
+    res = engine.executeOnText(input, resourcePath, true)
 
     // Save new results in the cache
     if (config.cache) {
       cache[resourcePath] = {
         hash: inputMD5,
+        rules: rulesHash,
         res: res,
       }
       fs.writeFileSync(cachePath, JSON.stringify(cache))
