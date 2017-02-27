@@ -194,7 +194,10 @@ function writeCache(cache) {
   } 
   catch (e) {
     // Maybe permission denied?
-    // Don't log errors, try it again in the next lint...
+    console.log([
+      'eslint-loader is configured with cache: true', 
+      'but it could not write the file in ' + cachePath
+    ].join(' '))
   }
 }
 
