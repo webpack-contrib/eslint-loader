@@ -6,11 +6,12 @@ var fs = require("fs")
 var findCacheDir = require("find-cache-dir")
 var objectHash = require("object-hash")
 var os = require("os")
+var path = require("path")
+var mkdirp = require("mkdirp")
 
 var engines = {}
 var rules = {}
 var cache = null
-var cachePath = null
 
 /**
  * linter
@@ -65,7 +66,8 @@ function lint(input, config, webpack) {
         rules: rulesHash,
         res: res,
       }
-      fs.writeFileSync(cachePath, JSON.stringify(cache))
+      writeCache(cache) 
+      // let this function handle the writing of the cache
     }
   }
 
@@ -176,24 +178,54 @@ module.exports = function(input, map) {
   // Read the cached information only once and if enable
   if (cache === null) {
     if (config.cache) {
-      var thunk = findCacheDir({
-        name: "eslint-loader",
-        thunk: true,
-        create: true,
-      })
-      cachePath = thunk("data.json") || os.tmpdir() + "/data.json"
-      try {
-        cache = require(cachePath)
-      }
-      catch (e) {
-        cache = {}
-      }
-    }
-    else {
-      cache = false
+      cache = readCache()
     }
   }
 
   lint(input, config, this)
   this.callback(null, input, map)
+}
+
+function writeCache(cache) {
+  var cachePath = getCachePath() 
+  // here we should already get the safe path to write
+  try { // just in case
+    mkdirp.sync(path.dirname(cachePath)) // Create folders if not exists
+    fs.writeFileSync(cachePath, JSON.stringify(cache)) // Write it now
+  } 
+  catch (e) {
+    // Maybe permission denied?
+    // Don't log errors, try it again in the next lint...
+  }
+}
+
+function readCache() {
+  try { 
+    return require(getCachePath())
+  } // if we cannot read the safe path, just return {}
+  catch (e) {
+    return {}
+  }
+}
+
+function getCachePath() {
+  var cachePath
+  try { 
+    // findCacheDir could throw an error
+    var thunk = findCacheDir({
+      name: "eslint-loader",
+      thunk: true,
+      create: true,
+    })
+    cachePath = thunk("data.json")
+  }
+  catch (e) {
+    // Just check if cachePath is truthy for fallbacks, findCacheDir
+    // thunks could return a null value
+  }
+  if (!cachePath) {
+    cachePath = path.join(os.tmpdir(), "eslint-loader", "cache.json")
+    // tmpdir should be safe enough to write
+  }
+  return cachePath
 }
