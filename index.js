@@ -190,7 +190,6 @@ function writeCache(cache) {
   var cachePath = getCachePath() 
   // here we should already get the safe path to write
   try { // just in case
-    mkdirp.sync(path.dirname(cachePath)) // Create folders if not exists
     fs.writeFileSync(cachePath, JSON.stringify(cache)) // Write it now
   } 
   catch (e) {
@@ -225,7 +224,8 @@ function getCachePath() {
   }
   if (!cachePath) {
     cachePath = path.join(os.tmpdir(), "eslint-loader", "cache.json")
-    // tmpdir should be safe enough to write
+    mkdirp.sync(path.dirname(cachePath)) // Create folders if not exists
   }
+  // cachePath should be safe enough now to write
   return cachePath
 }
