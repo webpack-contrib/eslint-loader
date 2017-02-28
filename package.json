@@ -20,9 +20,11 @@
   },
   "dependencies": {
     "find-cache-dir": "^0.1.1",
+    "loader-fs-cache": "^1.0.0",
     "loader-utils": "^1.0.2",
     "object-assign": "^4.0.1",
-    "object-hash": "^1.1.4"
+    "object-hash": "^1.1.4",
+    "rimraf": "^2.6.1"
   },
   "devDependencies": {
     "ava": "^0.17.0",
