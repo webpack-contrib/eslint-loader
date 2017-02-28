@@ -102,6 +102,11 @@ test.cb("should read from cache directory if cached file exists", function(t) {
       if (err) {
         throw err
       }
+      fs.readdir(cacheDirectory, (err, files) => {
+        t.is(err, null)
+        t.true(files.length === 1)
+        t.end()
+      })
     }
   )
 })
@@ -120,6 +125,11 @@ test.cb("should have one file per module", function(t) {
       if (err) {
         throw err
       }
+      fs.readdir(cacheDirectory, (err, files) => {
+        t.is(err, null)
+        t.true(files.length === 1)
+        t.end()
+      })
     }
   )
 })
@@ -138,6 +148,11 @@ test.cb("should generate a new file if the identifier changes", function(t) {
       if (err) {
         throw err
       }
+      fs.readdir(cacheDirectory, (err, files) => {
+        t.is(err, null)
+        t.true(files.length === 1)
+        t.end()
+      })
     }
   )
 })
@@ -156,6 +171,11 @@ test.cb("should allow to specify the .babelrc file", function(t) {
       if (err) {
         throw err
       }
+      fs.readdir(cacheDirectory, (err, files) => {
+        t.is(err, null)
+        t.true(files.length === 1)
+        t.end()
+      })
     }
   )
 })
@@ -174,6 +194,11 @@ test.cb("can cache results", function(t) {
       if (err) {
         throw err
       }
+      fs.readdir(cacheDirectory, (err, files) => {
+        t.is(err, null)
+        t.true(files.length === 1)
+        t.end()
+      })
     }
   )
 })
