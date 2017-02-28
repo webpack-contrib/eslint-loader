@@ -66,7 +66,7 @@ function lint(input, config, webpack) {
         rules: rulesHash,
         res: res,
       }
-      writeCache(cache) 
+      writeCache(cache, config.quiet ? false : webpack.emitWarning) 
       // let this function handle the writing of the cache
     }
   }
@@ -186,7 +186,7 @@ module.exports = function(input, map) {
   this.callback(null, input, map)
 }
 
-function writeCache(cache) {
+function writeCache(cache, emitter) {
   var cachePath = getCachePath() 
   // here we should already get the safe path to write
   try { // just in case
@@ -194,10 +194,12 @@ function writeCache(cache) {
   } 
   catch (e) {
     // Maybe permission denied?
-    console.log([
-      'eslint-loader is configured with cache: true', 
-      'but it could not write the file in ' + cachePath
-    ].join(' '))
+    if (emitter) {
+      emitter([
+        "eslint-loader is configured with cache: true", 
+        "but it could not write the file in " + cachePath,
+      ].join(" "))
+    }
   }
 }
 
