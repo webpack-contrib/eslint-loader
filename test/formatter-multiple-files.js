@@ -50,7 +50,7 @@ function(t) {
           "File '" + filename + "' Contents should equal output")
       }
       catch (e) {
-        t.fail("Expected file '" + filename + "' to have been created")
+        t.fail("Expected file '" + filename + "' to have been created:" + e)
       }
     }
 
