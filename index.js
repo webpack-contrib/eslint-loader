@@ -102,7 +102,7 @@ function lint(input, config, webpack) {
       })
       var messages = config.formatter(res.results)
 
-      if (config.outputReport) {
+      if (config.outputReport && config.outputReport.filePath) {
         var reportOutput
         // if a different formatter is passed in as an option use that
         if (config.outputReport.formatter) {
