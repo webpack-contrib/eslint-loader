@@ -14,6 +14,8 @@ function(t) {
   var config = conf(
     {
       entry: [
+        "./test/fixtures/error-multi-two.js",
+        "./test/fixtures/error-multi-one.js",
         "./test/fixtures/error-multi.js",
       ],
     },
@@ -40,13 +42,10 @@ function(t) {
 
       try {
         var contents = fs.readFileSync(filename, "utf8")
-        var statsend = stats.compilation.errors.length - 1
 
         t.pass("File '" + filename + "' has been created")
 
-        /* With require() loading the compilation messages seem to push in
-         * reverse. */
-        t.is(stats.compilation.errors[statsend - i].message, contents,
+        t.is(stats.compilation.errors[i].message, contents,
           "File '" + filename + "' Contents should equal output")
       }
       catch (e) {
