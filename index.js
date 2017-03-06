@@ -167,7 +167,7 @@ module.exports = function(input, map) {
     )
   }
   printLinterOutput(lint(engine, input, resourcePath), config, this)
-  this.callback(input, map)
+  this.callback(null, input, map)
 }
 
 function lint(engine, input, resourcePath) {
