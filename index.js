@@ -120,7 +120,7 @@ module.exports = function(input, map) {
     loaderUtils.getOptions(this)
   )
 
-  var cacheDirectory = config.cacheDirectory
+  var cacheDirectory = config.cache
   var cacheIdentifier = config.cacheIdentifier
 
   delete config.cacheDirectory

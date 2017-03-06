@@ -1,209 +1,287 @@
 var test = require("ava")
-var webpack = require("webpack")
-var conf = require("./utils/conf")
 var fs = require("fs")
+var path = require("path")
+var assign = require("object-assign")
 var rimraf = require("rimraf")
+var webpack = require("webpack")
 
-var cacheDirectory = "./node_modules/.cache/eslint-loader/"
+var defaultCacheDir = path.join(
+  __dirname, 
+  "../node_modules/.cache/eslint-loader"
+)
+var cacheDir = path.join(__dirname, "output/cache/cachefiles")
+var outputDir = path.join(__dirname, "output/cache")
+var eslintLoader = path.join(__dirname, "../index")
 
-test.cb("should output files to cache directory", function(t) {
-  t.plan(2)
-  webpack(
-    conf(
+var globalConfig = {
+  entry: path.join(__dirname, "fixtures/cache.js"),
+  module: {
+    loaders: [
       {
-        entry: "./test/fixtures/cache.js",
+        test: /\.js$/,
+        loader: eslintLoader,
+        exclude: /node_modules/,
       },
-      {
-        cache: true,
-      }
-    ),
-    function(err) {
-      if (err) {
-        throw err
-      }
-      fs.readdir(cacheDirectory, (err, files) => {
-        //eslint-disable-next-line
-        console.log(files);
-        t.is(err, null)
-        t.true(files.length === 1)
-        t.end()
-      })
-    }
-  )
+    ],
+  },
+}
+
+// Create a separate directory for each test so that the tests
+// can run in parallel
+
+test.cb.beforeEach((t) => {
+  createTestDirectory(outputDir, t.title, (err, directory) => {
+    if (err) return t.end(err)
+    t.context.directory = directory
+    t.end()
+  })
+})
+test.cb.beforeEach((t) => {
+  createTestDirectory(cacheDir, t.title, (err, directory) => {
+    if (err) return t.end(err)
+    t.context.cache = directory
+    t.end()
+  })
+})
+test.cb.beforeEach((t) => rimraf(defaultCacheDir, t.end))
+test.cb.afterEach((t) => rimraf(t.context.directory, t.end))
+test.cb.afterEach((t) => rimraf(t.context.cache, t.end))
+
+test.cb("should output files to cache directory", (t) => {
+  var config = assign({}, globalConfig, {
+    output: {
+      path: t.context.directory,
+    },
+    module: {
+      loaders: [
+        {
+          test: /\.js$/,
+          loader: eslintLoader,
+          exclude: /node_modules/,
+          query: {
+            cache: t.context.cache,
+          },
+        },
+      ],
+    },
+  })
+
+  webpack(config, (err) => {
+    t.is(err, null)
+
+    fs.readdir(t.context.cache, (err, files) => {
+      // console.log("CACHE SETTING:", t.context.cache)
+      t.is(err, null)
+      t.true(files.length > 0)
+      t.end()
+    })
+  })
 })
 
-test.cb(
-  "should output json.gz files to standard cache dir by default",
-  function(t) {
-    t.plan(2)
-    webpack(
-      conf(
+test.cb.serial("should output json.gz files to standard cache dir by default", 
+(t) => {
+  var config = assign({}, globalConfig, {
+    output: {
+      path: t.context.directory,
+    },
+    module: {
+      loaders: [
         {
-          entry: "./test/fixtures/cache.js",
+          test: /\.jsx?/,
+          loader: eslintLoader,
+          exclude: /node_modules/,
+          query: {
+            cache: true,
+          },
         },
+      ],
+    },
+  })
+
+  webpack(config, (err) => {
+    t.is(err, null)
+
+    fs.readdir(defaultCacheDir, (err, files) => {
+      // console.log("CACHE SETTING:", t.context.cache)
+      files = files.filter((file) => /\b[0-9a-f]{5,40}\.json\.gz\b/.test(file))
+      t.is(err, null)
+      t.true(files.length > 0)
+      t.end()
+    })
+  })
+})
+
+test.cb.serial(
+"should output files to standard cache dir if set to true in query", 
+(t) => {
+  var config = assign({}, globalConfig, {
+    output: {
+      path: t.context.directory,
+    },
+    module: {
+      loaders: [
         {
-          cache: true,
-        }
-      ),
-      function(err) {
-        if (err) {
-          throw err
-        }
-        fs.readdir(cacheDirectory, (err, files) => {
+          test: /\.jsx?/,
+          loader: `${eslintLoader}?cache=true`,
+          exclude: /node_modules/,
+        },
+      ],
+    },
+  })
+
+  webpack(config, (err) => {
+    t.is(err, null)
+
+    fs.readdir(defaultCacheDir, (err, files) => {
+      // console.log("CACHE SETTING:", t.context.cache)
+      files = files.filter((file) => /\b[0-9a-f]{5,40}\.json\.gz\b/.test(file))
+
+      t.is(err, null)
+      t.true(files.length > 0)
+      t.end()
+    })
+  })
+})
+
+test.cb.serial("should read from cache directory if cached file exists", 
+(t) => {
+  var config = assign({}, globalConfig, {
+    output: {
+      path: t.context.directory,
+    },
+    module: {
+      loaders: [
+        {
+          test: /\.jsx?/,
+          loader: eslintLoader,
+          exclude: /node_modules/,
+          query: {
+            cache: t.context.cache,
+          },
+        },
+      ],
+    },
+  })
+
+  // @TODO Find a way to know if the file as correctly read without relying on
+  // Istanbul for coverage.
+  webpack(config, (err) => {
+    t.is(err, null)
+
+    webpack(config, (err) => {
+      t.is(err, null)
+      fs.readdir(t.context.cache, (err, files) => {
+        t.is(err, null)
+        t.true(files.length > 0)
+        t.end()
+      })
+    })
+  })
+
+})
+
+test.cb.serial("should have one file per module", (t) => {
+  var config = assign({}, globalConfig, {
+    output: {
+      path: t.context.directory,
+    },
+    module: {
+      loaders: [
+        {
+          test: /\.jsx?/,
+          loader: eslintLoader,
+          exclude: /node_modules/,
+          query: {
+            cache: t.context.cache,
+          },
+        },
+      ],
+    },
+  })
+
+  webpack(config, (err) => {
+    t.is(err, null)
+
+    fs.readdir(t.context.cache, (err, files) => {
+      // console.log("CACHE SETTING:", t.context.cache)
+      t.is(err, null)
+      t.true(files.length === 3)
+      t.end()
+    })
+  })
+})
+
+test.cb.serial("should generate a new file if the identifier changes", (t) => {
+  var configs = [
+    assign({}, globalConfig, {
+      output: {
+        path: t.context.directory,
+      },
+      module: {
+        loaders: [
+          {
+            test: /\.jsx?/,
+            loader: eslintLoader,
+            exclude: /node_modules/,
+            query: {
+              cache: t.context.cache,
+              cacheIdentifier: "a",
+            },
+          },
+        ],
+      },
+    }),
+    assign({}, globalConfig, {
+      output: {
+        path: t.context.directory,
+      },
+      module: {
+        loaders: [
+          {
+            test: /\.jsx?/,
+            loader: eslintLoader,
+            exclude: /node_modules/,
+            query: {
+              cache: t.context.cache,
+              cacheIdentifier: "b",
+            },
+          },
+        ],
+      },
+    }),
+  ]
+  let counter = configs.length
+
+  configs.forEach((config) => {
+    webpack(config, (err) => {
+      t.is(err, null)
+      counter -= 1
+
+      if (!counter) {
+        fs.readdir(t.context.cache, (err, files) => {
+          if (err) {
+            // console.log(err)
+          }
           t.is(err, null)
-          t.true(
-            files.filter(file => file.endsWith(".json.gz")).length ===
-              files.length
-          )
+          t.true(files.length === 6)
           t.end()
         })
       }
-    )
-  }
-)
-test.cb(
-  "should output files to standard cache dir if set to true in query",
-  function(t) {
-    t.plan(2)
-    webpack(
-      conf(
-        {
-          entry: "./test/fixtures/cache.js",
-        },
-        {
-          cache: true,
-        }
-      ),
-      function(err) {
-        if (err) {
-          throw err
-        }
-        fs.readdir(cacheDirectory, (err, files) => {
-          t.is(err, null)
-          t.true(files.length === 1)
-          t.end()
-        })
-      }
-    )
-  }
-)
-test.cb("should read from cache directory if cached file exists", function(t) {
-  t.plan(2)
-  webpack(
-    conf(
-      {
-        entry: "./test/fixtures/cache.js",
-      },
-      {
-        cache: true,
-      }
-    ),
-    function(err) {
-      if (err) {
-        throw err
-      }
-      fs.readdir(cacheDirectory, (err, files) => {
-        t.is(err, null)
-        t.true(files.length === 1)
-        t.end()
-      })
-    }
-  )
-})
-test.cb("should have one file per module", function(t) {
-  t.plan(2)
-  webpack(
-    conf(
-      {
-        entry: "./test/fixtures/cache.js",
-      },
-      {
-        cache: true,
-      }
-    ),
-    function(err) {
-      if (err) {
-        throw err
-      }
-      fs.readdir(cacheDirectory, (err, files) => {
-        t.is(err, null)
-        t.true(files.length === 1)
-        t.end()
-      })
-    }
-  )
-})
-test.cb("should generate a new file if the identifier changes", function(t) {
-  t.plan(2)
-  webpack(
-    conf(
-      {
-        entry: "./test/fixtures/cache.js",
-      },
-      {
-        cache: true,
-      }
-    ),
-    function(err) {
-      if (err) {
-        throw err
-      }
-      fs.readdir(cacheDirectory, (err, files) => {
-        t.is(err, null)
-        t.true(files.length === 1)
-        t.end()
-      })
-    }
-  )
-})
-test.cb("should allow to specify the .babelrc file", function(t) {
-  t.plan(2)
-  webpack(
-    conf(
-      {
-        entry: "./test/fixtures/cache.js",
-      },
-      {
-        cache: true,
-      }
-    ),
-    function(err) {
-      if (err) {
-        throw err
-      }
-      fs.readdir(cacheDirectory, (err, files) => {
-        t.is(err, null)
-        t.true(files.length === 1)
-        t.end()
-      })
-    }
-  )
-})
-test.cb("can cache results", function(t) {
-  t.plan(2)
-  webpack(
-    conf(
-      {
-        entry: "./test/fixtures/cache.js",
-      },
-      {
-        cache: true,
-      }
-    ),
-    function(err) {
-      if (err) {
-        throw err
-      }
-      fs.readdir(cacheDirectory, (err, files) => {
-        t.is(err, null)
-        t.true(files.length === 1)
-        t.end()
-      })
-    }
-  )
+    })
+  })
+
 })
 
-// delete the cache file once tests have completed
-test.after.always("teardown", function() {
-  rimraf.sync(cacheDirectory)
-})
+var mkdirp = require("mkdirp")
+function createTestDirectory(baseDirectory, testTitle, cb) {
+  const directory = path.join(baseDirectory, escapeDirectory(testTitle))
+
+  rimraf(directory, (err) => {
+    if (err) return cb(err)
+    mkdirp(directory, (mkdirErr) => cb(mkdirErr, directory))
+  })
+}
+
+function escapeDirectory(directory) {
+  return directory.replace(/[\/?<>\\:*|"\s]/g, "_")
+}
