@@ -273,7 +273,7 @@ module.exports = {
 
 ### NoErrorsPlugin
 
-`NoErrorsPlugin` prevents Webpack from outputting anything into a bundle. So even ESLint warnings
+`NoErrorsPlugin` prevents webpack from outputting anything into a bundle. So even ESLint warnings
 will fail the build. No matter what error settings are used for `eslint-loader`.
 
 So if you want to see ESLint warnings in console during development using `WebpackDevServer`
