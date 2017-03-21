@@ -176,12 +176,17 @@ module.exports = function(input, map) {
   // Read the cached information only once and if enable
   if (cache === null) {
     if (config.cache) {
-      var thunk = findCacheDir({
-        name: "eslint-loader",
-        thunk: true,
-        create: true,
-      })
-      cachePath = thunk("data.json") || os.tmpdir() + "/data.json"
+      try {
+        var thunk = findCacheDir({
+          name: "eslint-loader",
+          thunk: true,
+          create: true,
+        })
+        cachePath = thunk("data.json") || os.tmpdir() + "/data.json"
+      }
+      catch (e) {
+        cachePath = os.tmpdir() + "/data.json"
+      }
       try {
         cache = require(cachePath)
       }
