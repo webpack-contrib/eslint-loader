@@ -2,6 +2,7 @@
 var test = require("ava")
 var webpack = require("webpack")
 var conf = require("./utils/conf")
+var webpackWeirdPrefix = require("./utils/weird-prefix.js")
 var fs = require("fs")
 
 test.cb("eslint-loader can be configured to write eslint results to a file",
@@ -43,8 +44,11 @@ function(t) {
         else {
           t.pass("File has been created")
 
-          t.is(stats.compilation.errors[0].message, contents,
-            "File Contents should equal output")
+          t.is(
+            stats.compilation.errors[0].message,
+            webpackWeirdPrefix + contents,
+            "File Contents should equal output"
+          )
         }
 
         t.end()

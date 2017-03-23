@@ -1,9 +1,11 @@
+var path = require("path")
+
 var webpack = require("webpack")
 var assign = require("object-assign")
 
 var DEFAULT_CONFIG = {
   output: {
-    path: "./test/output/",
+    path: path.join(__dirname, "..", "output") + path.sep,
     filename: "bundle.js",
   },
   module: {

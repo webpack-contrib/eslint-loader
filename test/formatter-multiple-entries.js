@@ -1,6 +1,7 @@
 var test = require("ava")
 var webpack = require("webpack")
 var conf = require("./utils/conf")
+var webpackWeirdPrefix = require("./utils/weird-prefix.js")
 var fs = require("fs")
 
 test.cb("eslint-loader can be configured to write multiple eslint result files",
@@ -44,9 +45,11 @@ function(t) {
         var contents = fs.readFileSync(filename, "utf8")
 
         t.pass("File '" + filename + "' has been created")
-
-        t.is(stats.compilation.errors[i].message, contents,
-          "File '" + filename + "' Contents should equal output")
+        t.is(
+          stats.compilation.errors[i].message,
+          webpackWeirdPrefix + contents,
+          "File '" + filename + "' Contents should equal output"
+        )
       }
       catch (e) {
         t.fail("Expected file '" + filename + "' to have been created:" + e)
