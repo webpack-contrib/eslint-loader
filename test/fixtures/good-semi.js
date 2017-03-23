@@ -1,7 +1,7 @@
-"use strict";
+"use strict"
 
 function test() {
-  return "value";
+  return "value"
 }
 
-test();
+test()
