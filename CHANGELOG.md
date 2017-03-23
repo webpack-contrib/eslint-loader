@@ -1,3 +1,10 @@
+# 1.7.0 - 2017-03-23
+
+- Fixed: outputReport option writes report for last file checked only
+  ([#160](https://github.com/MoOx/eslint-loader/pull/160) - @deryni)
+- Added: use babel loader fs cache as the default caching engine
+  ([#159](https://github.com/MoOx/eslint-loader/pull/159) - @viankakrisna)
+
 # 1.6.3 - 2017-02-22
 
 - Fixed: ignore cache when eslint rules have changed
