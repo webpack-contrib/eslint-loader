@@ -1,6 +1,7 @@
 var path = require("path")
 
 var webpack = require("webpack")
+var webpackVersion = require("./version.js")
 var assign = require("object-assign")
 
 var DEFAULT_CONFIG = {
@@ -40,7 +41,7 @@ module.exports = function conf(webpackConf, loaderConf) {
   // config object
   // webpack v2 requires them to be added via the LoaderOptionsPlugin
   return assign(DEFAULT_CONFIG, webpackConf,
-    process.env.WEBPACK_VERSION === "1" ?
+    webpackVersion === "1" ?
       loaderConf : {
         plugins: [
           new webpack.LoaderOptionsPlugin({
