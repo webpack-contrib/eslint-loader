@@ -102,7 +102,7 @@ function lint(input, config, webpack) {
       })
       var messages = config.formatter(res.results)
 
-      if (config.outputReport) {
+      if (config.outputReport && config.outputReport.filePath) {
         var reportOutput
         // if a different formatter is passed in as an option use that
         if (config.outputReport.formatter) {
@@ -111,7 +111,14 @@ function lint(input, config, webpack) {
         else {
           reportOutput = messages
         }
-        webpack.emitFile(config.outputReport.filePath, reportOutput)
+        var filePath = loaderUtils.interpolateName(webpack,
+            config.outputReport.filePath, {
+              content: res.results.map(function(r) {
+                return r.source
+              }).join("\n"),
+            }
+        )
+        webpack.emitFile(filePath, reportOutput)
       }
 
       // default behavior: emit error only if we have errors
