@@ -1,17 +1,12 @@
 var test = require("ava")
 var webpack = require("webpack")
 var conf = require("./utils/conf")
-var webpackWeirdPrefix = require("./utils/weird-prefix.js")
 var fs = require("fs")
+var path = require("path")
 
 test.cb("eslint-loader can be configured to write multiple eslint result files",
 function(t) {
   var outputFilename = "outputReport-[name].txt"
-  var outputFilenamesArr = [
-    "outputReport-error-multi-two.txt",
-    "outputReport-error-multi-one.txt",
-    "outputReport-error-multi.txt",
-  ]
   var config = conf(
     {
       entry: [
@@ -30,7 +25,7 @@ function(t) {
 
   /* Plan for the success count. Failure cases are going to fail anyway so the
    * count being off for those cases doesn't matter. */
-  t.plan(outputFilenamesArr.length * 2)
+  t.plan(config.entry.length * 2)
 
   webpack(config,
   function(err, stats) {
@@ -38,23 +33,24 @@ function(t) {
       throw err
     }
 
-    for (var i = 0; i < outputFilenamesArr.length; i++) {
-      var filename = config.output.path + outputFilenamesArr[i]
+    stats.compilation.errors.forEach(function(error) {
+      var basename = path.basename(error.module.resource, ".js")
+      var filename = config.output.path + "outputReport-" + basename + ".txt"
 
       try {
         var contents = fs.readFileSync(filename, "utf8")
 
         t.pass("File '" + filename + "' has been created")
         t.is(
-          stats.compilation.errors[i].message,
-          webpackWeirdPrefix + contents,
+          error.message,
+          contents,
           "File '" + filename + "' Contents should equal output"
         )
       }
       catch (e) {
         t.fail("Expected file '" + filename + "' to have been created:" + e)
       }
-    }
+    })
 
     t.end()
   })

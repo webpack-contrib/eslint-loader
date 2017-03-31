@@ -1,3 +1,5 @@
+"use strict"
+
 var eslint = require("eslint")
 var assign = require("object-assign")
 var loaderUtils = require("loader-utils")
@@ -7,6 +9,33 @@ var createCache = require("loader-fs-cache")
 var cache = createCache("eslint-loader")
 
 var engines = {}
+
+/**
+ * Class representing an ESLintError.
+ * @extends Error
+ */
+class ESLintError extends Error {
+  /**
+   * Create an ESLintError.
+   * @param {string} messages - Formatted eslint errors.
+   */
+  constructor(messages) {
+    super()
+    this.name = "ESLintError"
+    this.message = messages
+    this.stack = ""
+  }
+
+  /**
+   * Returns a stringified representation of our error. This method is called
+   * when an error is consumed by console methods
+   * ex: console.error(new ESLintError(formattedMessage))
+   * @return {string} error - A stringified representation of the error.
+   */
+  inspect() {
+    return this.message
+  }
+}
 
 /**
  * printLinterOutput
@@ -80,17 +109,18 @@ function printLinterOutput(res, config, webpack) {
       }
 
       if (emitter) {
-        emitter(messages)
         if (config.failOnError && res.errorCount) {
-          throw new Error(
+          throw new ESLintError(
             "Module failed because of a eslint error.\n" + messages
           )
         }
         else if (config.failOnWarning && res.warningCount) {
-          throw new Error(
+          throw new ESLintError(
             "Module failed because of a eslint warning.\n" + messages
           )
         }
+
+        emitter(webpack.version === 2 ? new ESLintError(messages) : messages)
       }
       else {
         throw new Error(
