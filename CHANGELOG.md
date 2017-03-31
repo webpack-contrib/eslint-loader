@@ -1,3 +1,8 @@
+# 1.7.1 - 2017-03-31
+
+- Fixed: Remove duplicate output with webpack 2
+  ([#169](https://github.com/MoOx/eslint-loader/pull/169) - @jaridmargolin)
+
 # 1.7.0 - 2017-03-23
 
 - Fixed: outputReport option writes report for last file checked only
