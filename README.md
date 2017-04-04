@@ -100,8 +100,7 @@ some issues cannot be fixed properly.**
 This option will enable caching of the linting results into a file.
 This is particularly useful in reducing linting time when doing a full build.
 
-The cache file is written to the `./node_modules/.cache` directory, thanks to the usage
-of the [find-cache-dir](https://www.npmjs.com/package/find-cache-dir) module.
+The cache file is written to the `./node_modules/.cache` directory.
 
 #### `formatter` (default: eslint stylish formatter)
 
