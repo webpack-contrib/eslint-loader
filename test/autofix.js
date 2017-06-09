@@ -12,33 +12,33 @@ test.before(function() {
 })
 
 test.cb("loader doesn't throw error if file ok after auto-fixing",
-function(t) {
-  t.plan(2)
-  webpack(conf(
-    {
-      entry: "./test/fixtures/fixable-clone.js",
-      module: {
-        loaders: [
-          {
-            test: /\.js$/,
-            loader: "./index?fix=true",
-            exclude: /node_modules/,
-          },
-        ],
-      },
-    }
-  ),
-  function(err, stats) {
-    if (err) {
-      throw err
-    }
-    // console.log(stats.compilation.errors)
-    t.false(stats.hasErrors(), "a good file doesn't give any error")
-    // console.log(stats.compilation.warnings)
-    t.false(stats.hasWarnings(), "a good file doesn't give any warning")
-    t.end()
+  function(t) {
+    t.plan(2)
+    webpack(conf(
+      {
+        entry: "./test/fixtures/fixable-clone.js",
+        module: {
+          loaders: [
+            {
+              test: /\.js$/,
+              loader: "./index?fix=true",
+              exclude: /node_modules/,
+            },
+          ],
+        },
+      }
+    ),
+    function(err, stats) {
+      if (err) {
+        throw err
+      }
+      // console.log(stats.compilation.errors)
+      t.false(stats.hasErrors(), "a good file doesn't give any error")
+      // console.log(stats.compilation.warnings)
+      t.false(stats.hasWarnings(), "a good file doesn't give any warning")
+      t.end()
+    })
   })
-})
 
 // remove the clone
 test.after.always(function() {
