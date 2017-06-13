@@ -19,13 +19,14 @@ test.cb("eslint-loader can use another instance of eslint via " +
       throw err
     }
 
+    // console.log(stats.compilation.errors)
     t.true(
       stats.hasErrors(),
       "a file that does not contains error but mock eslint instance " +
       "returned error"
     )
     t.true(
-      stats.compilation.errors[0].message.message.indexOf("Fake error") > -1
+      stats.compilation.errors[0].message.indexOf("Fake error") > -1
     )
     t.end()
   })
