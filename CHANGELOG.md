@@ -1,3 +1,8 @@
+# 1.8.0 - 2017-06-15
+
+- Added: support for eslint@^4.0.0
+([#178](https://github.com/MoOx/eslint-loader/issues/178) - @Aladdin-ADD)
+
 # 1.7.1 - 2017-03-31
 
 - Fixed: Remove duplicate output with webpack 2
