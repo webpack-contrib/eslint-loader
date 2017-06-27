@@ -88,11 +88,11 @@ function printLinterOutput(res, config, webpack) {
           reportOutput = messages
         }
         var filePath = loaderUtils.interpolateName(webpack,
-            config.outputReport.filePath, {
-              content: res.results.map(function(r) {
-                return r.source
-              }).join("\n"),
-            }
+          config.outputReport.filePath, {
+            content: res.results.map(function(r) {
+              return r.source
+            }).join("\n"),
+          }
         )
         webpack.emitFile(filePath, reportOutput)
       }

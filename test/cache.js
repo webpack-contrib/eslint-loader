@@ -79,98 +79,31 @@ test.cb("should output files to cache directory", (t) => {
 })
 
 test.cb.serial("should output json.gz files to standard cache dir by default", 
-(t) => {
-  var config = assign({}, globalConfig, {
-    output: {
-      path: t.context.directory,
-    },
-    module: {
-      loaders: [
-        {
-          test: /\.jsx?/,
-          loader: eslintLoader,
-          exclude: /node_modules/,
-          query: {
-            cache: true,
+  (t) => {
+    var config = assign({}, globalConfig, {
+      output: {
+        path: t.context.directory,
+      },
+      module: {
+        loaders: [
+          {
+            test: /\.jsx?/,
+            loader: eslintLoader,
+            exclude: /node_modules/,
+            query: {
+              cache: true,
+            },
           },
-        },
-      ],
-    },
-  })
-
-  webpack(config, (err) => {
-    t.is(err, null)
-
-    fs.readdir(defaultCacheDir, (err, files) => {
-      // console.log("CACHE SETTING:", t.context.cache)
-      files = files.filter((file) => /\b[0-9a-f]{5,40}\.json\.gz\b/.test(file))
-      t.is(err, null)
-      t.true(files.length > 0)
-      t.end()
+        ],
+      },
     })
-  })
-})
-
-test.cb.serial(
-"should output files to standard cache dir if set to true in query", 
-(t) => {
-  var config = assign({}, globalConfig, {
-    output: {
-      path: t.context.directory,
-    },
-    module: {
-      loaders: [
-        {
-          test: /\.jsx?/,
-          loader: `${eslintLoader}?cache=true`,
-          exclude: /node_modules/,
-        },
-      ],
-    },
-  })
-
-  webpack(config, (err) => {
-    t.is(err, null)
-
-    fs.readdir(defaultCacheDir, (err, files) => {
-      // console.log("CACHE SETTING:", t.context.cache)
-      files = files.filter((file) => /\b[0-9a-f]{5,40}\.json\.gz\b/.test(file))
-
-      t.is(err, null)
-      t.true(files.length > 0)
-      t.end()
-    })
-  })
-})
-
-test.cb.serial("should read from cache directory if cached file exists", 
-(t) => {
-  var config = assign({}, globalConfig, {
-    output: {
-      path: t.context.directory,
-    },
-    module: {
-      loaders: [
-        {
-          test: /\.jsx?/,
-          loader: eslintLoader,
-          exclude: /node_modules/,
-          query: {
-            cache: t.context.cache,
-          },
-        },
-      ],
-    },
-  })
-
-  // @TODO Find a way to know if the file as correctly read without relying on
-  // Istanbul for coverage.
-  webpack(config, (err) => {
-    t.is(err, null)
 
     webpack(config, (err) => {
       t.is(err, null)
-      fs.readdir(t.context.cache, (err, files) => {
+
+      fs.readdir(defaultCacheDir, (err, files) => {
+      // console.log("CACHE SETTING:", t.context.cache)
+        files = files.filter((file) => /\b[0-9a-f]{5,40}\.json\.gz\b/.test(file))
         t.is(err, null)
         t.true(files.length > 0)
         t.end()
@@ -178,7 +111,74 @@ test.cb.serial("should read from cache directory if cached file exists",
     })
   })
 
-})
+test.cb.serial(
+  "should output files to standard cache dir if set to true in query", 
+  (t) => {
+    var config = assign({}, globalConfig, {
+      output: {
+        path: t.context.directory,
+      },
+      module: {
+        loaders: [
+          {
+            test: /\.jsx?/,
+            loader: `${eslintLoader}?cache=true`,
+            exclude: /node_modules/,
+          },
+        ],
+      },
+    })
+
+    webpack(config, (err) => {
+      t.is(err, null)
+
+      fs.readdir(defaultCacheDir, (err, files) => {
+      // console.log("CACHE SETTING:", t.context.cache)
+        files = files.filter((file) => /\b[0-9a-f]{5,40}\.json\.gz\b/.test(file))
+
+        t.is(err, null)
+        t.true(files.length > 0)
+        t.end()
+      })
+    })
+  })
+
+test.cb.serial("should read from cache directory if cached file exists", 
+  (t) => {
+    var config = assign({}, globalConfig, {
+      output: {
+        path: t.context.directory,
+      },
+      module: {
+        loaders: [
+          {
+            test: /\.jsx?/,
+            loader: eslintLoader,
+            exclude: /node_modules/,
+            query: {
+              cache: t.context.cache,
+            },
+          },
+        ],
+      },
+    })
+
+    // @TODO Find a way to know if the file as correctly read without relying on
+    // Istanbul for coverage.
+    webpack(config, (err) => {
+      t.is(err, null)
+
+      webpack(config, (err) => {
+        t.is(err, null)
+        fs.readdir(t.context.cache, (err, files) => {
+          t.is(err, null)
+          t.true(files.length > 0)
+          t.end()
+        })
+      })
+    })
+
+  })
 
 test.cb.serial("should have one file per module", (t) => {
   var config = assign({}, globalConfig, {
@@ -283,5 +283,5 @@ function createTestDirectory(baseDirectory, testTitle, cb) {
 }
 
 function escapeDirectory(directory) {
-  return directory.replace(/[\/?<>\\:*|"\s]/g, "_")
+  return directory.replace(/[/?<>\\:*|"\s]/g, "_")
 }
