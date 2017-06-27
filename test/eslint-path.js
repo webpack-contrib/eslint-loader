@@ -26,7 +26,7 @@ test.cb("eslint-loader can use another instance of eslint via " +
       "returned error"
     )
     t.true(
-      stats.compilation.errors[0].message.indexOf("Fake error") > -1
+      (stats.compilation.errors[0].message + "").indexOf("Fake error") > -1
     )
     t.end()
   })
