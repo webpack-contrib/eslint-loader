@@ -1,7 +1,12 @@
+# 1.9.0 - 2017-07-06
+
+- Added: `eslintPath` option so you can provide your own eslint path.
+  ([#183](https://github.com/MoOx/eslint-loader/pull/183) - @trungdq88)
+
 # 1.8.0 - 2017-06-15
 
 - Added: support for eslint@^4.0.0
-([#178](https://github.com/MoOx/eslint-loader/issues/178) - @Aladdin-ADD)
+  ([#178](https://github.com/MoOx/eslint-loader/issues/178) - @Aladdin-ADD)
 
 # 1.7.1 - 2017-03-31
 
