@@ -1,6 +1,5 @@
 "use strict"
 
-var eslint = require("eslint")
 var assign = require("object-assign")
 var loaderUtils = require("loader-utils")
 var objectHash = require("object-hash")
@@ -68,6 +67,7 @@ function printLinterOutput(res, config, webpack) {
 
     // if enabled, use eslint auto-fixing where possible
     if (config.fix && res.results[0].output) {
+      var eslint = require(config.eslintPath)
       eslint.CLIEngine.outputFixes(res)
     }
 
@@ -142,19 +142,25 @@ function printLinterOutput(res, config, webpack) {
  */
 module.exports = function(input, map) {
   var webpack = this
+
+  var userOptions = assign(
+    // user defaults
+    this.options.eslint || {},
+    // loader query string
+    loaderUtils.getOptions(this)
+  )
+
   var config = assign(
     // loader defaults
     {
       formatter: require("eslint/lib/formatters/stylish"),
       cacheIdentifier: JSON.stringify({
         "eslint-loader": pkg.version,
-        eslint: eslint.version,
+        eslint: require(userOptions.eslintPath || "eslint").version,
       }),
+      eslintPath: "eslint",
     },
-    // user defaults
-    this.options.eslint || {},
-    // loader query string
-    loaderUtils.getOptions(this)
+    userOptions
   )
 
   var cacheDirectory = config.cache
@@ -166,6 +172,7 @@ module.exports = function(input, map) {
   // Create the engine only once per config
   var configHash = objectHash(config)
   if (!engines[configHash]) {
+    var eslint = require(config.eslintPath)
     engines[configHash] = new eslint.CLIEngine(config)
   }
 

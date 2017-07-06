@@ -142,6 +142,28 @@ module.exports = {
 }
 ```
 
+#### `eslintPath` (default: "eslint")
+
+Path to `eslint` instance that will be used for linting.
+
+```js
+module.exports = {
+  entry: "...",
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: "eslint-loader",
+        options: {
+          eslintPath: path.join(__dirname, "reusable-eslint-rules.js"),
+        }
+      },
+    ],
+  },
+  }
+```
+
 #### Errors and Warning
 
 **By default the loader will auto adjust error reporting depending
