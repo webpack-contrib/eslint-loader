@@ -8,6 +8,12 @@
 $ npm install eslint-loader --save-dev
 ```
 
+**NOTE**: You also need to install `eslint` from npm, if you haven't already:
+
+```console
+$ npm install eslint --save-dev
+```
+
 ## Usage
 
 In your webpack configuration
