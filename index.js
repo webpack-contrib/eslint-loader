@@ -166,7 +166,6 @@ module.exports = function(input, map) {
   var cacheDirectory = config.cache
   var cacheIdentifier = config.cacheIdentifier
 
-  delete config.cacheDirectory
   delete config.cacheIdentifier
 
   // Create the engine only once per config
