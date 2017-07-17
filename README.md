@@ -106,7 +106,10 @@ some issues cannot be fixed properly.**
 This option will enable caching of the linting results into a file.
 This is particularly useful in reducing linting time when doing a full build.
 
-The cache file is written to the `./node_modules/.cache` directory.
+This can either be a `boolean` value or the cache directory path(ex: `'./.eslint-loader-cache'`).
+
+If `cache: true` is used, the cache file is written to the `./node_modules/.cache` directory.
+This is the recommended usage.
 
 #### `formatter` (default: eslint stylish formatter)
 
