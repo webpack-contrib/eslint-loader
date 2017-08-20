@@ -203,7 +203,7 @@ module.exports = {
 
 ##### `emitWarning` (default: `false`)
 
-Loader will always return warnings if option is set to `true`.
+Loader will always return warnings if option is set to `true`. If you're using hot module replacement, you may wish to enable this in development, or else updates will be skipped when there's an eslint error.
 
 #### `quiet` (default: `false`)
 
