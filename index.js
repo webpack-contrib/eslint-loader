@@ -145,9 +145,9 @@ module.exports = function(input, map) {
 
   var userOptions = assign(
     // user defaults
-    this.options.eslint || {},
+    webpack.options.eslint || {},
     // loader query string
-    loaderUtils.getOptions(this)
+    loaderUtils.getOptions(webpack)
   )
 
   var config = assign(
@@ -175,7 +175,7 @@ module.exports = function(input, map) {
     engines[configHash] = new eslint.CLIEngine(config)
   }
 
-  this.cacheable()
+  webpack.cacheable()
 
   var resourcePath = webpack.resourcePath
   var cwd = process.cwd()
@@ -189,7 +189,7 @@ module.exports = function(input, map) {
   var engine = engines[configHash]
   // return early if cached
   if (config.cache) {
-    var callback = this.async()
+    var callback = webpack.async()
     return cache(
       {
         directory: cacheDirectory,
@@ -209,8 +209,8 @@ module.exports = function(input, map) {
       }
     )
   }
-  printLinterOutput(lint(engine, input, resourcePath), config, this)
-  this.callback(null, input, map)
+  printLinterOutput(lint(engine, input, resourcePath), config, webpack)
+  webpack.callback(null, input, map)
 }
 
 function lint(engine, input, resourcePath) {
