@@ -3,7 +3,6 @@ language: node_js
 node_js:
   - 8
   - 6
-  - 4
 
 env:
   - WEBPACK_VERSION=4.0.0-beta.2
