@@ -1,8 +1,10 @@
 var path = require("path")
+var assign = require("object-assign")
 
 var webpack = require("webpack")
 var webpackVersion = require("./version.js")
-var assign = require("object-assign")
+var loaders = require("./loaders")
+var loader = require("./loader")
 
 var DEFAULT_CONFIG = {
   output: {
@@ -10,10 +12,10 @@ var DEFAULT_CONFIG = {
     filename: "bundle.js",
   },
   module: {
-    loaders: [
+    [loaders]: [
       {
         test: /\.js$/,
-        loader: "./index",
+        [loader]: "./index",
         exclude: /node_modules/,
       },
     ],
@@ -27,6 +29,7 @@ var DEFAULT_CONFIG = {
  * @returns {Object}
  */
 module.exports = function conf(webpackConf, loaderConf) {
+  var mode = webpackVersion < 4 ? {} : {mode: "development"}
 
   loaderConf = {
     eslint: assign({
@@ -40,7 +43,10 @@ module.exports = function conf(webpackConf, loaderConf) {
   // webpack v1 allows loader option to be added directly to the root webpack
   // config object
   // webpack v2 requires them to be added via the LoaderOptionsPlugin
-  return assign(DEFAULT_CONFIG, webpackConf,
+  // webpack v4 needs mode option
+  return assign(DEFAULT_CONFIG,
+    mode,
+    webpackConf,
     webpackVersion === "1" ?
       loaderConf : {
         plugins: [
@@ -51,5 +57,4 @@ module.exports = function conf(webpackConf, loaderConf) {
         ],
       }
   )
-
 }

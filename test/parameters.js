@@ -1,6 +1,8 @@
 var test = require("ava")
 var webpack = require("webpack")
 var conf = require("./utils/conf")
+var loaders = require("./utils/loaders")
+var loader = require("./utils/loader")
 
 test.cb("eslint-loader supports query strings parameters", function(t) {
   t.plan(2)
@@ -8,10 +10,10 @@ test.cb("eslint-loader supports query strings parameters", function(t) {
     {
       entry: "./test/fixtures/good-semi.js",
       module: {
-        loaders: [
+        [loaders]: [
           {
             test: /\.js$/,
-            loader: "./index?{rules:{semi:0}}",
+            [loader]: "./index?{rules:{semi:0}}",
             exclude: /node_modules/,
           },
         ],
