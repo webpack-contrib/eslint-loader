@@ -1,4 +1,4 @@
-# eslint-loader [![Build Status](http://img.shields.io/travis/MoOx/eslint-loader.svg)](https://travis-ci.org/MoOx/eslint-loader)
+# eslint-loader [![Build Status](https://travis-ci.org/webpack-contrib/eslint-loader.svg?branch=master)](https://travis-ci.org/webpack-contrib/eslint-loader)
 
 > eslint loader for webpack
 
