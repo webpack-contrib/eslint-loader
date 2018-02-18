@@ -2,8 +2,6 @@ var test = require("ava")
 var webpack = require("webpack")
 var conf = require("./utils/conf")
 var fs = require("fs")
-var loaders = require("./utils/loaders")
-var loader = require("./utils/loader")
 
 // clone the "fixable" file, so that we do not lose the original contents
 // when the fixes are applied to disk
@@ -20,10 +18,10 @@ test.cb("loader doesn't throw error if file ok after auto-fixing",
       {
         entry: "./test/fixtures/fixable-clone.js",
         module: {
-          [loaders]: [
+          rules: [
             {
               test: /\.js$/,
-              [loader]: "./index?fix=true",
+              use: "./index?fix=true",
               exclude: /node_modules/,
             },
           ],

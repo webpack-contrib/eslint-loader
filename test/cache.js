@@ -4,8 +4,6 @@ var path = require("path")
 var assign = require("object-assign")
 var rimraf = require("rimraf")
 var webpack = require("webpack")
-var loaders = require("./utils/loaders")
-var loader = require("./utils/loader")
 
 var defaultCacheDir = path.join(
   __dirname,
@@ -18,10 +16,10 @@ var eslintLoader = path.join(__dirname, "../index")
 var globalConfig = {
   entry: path.join(__dirname, "fixtures/cache.js"),
   module: {
-    [loaders]: [
+    rules: [
       {
         test: /\.js$/,
-        [loader]: eslintLoader,
+        use: eslintLoader,
         exclude: /node_modules/,
       },
     ],
@@ -55,10 +53,10 @@ test.cb("should output files to cache directory", (t) => {
       path: t.context.directory,
     },
     module: {
-      [loaders]: [
+      rules: [
         {
           test: /\.js$/,
-          [loader]: `${eslintLoader}?cache=${t.context.cache}`,
+          use: `${eslintLoader}?cache=${t.context.cache}`,
           exclude: /node_modules/,
         },
       ],
@@ -84,10 +82,10 @@ test.cb.serial("should output json.gz files to standard cache dir by default",
         path: t.context.directory,
       },
       module: {
-        [loaders]: [
+        rules: [
           {
             test: /\.jsx?/,
-            [loader]: `${eslintLoader}?cache=true`,
+            use: `${eslintLoader}?cache=true`,
             exclude: /node_modules/,
           },
         ],
@@ -115,10 +113,10 @@ test.cb.serial(
         path: t.context.directory,
       },
       module: {
-        [loaders]: [
+        rules: [
           {
             test: /\.jsx?/,
-            [loader]: `${eslintLoader}?cache=true`,
+            use: `${eslintLoader}?cache=true`,
             exclude: /node_modules/,
           },
         ],
@@ -146,10 +144,10 @@ test.cb.serial("should read from cache directory if cached file exists",
         path: t.context.directory,
       },
       module: {
-        [loaders]: [
+        rules: [
           {
             test: /\.jsx?/,
-            [loader]: `${eslintLoader}?cache=${t.context.cache}`,
+            use: `${eslintLoader}?cache=${t.context.cache}`,
             exclude: /node_modules/,
           },
         ],
@@ -179,10 +177,10 @@ test.cb.serial("should have one file per module", (t) => {
       path: t.context.directory,
     },
     module: {
-      [loaders]: [
+      rules: [
         {
           test: /\.jsx?/,
-          [loader]: `${eslintLoader}?cache=${t.context.cache}`,
+          use: `${eslintLoader}?cache=${t.context.cache}`,
           exclude: /node_modules/,
         },
       ],
@@ -208,10 +206,10 @@ test.cb.serial("should generate a new file if the identifier changes", (t) => {
         path: t.context.directory,
       },
       module: {
-        [loaders]: [
+        rules: [
           {
             test: /\.jsx?/,
-            [loader]: `${eslintLoader}?cache=${t.context.cache}&cacheIdentifier=a`,
+            use: `${eslintLoader}?cache=${t.context.cache}&cacheIdentifier=a`,
             exclude: /node_modules/,
           },
         ],
@@ -222,10 +220,10 @@ test.cb.serial("should generate a new file if the identifier changes", (t) => {
         path: t.context.directory,
       },
       module: {
-        [loaders]: [
+        rules: [
           {
             test: /\.jsx?/,
-            [loader]: `${eslintLoader}?cache=${t.context.cache}&cacheIdentifier=b`,
+            use: `${eslintLoader}?cache=${t.context.cache}&cacheIdentifier=b`,
             exclude: /node_modules/,
           },
         ],

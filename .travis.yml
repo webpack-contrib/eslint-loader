@@ -8,7 +8,6 @@ env:
   - WEBPACK_VERSION=4.0.0-beta.2
   - WEBPACK_VERSION=3
   - WEBPACK_VERSION=2
-  - WEBPACK_VERSION=1
 
 matrix:
   fast_finish: true

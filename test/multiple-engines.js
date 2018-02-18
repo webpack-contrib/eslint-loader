@@ -1,8 +1,6 @@
 var test = require("ava")
 var webpack = require("webpack")
 var conf = require("./utils/conf")
-var loaders = require("./utils/loaders")
-var loader = require("./utils/loader")
 
 test.cb("eslint-loader will create an engine for each unique config", function(t) { // eslint-disable-line max-len
   t.plan(3)
@@ -10,15 +8,15 @@ test.cb("eslint-loader will create an engine for each unique config", function(t
     {
       entry: "./test/fixtures/good.js",
       module: {
-        [loaders]: [
+        rules: [
           {
             test: /\.js$/,
-            [loader]: "./index?{rules:{quotes:[1,'single']}}",
+            use: "./index?{rules:{quotes:[1,'single']}}",
             exclude: /node_modules/,
           },
           {
             test: /\.js$/,
-            [loader]: "./index?{rules:{semi:[1,'always']}}",
+            use: "./index?{rules:{semi:[1,'always']}}",
             exclude: /node_modules/,
           },
         ],

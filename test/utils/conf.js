@@ -3,8 +3,6 @@ var assign = require("object-assign")
 
 var webpack = require("webpack")
 var webpackVersion = require("./version.js")
-var loaders = require("./loaders")
-var loader = require("./loader")
 
 var DEFAULT_CONFIG = {
   output: {
@@ -12,10 +10,10 @@ var DEFAULT_CONFIG = {
     filename: "bundle.js",
   },
   module: {
-    [loaders]: [
+    rules: [
       {
         test: /\.js$/,
-        [loader]: "./index",
+        use: "./index",
         exclude: /node_modules/,
       },
     ],
@@ -47,14 +45,13 @@ module.exports = function conf(webpackConf, loaderConf) {
   return assign(DEFAULT_CONFIG,
     mode,
     webpackConf,
-    webpackVersion === "1" ?
-      loaderConf : {
-        plugins: [
-          new webpack.LoaderOptionsPlugin({
-            exclude: /node_modules/,
-            options: loaderConf,
-          }),
-        ],
-      }
+    {
+      plugins: [
+        new webpack.LoaderOptionsPlugin({
+          exclude: /node_modules/,
+          options: loaderConf,
+        }),
+      ],
+    }
   )
 }
