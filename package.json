@@ -9,7 +9,7 @@
     "loader",
     "webpack"
   ],
-  "repository": "https://github.com/MoOx/eslint-loader.git",
+  "repository": "https://github.com/webpack-contrib/eslint-loader.git",
   "author": "Maxime Thirouin",
   "license": "MIT",
   "files": [

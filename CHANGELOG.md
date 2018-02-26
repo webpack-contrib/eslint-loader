@@ -8,78 +8,78 @@
 # 1.9.0 - 2017-07-06
 
 - Added: `eslintPath` option so you can provide your own eslint path.
-  ([#183](https://github.com/MoOx/eslint-loader/pull/183) - @trungdq88)
+  ([#183](https://github.com/webpack-contrib/eslint-loader/pull/183) - @trungdq88)
 
 # 1.8.0 - 2017-06-15
 
 - Added: support for eslint@^4.0.0
-  ([#178](https://github.com/MoOx/eslint-loader/issues/178) - @Aladdin-ADD)
+  ([#178](https://github.com/webpack-contrib/eslint-loader/issues/178) - @Aladdin-ADD)
 
 # 1.7.1 - 2017-03-31
 
 - Fixed: Remove duplicate output with webpack 2
-  ([#169](https://github.com/MoOx/eslint-loader/pull/169) - @jaridmargolin)
+  ([#169](https://github.com/webpack-contrib/eslint-loader/pull/169) - @jaridmargolin)
 
 # 1.7.0 - 2017-03-23
 
 - Fixed: outputReport option writes report for last file checked only
-  ([#160](https://github.com/MoOx/eslint-loader/pull/160) - @deryni)
+  ([#160](https://github.com/webpack-contrib/eslint-loader/pull/160) - @deryni)
 - Added: use babel loader fs cache as the default caching engine
-  ([#159](https://github.com/MoOx/eslint-loader/pull/159) - @viankakrisna)
+  ([#159](https://github.com/webpack-contrib/eslint-loader/pull/159) - @viankakrisna)
 
 # 1.6.3 - 2017-02-22
 
 - Fixed: ignore cache when eslint rules have changed
-  ([#151](https://github.com/MoOx/eslint-loader/pull/151) - @wrakky)
+  ([#151](https://github.com/webpack-contrib/eslint-loader/pull/151) - @wrakky)
 
 # 1.6.2 - 2017-02-22
 
 - Fixed: fallback to OS temp directory if findCacheDir fails
-  ([#154](https://github.com/MoOx/eslint-loader/pull/154) - @viankakrisna)
+  ([#154](https://github.com/webpack-contrib/eslint-loader/pull/154) - @viankakrisna)
 - Fixed: `loader-utils` deprecation warning by upgrading to v1.0.0
-  ([#155](https://github.com/MoOx/eslint-loader/pull/155) - @fknussel)
+  ([#155](https://github.com/webpack-contrib/eslint-loader/pull/155) - @fknussel)
 
 # 1.6.1 - 2016-11-02
 
 - Fixed: multiples config per instance are now supported
-  ([#105](https://github.com/MoOx/eslint-loader/issues/105) -
+  ([#105](https://github.com/webpack-contrib/eslint-loader/issues/105) -
   @jaythomas and @jameslnewell)
 
 # 1.6.0 - 2016-10-17
 
 - Added: Option to generate report file
-  ([#118](https://github.com/MoOx/eslint-loader/pull/118) - @vidhill)
+  ([#118](https://github.com/webpack-contrib/eslint-loader/pull/118) - @vidhill)
 
 # 1.5.0 - 2016-07-28
 
 - Added: `cache` options
-  ([#93](https://github.com/MoOx/eslint-loader/pull/93) - @genintho)
+  ([#93](https://github.com/webpack-contrib/eslint-loader/pull/93) - @genintho)
 
 # 1.4.1 - 2016-06-07
 
 - Fixed: .eslintignore is not ignored anymore (eslint 3.x regression)
-  ([#99](https://github.com/MoOx/eslint-loader/pull/99) - @waiterZen)
+  ([#99](https://github.com/webpack-contrib/eslint-loader/pull/99) - @waiterZen)
 
 # 1.4.0 - 2016-06-02
 
 - Added: support for eslint@^3.0.0
-([#96](https://github.com/MoOx/eslint-loader/issues/96))
+([#96](https://github.com/webpack-contrib/eslint-loader/issues/96))
 
 # 1.3.0 - 2016-02-17
 
 - Added: support for eslint@^2.0.0
-([#81](https://github.com/MoOx/eslint-loader/pull/81))
+([#81](https://github.com/webpack-contrib/eslint-loader/pull/81))
 
 # 1.2.1 - 2016-01-26
 
 - Updated: object-assign dependency
-([#77](https://github.com/MoOx/eslint-loader/pull/77))
+([#77](https://github.com/webpack-contrib/eslint-loader/pull/77))
 
 # 1.2.0 - 2016-01-02
 
 - Added: this loader now pass down the input source map to the next chained
 loader if it exists
-([#70](https://github.com/MoOx/eslint-loader/pull/70)).
+([#70](https://github.com/webpack-contrib/eslint-loader/pull/70)).
 
 # 1.1.1 - 2015-10-08
 
@@ -110,13 +110,13 @@ loader if it exists
 # 0.13.0 - 2015-06-14
 
 - Changed: a file that should be ignored doesn't trigger a warning
-([#44](https://github.com/MoOx/eslint-loader/issues/44))
+([#44](https://github.com/webpack-contrib/eslint-loader/issues/44))
 
 # 0.12.0 - 2015-06-04
 
 - Changed: upgrade to eslint 0.22.x
 - Fixed: respect .eslintrc/eslintignore files in directory tree
-([#21](https://github.com/MoOx/eslint-loader/issues/21))
+([#21](https://github.com/webpack-contrib/eslint-loader/issues/21))
 
 # 0.11.2 - 2015-05-11
 

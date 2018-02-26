@@ -315,7 +315,7 @@ remove `NoErrorsPlugin` from webpack config.
 Bear in mind that when you define `configFile`, `eslint` doesn't automatically look for
 `.eslintrc` files in the directory of the file to be linted.
 More information is available in official eslint documentation in section [_Using Configuration Files_](http://eslint.org/docs/user-guide/configuring#using-configuration-files).
-See [#129](https://github.com/MoOx/eslint-loader/issues/129).
+See [#129](https://github.com/webpack-contrib/eslint-loader/issues/129).
 
 ---
 
