@@ -11,7 +11,7 @@ test.cb("eslint-loader can use another instance of eslint via " +
       entry: "./test/fixtures/good.js",
     },
     {
-      eslintPath: path.join(__dirname, "mock/eslint-mock.js"),
+      eslintPath: path.join(__dirname, "mock/eslint"),
     }
   ),
   function(err, stats) {

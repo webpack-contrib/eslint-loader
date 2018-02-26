@@ -153,7 +153,8 @@ module.exports = {
 
 #### `eslintPath` (default: "eslint")
 
-Path to `eslint` instance that will be used for linting.
+Path to `eslint` instance that will be used for linting.  
+If the `eslintPath` is a folder like a official eslint, or specify a `formatter` option. now you dont have to install `eslint` . 
 
 ```js
 module.exports = {
@@ -165,7 +166,7 @@ module.exports = {
         exclude: /node_modules/,
         loader: "eslint-loader",
         options: {
-          eslintPath: path.join(__dirname, "reusable-eslint-rules.js"),
+          eslintPath: path.join(__dirname, "reusable-eslint"),
         }
       },
     ],

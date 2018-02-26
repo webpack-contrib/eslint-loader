@@ -150,13 +150,25 @@ module.exports = function(input, map) {
     loaderUtils.getOptions(webpack)
   )
 
+  var userEslintPath = userOptions.eslintPath
+  var formatter = require("eslint/lib/formatters/stylish")
+
+  if (userEslintPath) {
+    try {
+      formatter = require(userEslintPath + "/lib/formatters/stylish")
+    }
+    catch (e) {
+      formatter = require("eslint/lib/formatters/stylish")
+    }
+  }
+
   var config = assign(
     // loader defaults
     {
-      formatter: require("eslint/lib/formatters/stylish"),
+      formatter: formatter,
       cacheIdentifier: JSON.stringify({
         "eslint-loader": pkg.version,
-        eslint: require(userOptions.eslintPath || "eslint").version,
+        eslint: require(userEslintPath || "eslint").version,
       }),
       eslintPath: "eslint",
     },
