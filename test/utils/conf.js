@@ -38,8 +38,6 @@ module.exports = function conf(webpackConf, loaderConf) {
     }, loaderConf),
   }
 
-  // webpack v1 allows loader option to be added directly to the root webpack
-  // config object
   // webpack v2 requires them to be added via the LoaderOptionsPlugin
   // webpack v4 needs mode option
   return assign(DEFAULT_CONFIG,

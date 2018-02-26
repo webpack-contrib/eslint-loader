@@ -1,3 +1,10 @@
+# 2.0.0 - 2018-02-26
+
+- 🚨 Drop webpack@1.x support (by @wonism in [#212](https://github.com/webpack-contrib/eslint-loader/pull/212))
+- 🚨 Drop Node 4 supported (by @wonism in [#212](https://github.com/webpack-contrib/eslint-loader/pull/212))
+- ✨ Add webpack@4.x support (by @wonism in [#212](https://github.com/webpack-contrib/eslint-loader/pull/212))
+- 🐛 Respect `eslintPath` for formatter (by @lmnsg in [#195](https://github.com/webpack-contrib/eslint-loader/pull/195))
+
 # 1.9.0 - 2017-07-06
 
 - Added: `eslintPath` option so you can provide your own eslint path.

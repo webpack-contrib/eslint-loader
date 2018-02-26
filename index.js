@@ -120,7 +120,7 @@ function printLinterOutput(res, config, webpack) {
           )
         }
 
-        emitter(webpack.version === 2 ? new ESLintError(messages) : messages)
+        emitter(new ESLintError(messages))
       }
       else {
         throw new Error(
