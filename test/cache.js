@@ -6,7 +6,7 @@ var rimraf = require("rimraf")
 var webpack = require("webpack")
 
 var defaultCacheDir = path.join(
-  __dirname, 
+  __dirname,
   "../node_modules/.cache/eslint-loader"
 )
 var cacheDir = path.join(__dirname, "output/cache/cachefiles")
@@ -16,10 +16,10 @@ var eslintLoader = path.join(__dirname, "../index")
 var globalConfig = {
   entry: path.join(__dirname, "fixtures/cache.js"),
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
-        loader: eslintLoader,
+        use: eslintLoader,
         exclude: /node_modules/,
       },
     ],
@@ -53,14 +53,11 @@ test.cb("should output files to cache directory", (t) => {
       path: t.context.directory,
     },
     module: {
-      loaders: [
+      rules: [
         {
           test: /\.js$/,
-          loader: eslintLoader,
+          use: `${eslintLoader}?cache=${t.context.cache}`,
           exclude: /node_modules/,
-          query: {
-            cache: t.context.cache,
-          },
         },
       ],
     },
@@ -78,21 +75,18 @@ test.cb("should output files to cache directory", (t) => {
   })
 })
 
-test.cb.serial("should output json.gz files to standard cache dir by default", 
+test.cb.serial("should output json.gz files to standard cache dir by default",
   (t) => {
     var config = assign({}, globalConfig, {
       output: {
         path: t.context.directory,
       },
       module: {
-        loaders: [
+        rules: [
           {
             test: /\.jsx?/,
-            loader: eslintLoader,
+            use: `${eslintLoader}?cache=true`,
             exclude: /node_modules/,
-            query: {
-              cache: true,
-            },
           },
         ],
       },
@@ -112,17 +106,17 @@ test.cb.serial("should output json.gz files to standard cache dir by default",
   })
 
 test.cb.serial(
-  "should output files to standard cache dir if set to true in query", 
+  "should output files to standard cache dir if set to true in query",
   (t) => {
     var config = assign({}, globalConfig, {
       output: {
         path: t.context.directory,
       },
       module: {
-        loaders: [
+        rules: [
           {
             test: /\.jsx?/,
-            loader: `${eslintLoader}?cache=true`,
+            use: `${eslintLoader}?cache=true`,
             exclude: /node_modules/,
           },
         ],
@@ -143,21 +137,18 @@ test.cb.serial(
     })
   })
 
-test.cb.serial("should read from cache directory if cached file exists", 
+test.cb.serial("should read from cache directory if cached file exists",
   (t) => {
     var config = assign({}, globalConfig, {
       output: {
         path: t.context.directory,
       },
       module: {
-        loaders: [
+        rules: [
           {
             test: /\.jsx?/,
-            loader: eslintLoader,
+            use: `${eslintLoader}?cache=${t.context.cache}`,
             exclude: /node_modules/,
-            query: {
-              cache: t.context.cache,
-            },
           },
         ],
       },
@@ -186,14 +177,11 @@ test.cb.serial("should have one file per module", (t) => {
       path: t.context.directory,
     },
     module: {
-      loaders: [
+      rules: [
         {
           test: /\.jsx?/,
-          loader: eslintLoader,
+          use: `${eslintLoader}?cache=${t.context.cache}`,
           exclude: /node_modules/,
-          query: {
-            cache: t.context.cache,
-          },
         },
       ],
     },
@@ -218,15 +206,11 @@ test.cb.serial("should generate a new file if the identifier changes", (t) => {
         path: t.context.directory,
       },
       module: {
-        loaders: [
+        rules: [
           {
             test: /\.jsx?/,
-            loader: eslintLoader,
+            use: `${eslintLoader}?cache=${t.context.cache}&cacheIdentifier=a`,
             exclude: /node_modules/,
-            query: {
-              cache: t.context.cache,
-              cacheIdentifier: "a",
-            },
           },
         ],
       },
@@ -236,15 +220,11 @@ test.cb.serial("should generate a new file if the identifier changes", (t) => {
         path: t.context.directory,
       },
       module: {
-        loaders: [
+        rules: [
           {
             test: /\.jsx?/,
-            loader: eslintLoader,
+            use: `${eslintLoader}?cache=${t.context.cache}&cacheIdentifier=b`,
             exclude: /node_modules/,
-            query: {
-              cache: t.context.cache,
-              cacheIdentifier: "b",
-            },
           },
         ],
       },

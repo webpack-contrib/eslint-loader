@@ -18,10 +18,10 @@ test.cb("loader doesn't throw error if file ok after auto-fixing",
       {
         entry: "./test/fixtures/fixable-clone.js",
         module: {
-          loaders: [
+          rules: [
             {
               test: /\.js$/,
-              loader: "./index?fix=true",
+              use: "./index?fix=true",
               exclude: /node_modules/,
             },
           ],

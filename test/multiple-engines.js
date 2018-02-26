@@ -8,25 +8,15 @@ test.cb("eslint-loader will create an engine for each unique config", function(t
     {
       entry: "./test/fixtures/good.js",
       module: {
-        loaders: [
+        rules: [
           {
             test: /\.js$/,
-            loader: "./index",
-            query: {
-              rules: {
-                quotes: [1, "single"],
-              },
-            },
+            use: "./index?{rules:{quotes:[1,'single']}}",
             exclude: /node_modules/,
           },
           {
             test: /\.js$/,
-            loader: "./index",
-            query: {
-              rules: {
-                semi: [1, "always"],
-              },
-            },
+            use: "./index?{rules:{semi:[1,'always']}}",
             exclude: /node_modules/,
           },
         ],
