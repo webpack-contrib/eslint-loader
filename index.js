@@ -4,6 +4,7 @@ var assign = require("object-assign")
 var loaderUtils = require("loader-utils")
 var objectHash = require("object-hash")
 var pkg = require("./package.json")
+var path = require("path");
 var createCache = require("loader-fs-cache")
 var cache = createCache("eslint-loader")
 
@@ -34,6 +35,21 @@ class ESLintError extends Error {
   inspect() {
     return this.message
   }
+}
+
+/**
+ * Function to check if child file path is the same as a parent, or in a
+ * subdirectory of the parent.
+ * @param  {String}  child  Child file path
+ * @param  {String}  parent Parent folder path
+ * @return {Boolean}        Whether the child is or is in the parent folder
+ */
+function isInDir (child, parent) {
+  if (child === parent) {
+      return true
+  }
+  var parentTokens = parent.split(path.sep).filter(i => i.length)
+  return parentTokens.every((t, i) => child.split(path.sep)[i] === t)
 }
 
 /**
@@ -194,7 +210,7 @@ module.exports = function(input, map) {
 
   // remove cwd from resource path in case webpack has been started from project
   // root, to allow having relative paths in .eslintignore
-  if (resourcePath.indexOf(cwd) === 0) {
+  if (isInDir(resourcePath, cwd)) {
     resourcePath = resourcePath.substr(cwd.length + 1)
   }
 
