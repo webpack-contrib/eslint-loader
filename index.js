@@ -195,7 +195,7 @@ module.exports = function(input, map) {
   // remove cwd from resource path in case webpack has been started from project
   // root, to allow having relative paths in .eslintignore
   if (resourcePath.indexOf(cwd) === 0) {
-    resourcePath = resourcePath.substr(cwd.length + 1)
+    resourcePath = resourcePath.substr(cwd.length + (cwd==="/"?0:1))
   }
 
   var engine = engines[configHash]
