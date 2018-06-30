@@ -30,9 +30,9 @@ test.cb("eslint-loader can be configured to write eslint results to a file",
         console.log("### Here is a the output of the formatter")
         console.log(
           "# " +
-      stats.compilation.errors[0].message
-        .split("\n")
-        .join("\n# ")
+          stats.compilation.errors[0].error.message
+            .split("\n")
+            .join("\n# ")
         )
 
         fs.readFile(config.output.path + outputFilename,
@@ -44,7 +44,7 @@ test.cb("eslint-loader can be configured to write eslint results to a file",
               t.pass("File has been created")
 
               t.is(
-                stats.compilation.errors[0].message,
+                stats.compilation.errors[0].error.message,
                 contents,
                 "File Contents should equal output"
               )

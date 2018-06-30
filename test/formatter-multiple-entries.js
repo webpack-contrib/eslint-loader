@@ -42,7 +42,7 @@ test.cb("eslint-loader can be configured to write multiple eslint result files",
 
             t.pass("File '" + filename + "' has been created")
             t.is(
-              error.message,
+              error.error.message,
               contents,
               "File '" + filename + "' Contents should equal output"
             )
