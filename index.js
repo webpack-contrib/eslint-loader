@@ -151,7 +151,7 @@ module.exports = function(input, map) {
   )
 
   var userEslintPath = userOptions.eslintPath
-  var formatter;
+  var formatter
 
   try {
     formatter = require(userEslintPath + "/lib/formatters/stylish")
