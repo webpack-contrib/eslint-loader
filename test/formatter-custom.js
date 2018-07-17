@@ -18,13 +18,13 @@ test.cb("eslint-loader can use custom formatter", function(t) {
       throw err
     }
 
-    console.log("### Here is a example of another formatter")
-    console.log(
-      "# " +
-      stats.compilation.errors[0].message
-        .split("\n")
-        .join("\n# ")
-    )
+    // console.log("### Here is a example of another formatter")
+    // console.log(
+    //   "# " +
+    //   stats.compilation.errors[0].message
+    //     .split("\n")
+    //     .join("\n# ")
+    // )
     t.truthy(
       stats.compilation.errors[0].message,
       "webpack have some output with custom formatters"

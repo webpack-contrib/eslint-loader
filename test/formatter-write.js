@@ -27,13 +27,13 @@ test.cb("eslint-loader can be configured to write eslint results to a file",
           throw err
         }
 
-        console.log("### Here is a the output of the formatter")
-        console.log(
-          "# " +
-          stats.compilation.errors[0].error.message
-            .split("\n")
-            .join("\n# ")
-        )
+        // console.log("### Here is a the output of the formatter")
+        // console.log(
+        //   "# " +
+        //   stats.compilation.errors[0].error.message
+        //     .split("\n")
+        //     .join("\n# ")
+        // )
 
         fs.readFile(config.output.path + outputFilename,
           "utf8", function(err, contents) {
