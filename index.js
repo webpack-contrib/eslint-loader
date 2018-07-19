@@ -216,8 +216,14 @@ module.exports = function(input, map) {
         if (err) {
           return callback(err)
         }
-        printLinterOutput(res || {}, config, webpack)
-        return callback(null, input, map)
+
+        try {
+          printLinterOutput(res || {}, config, webpack)
+        }
+        catch (e) {
+          err = e
+        }
+        return callback(err, input, map)
       }
     )
   }
