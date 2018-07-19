@@ -1,3 +1,9 @@
+# 2.1.0 - 2018-07-19
+
+- [Add ESLint 5 support](https://github.com/webpack-contrib/eslint-loader/commit/1dc9442d9e2344b953ac88c5c416dcb79f3c690d) by @Alex-Sokolov
+- [Fix not returning execution flow control to webpack when cache option is enabled and one of the files has a linting error](https://github.com/webpack-contrib/eslint-loader/commit/97761d724e6fa26d8dbde4a544ddb7cb3795f568) by @nicolaslt
+- dev deps updates, prettier, eslint config [...](https://github.com/webpack-contrib/eslint-loader/compare/2.0.0...2.1.0)
+
 # 2.0.0 - 2018-02-26
 
 - 🚨 Drop webpack@1.x support (by @wonism in [#212](https://github.com/webpack-contrib/eslint-loader/pull/212))
@@ -63,23 +69,23 @@
 # 1.4.0 - 2016-06-02
 
 - Added: support for eslint@^3.0.0
-([#96](https://github.com/webpack-contrib/eslint-loader/issues/96))
+  ([#96](https://github.com/webpack-contrib/eslint-loader/issues/96))
 
 # 1.3.0 - 2016-02-17
 
 - Added: support for eslint@^2.0.0
-([#81](https://github.com/webpack-contrib/eslint-loader/pull/81))
+  ([#81](https://github.com/webpack-contrib/eslint-loader/pull/81))
 
 # 1.2.1 - 2016-01-26
 
 - Updated: object-assign dependency
-([#77](https://github.com/webpack-contrib/eslint-loader/pull/77))
+  ([#77](https://github.com/webpack-contrib/eslint-loader/pull/77))
 
 # 1.2.0 - 2016-01-02
 
 - Added: this loader now pass down the input source map to the next chained
-loader if it exists
-([#70](https://github.com/webpack-contrib/eslint-loader/pull/70)).
+  loader if it exists
+  ([#70](https://github.com/webpack-contrib/eslint-loader/pull/70)).
 
 # 1.1.1 - 2015-10-08
 
@@ -92,7 +98,7 @@ loader if it exists
 # 1.0.0 - 2015-08-08
 
 - Added: support for eslint 1.x
-- Removed: support for eslint 1.x-rc*
+- Removed: support for eslint 1.x-rc\*
 - Removed: support for eslint 0.x
 
 # 0.14.2 - 2015-07-18
@@ -110,13 +116,13 @@ loader if it exists
 # 0.13.0 - 2015-06-14
 
 - Changed: a file that should be ignored doesn't trigger a warning
-([#44](https://github.com/webpack-contrib/eslint-loader/issues/44))
+  ([#44](https://github.com/webpack-contrib/eslint-loader/issues/44))
 
 # 0.12.0 - 2015-06-04
 
 - Changed: upgrade to eslint 0.22.x
 - Fixed: respect .eslintrc/eslintignore files in directory tree
-([#21](https://github.com/webpack-contrib/eslint-loader/issues/21))
+  ([#21](https://github.com/webpack-contrib/eslint-loader/issues/21))
 
 # 0.11.2 - 2015-05-11
 
@@ -153,22 +159,21 @@ loader if it exists
 # 0.6.0 - 2015-03-11
 
 - Changed: `reporter` now automatically drop lines that contains the filename in
-the reporter output.
-That mean you can use official or community reporters without worrying to see
-lot of lines with `<text>` as filename :)
+  the reporter output.
+  That mean you can use official or community reporters without worrying to see
+  lot of lines with `<text>` as filename :)
 
 # 0.5.0 - 2015-03-11
 
 - Changed: upgrade to eslint 0.16.x
 - Changed: `emitErrors` is now `emitError`
 - Changed: loader now use `webpack.emitError` or `webpack.emitWarning`
-automatically (according to eslint configuration).
-You can still override by using `emitError` or `emitWarning` options to override
-this behavior
+  automatically (according to eslint configuration).
+  You can still override by using `emitError` or `emitWarning` options to override
+  this behavior
 - Added: `emitWarning` can force eslint to report warning instead of the default
-behavior (see above)
+  behavior (see above)
 - Added: `quiet` option to hide warnings
-
 
 # 0.4.0 - 2015-02-23
 
@@ -188,7 +193,7 @@ behavior (see above)
 
 - Changed: upgrade to eslint 0.12.x
 - Added: enable loading of eslint config from webpack config, `.eslintrc`, or
-`package.json`
+  `package.json`
 
 # 0.1.0 - 2014-12-05
 
