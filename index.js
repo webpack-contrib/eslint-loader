@@ -151,15 +151,13 @@ module.exports = function(input, map) {
   )
 
   var userEslintPath = userOptions.eslintPath
-  var formatter = require("eslint/lib/formatters/stylish")
+  var formatter
 
-  if (userEslintPath) {
-    try {
-      formatter = require(userEslintPath + "/lib/formatters/stylish")
-    }
-    catch (e) {
-      formatter = require("eslint/lib/formatters/stylish")
-    }
+  try {
+    formatter = require(userEslintPath + "/lib/formatters/stylish")
+  }
+  catch (e) {
+    formatter = require("eslint/lib/formatters/stylish")
   }
 
   var config = assign(
