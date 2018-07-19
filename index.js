@@ -3,8 +3,10 @@
 var assign = require("object-assign");
 var loaderUtils = require("loader-utils");
 var objectHash = require("object-hash");
-var pkg = require("./package.json");
 var createCache = require("loader-fs-cache");
+
+var pkg = require("./package.json");
+
 var cache = createCache("eslint-loader");
 
 var engines = {};

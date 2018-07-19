@@ -1,8 +1,10 @@
-var test = require("ava");
-var webpack = require("webpack");
-var conf = require("./utils/conf");
 var fs = require("fs");
 var path = require("path");
+
+var test = require("ava");
+var webpack = require("webpack");
+
+var conf = require("./utils/conf");
 
 test.cb(
   "eslint-loader can be configured to write multiple eslint result files",

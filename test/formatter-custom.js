@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 var test = require("ava");
 var webpack = require("webpack");
+
 var conf = require("./utils/conf");
 
 test.cb("eslint-loader can use custom formatter", function(t) {

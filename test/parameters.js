@@ -1,5 +1,6 @@
 var test = require("ava");
 var webpack = require("webpack");
+
 var conf = require("./utils/conf");
 
 test.cb("eslint-loader supports query strings parameters", function(t) {

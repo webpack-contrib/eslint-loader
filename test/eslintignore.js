@@ -1,5 +1,6 @@
 var test = require("ava");
 var webpack = require("webpack");
+
 var conf = require("./utils/conf");
 
 test.cb("eslint-loader ignores files present in .eslintignore", function(t) {

@@ -1,8 +1,10 @@
-var test = require("ava");
 var fs = require("fs");
 var path = require("path");
+
+var test = require("ava");
 var assign = require("object-assign");
 var rimraf = require("rimraf");
+var mkdirp = require("mkdirp");
 var webpack = require("webpack");
 
 var defaultCacheDir = path.join(
@@ -252,7 +254,6 @@ test.cb.serial("should generate a new file if the identifier changes", t => {
   });
 });
 
-var mkdirp = require("mkdirp");
 function createTestDirectory(baseDirectory, testTitle, cb) {
   const directory = path.join(baseDirectory, escapeDirectory(testTitle));
 

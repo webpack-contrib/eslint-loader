@@ -1,6 +1,8 @@
 var path = require("path");
+
 var test = require("ava");
 var webpack = require("webpack");
+
 var conf = require("./utils/conf");
 
 test.cb(

@@ -1,8 +1,10 @@
 /* eslint-disable no-console */
+var fs = require("fs");
+
 var test = require("ava");
 var webpack = require("webpack");
+
 var conf = require("./utils/conf");
-var fs = require("fs");
 
 test.cb(
   "eslint-loader can be configured to write eslint results to a file",
