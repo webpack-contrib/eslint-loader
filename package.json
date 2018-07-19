@@ -30,10 +30,14 @@
     "ava": "^0.17.0",
     "eslint": "^5.1.0",
     "eslint-friendly-formatter": "^2.0.4",
-    "npmpub": "^3.0.1",
+    "husky": "^0.14.3",
+    "npmpub": "^4.0.1",
+    "prettier": "^1.13.7",
+    "pretty-quick": "^1.6.0",
     "webpack": "^4.0.0"
   },
   "scripts": {
+    "precommit": "pretty-quick --staged",
     "lint": "eslint .",
     "ava": "ava",
     "test": "npm run lint && npm run ava",
