@@ -19,7 +19,7 @@ test.before(function() {
     });
 });
 
-test.cb("loader change file if there are no fixable errors/warnings", function(
+test.cb("loader shouldn't change file if there are no fixable errors/warnings", function(
   t
 ) {
   t.plan(1);
