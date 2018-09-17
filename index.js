@@ -155,22 +155,10 @@ module.exports = function(input, map) {
   );
 
   var userEslintPath = userOptions.eslintPath;
-  var formatter;
-
-  if (userEslintPath) {
-    try {
-      formatter = require(userEslintPath + "/lib/formatters/stylish");
-    } catch (e) {
-      formatter = require("eslint/lib/formatters/stylish");
-    }
-  } else {
-    formatter = require("eslint/lib/formatters/stylish");
-  }
 
   var config = assign(
     // loader defaults
     {
-      formatter: formatter,
       cacheIdentifier: JSON.stringify({
         "eslint-loader": pkg.version,
         eslint: require(userEslintPath || "eslint").version
@@ -179,6 +167,32 @@ module.exports = function(input, map) {
     },
     userOptions
   );
+
+  if (typeof config.formatter === "string") {
+    try {
+      config.formatter = require(config.formatter);
+      if (
+        config.formatter &&
+        typeof config.formatter !== "function" &&
+        typeof config.formatter.default === "function"
+      ) {
+        config.formatter = config.formatter.default;
+      }
+    } catch (_) {
+      // ignored
+    }
+  }
+  if (config.formatter == null || typeof config.formatter !== "function") {
+    if (userEslintPath) {
+      try {
+        config.formatter = require(userEslintPath + "/lib/formatters/stylish");
+      } catch (e) {
+        config.formatter = require("eslint/lib/formatters/stylish");
+      }
+    } else {
+      config.formatter = require("eslint/lib/formatters/stylish");
+    }
+  }
 
   var cacheDirectory = config.cache;
   var cacheIdentifier = config.cacheIdentifier;
