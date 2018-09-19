@@ -1,3 +1,8 @@
+# 2.1.1 - 2018-09-19
+
+- [Stop autofixing infinite loop](https://github.com/webpack-contrib/eslint-loader/commit/704024864f737a487ec0b9f9c9b00b11881f2558) by @eschablowski
+- [Allow `formatter` to receive string (path) to file exporting formatter function](https://github.com/webpack-contrib/eslint-loader/commit/7108379e2864f6ffb75cde1d147ee1fe86890ba8) by @Timer
+
 # 2.1.0 - 2018-07-19
 
 - [Add ESLint 5 support](https://github.com/webpack-contrib/eslint-loader/commit/1dc9442d9e2344b953ac88c5c416dcb79f3c690d) by @Alex-Sokolov
