@@ -4,6 +4,7 @@ var assign = require("object-assign");
 var loaderUtils = require("loader-utils");
 var objectHash = require("object-hash");
 var createCache = require("loader-fs-cache");
+var CLIEngine = require("eslint").CLIEngine;
 
 var pkg = require("./package.json");
 
@@ -70,7 +71,11 @@ function printLinterOutput(res, config, webpack) {
     }
 
     // if enabled, use eslint auto-fixing where possible
-    if (config.fix && (res.results[0].fixableErrorCount > 0 || res.results[0].fixableWarningCount)) {
+    if (
+      config.fix &&
+      (res.results[0].fixableErrorCount > 0 ||
+        res.results[0].fixableWarningCount)
+    ) {
       var eslint = require(config.eslintPath);
       eslint.CLIEngine.outputFixes(res);
     }
@@ -203,7 +208,7 @@ module.exports = function(input, map) {
   var configHash = objectHash(config);
   if (!engines[configHash]) {
     var eslint = require(config.eslintPath);
-    engines[configHash] = new eslint.CLIEngine(config);
+    engines[configHash] = new CLIEngine(eslint);
   }
 
   webpack.cacheable();
