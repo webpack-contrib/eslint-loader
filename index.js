@@ -70,7 +70,12 @@ function printLinterOutput(res, config, webpack) {
     }
 
     // if enabled, use eslint auto-fixing where possible
-    if (config.fix && (res.results[0].fixableErrorCount > 0 || res.results[0].fixableWarningCount)) {
+    if (
+      config.fix &&
+      res.results[0].output &&
+      res.results[0].errorCount === 0 &&
+      res.results[0].warningCount === 0
+    ) {
       var eslint = require(config.eslintPath);
       eslint.CLIEngine.outputFixes(res);
     }
