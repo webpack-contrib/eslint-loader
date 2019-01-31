@@ -1,5 +1,6 @@
 "use strict";
 
+//var fs = require("fs");
 var assign = require("object-assign");
 var loaderUtils = require("loader-utils");
 var objectHash = require("object-hash");
@@ -70,7 +71,12 @@ function printLinterOutput(res, config, webpack) {
     }
 
     // if enabled, use eslint auto-fixing where possible
-    if (config.fix && (res.results[0].fixableErrorCount > 0 || res.results[0].fixableWarningCount)) {
+    if (
+      config.fix &&
+      (res.results[0].output !== res.src ||
+        res.results[0].fixableErrorCount > 0 ||
+        res.results[0].fixableWarningCount > 0)
+    ) {
       var eslint = require(config.eslintPath);
       eslint.CLIEngine.outputFixes(res);
     }
@@ -237,7 +243,11 @@ module.exports = function(input, map) {
         }
 
         try {
-          printLinterOutput(res || {}, config, webpack);
+          printLinterOutput(
+            assign({}, res || {}, { src: input }),
+            config,
+            webpack
+          );
         } catch (e) {
           err = e;
         }
