@@ -1,3 +1,8 @@
+# 2.1.2 - 2019-01-31
+
+- [Fix autofix for eslint < 5](https://github.com/webpack-contrib/eslint-loader/commit/d76372676b8badf57df3d6a22be5739d19e25637) by @eschablowski
+
+
 # 2.1.1 - 2018-09-19
 
 - [Stop autofixing infinite loop](https://github.com/webpack-contrib/eslint-loader/commit/704024864f737a487ec0b9f9c9b00b11881f2558) by @eschablowski
