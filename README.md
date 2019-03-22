@@ -149,7 +149,7 @@ module.exports = {
 
 #### `eslintPath` (default: "eslint")
 
-Path to `eslint` instance that will be used for linting.  
+Path to `eslint` instance that will be used for linting.
 If the `eslintPath` is a folder like a official eslint, or specify a `formatter` option. now you dont have to install `eslint` .
 
 ```js
@@ -272,7 +272,7 @@ module.exports = {
 
 Write the output of the errors to a file, for example a checkstyle xml file for use for reporting on Jenkins CI
 
-The `filePath` is relative to the webpack config: output.path
+The `filePath` is an absolute path or relative to the webpack config: output.path
 You can pass in a different formatter for the output file, if none is passed in the default/configured formatter will be used
 
 ```js

@@ -1,6 +1,8 @@
 "use strict";
 
-//var fs = require("fs");
+var fs = require("fs");
+var path = require("path");
+
 var assign = require("object-assign");
 var loaderUtils = require("loader-utils");
 var objectHash = require("object-hash");
@@ -96,18 +98,34 @@ function printLinterOutput(res, config, webpack) {
         } else {
           reportOutput = messages;
         }
-        var filePath = loaderUtils.interpolateName(
-          webpack,
-          config.outputReport.filePath,
-          {
-            content: res.results
-              .map(function(r) {
-                return r.source;
-              })
-              .join("\n")
-          }
-        );
-        webpack.emitFile(filePath, reportOutput);
+
+        if (path.isAbsolute(config.outputReport.filePath)) {
+          fs.writeFile(config.outputReport.filePath, reportOutput, function(
+            err
+          ) {
+            if (err) {
+              throw new ESLintError(
+                "Can't save report to the file \"" +
+                  config.outputReport.filePath +
+                  '".\n' +
+                  err.message
+              );
+            }
+          });
+        } else {
+          var filePath = loaderUtils.interpolateName(
+            webpack,
+            config.outputReport.filePath,
+            {
+              content: res.results
+                .map(function(r) {
+                  return r.source;
+                })
+                .join("\n")
+            }
+          );
+          webpack.emitFile(filePath, reportOutput);
+        }
       }
 
       // default behavior: emit error only if we have errors
