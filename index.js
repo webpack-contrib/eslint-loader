@@ -162,12 +162,19 @@ module.exports = function(input, map) {
 
   var userEslintPath = userOptions.eslintPath;
 
+  var eslintPkgPath = "eslint/package.json";
+  if (userEslintPath) {
+    eslintPkgPath = userEslintPath + "/package.json";
+  }
+
+  var eslintVersion = require(eslintPkgPath).version;
+
   var config = assign(
     // loader defaults
     {
       cacheIdentifier: JSON.stringify({
         "eslint-loader": pkg.version,
-        eslint: require(userEslintPath || "eslint").version
+        eslint: eslintVersion
       }),
       eslintPath: "eslint"
     },
@@ -189,14 +196,20 @@ module.exports = function(input, map) {
     }
   }
   if (config.formatter == null || typeof config.formatter !== "function") {
+    var defaultFormatterPath = "/lib/formatters/stylish";
+
+    if (eslintVersion >= "6.0.0") {
+      defaultFormatterPath = "/lib/cli-engine/formatters/stylish";
+    }
+
     if (userEslintPath) {
       try {
-        config.formatter = require(userEslintPath + "/lib/formatters/stylish");
+        config.formatter = require(userEslintPath + defaultFormatterPath);
       } catch (e) {
-        config.formatter = require("eslint/lib/formatters/stylish");
+        config.formatter = require("eslint" + defaultFormatterPath);
       }
     } else {
-      config.formatter = require("eslint/lib/formatters/stylish");
+      config.formatter = require("eslint" + defaultFormatterPath);
     }
   }
 
