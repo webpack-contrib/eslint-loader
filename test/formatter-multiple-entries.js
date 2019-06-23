@@ -3,6 +3,7 @@ var path = require("path");
 
 var test = require("ava");
 var webpack = require("webpack");
+var eslintVersion = require("eslint/package.json").version;
 
 var conf = require("./utils/conf");
 
@@ -10,6 +11,12 @@ test.cb(
   "eslint-loader can be configured to write multiple eslint result files",
   function(t) {
     var outputFilename = "outputReport-[name].txt";
+
+    var formattersPath = "eslint/lib/formatters";
+    if (eslintVersion >= "6.0.0") {
+      formattersPath = "eslint/lib/cli-engine/formatters";
+    }
+
     var config = conf(
       {
         entry: [
@@ -19,7 +26,7 @@ test.cb(
         ]
       },
       {
-        formatter: require("eslint/lib/formatters/checkstyle"),
+        formatter: require(formattersPath + "/checkstyle"),
         outputReport: {
           filePath: outputFilename
         }
@@ -27,7 +34,7 @@ test.cb(
     );
 
     /* Plan for the success count. Failure cases are going to fail anyway so the
-   * count being off for those cases doesn't matter. */
+     * count being off for those cases doesn't matter. */
     t.plan(config.entry.length * 2);
 
     webpack(config, function(err, stats) {

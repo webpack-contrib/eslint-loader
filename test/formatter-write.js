@@ -3,6 +3,7 @@ var fs = require("fs");
 
 var test = require("ava");
 var webpack = require("webpack");
+var eslintVersion = require("eslint/package.json").version;
 
 var conf = require("./utils/conf");
 
@@ -11,13 +12,18 @@ test.cb(
   function(t) {
     t.plan(2);
 
+    var formattersPath = "eslint/lib/formatters";
+    if (eslintVersion >= "6.0.0") {
+      formattersPath = "eslint/lib/cli-engine/formatters";
+    }
+
     var outputFilename = "outputReport.txt";
     var config = conf(
       {
         entry: "./test/fixtures/error.js"
       },
       {
-        formatter: require("eslint/lib/formatters/checkstyle"),
+        formatter: require(formattersPath + "/checkstyle"),
         outputReport: {
           filePath: outputFilename
         }
