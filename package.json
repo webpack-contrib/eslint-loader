@@ -57,5 +57,8 @@
       "test/*.js"
     ],
     "verbose": true
+  },
+  "engines": {
+    "node": ">6"
   }
 }
