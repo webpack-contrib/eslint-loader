@@ -195,23 +195,6 @@ module.exports = function(input, map) {
       // ignored
     }
   }
-  if (config.formatter == null || typeof config.formatter !== "function") {
-    var defaultFormatterPath = "/lib/formatters/stylish";
-
-    if (eslintVersion >= "6.0.0") {
-      defaultFormatterPath = "/lib/cli-engine/formatters/stylish";
-    }
-
-    if (userEslintPath) {
-      try {
-        config.formatter = require(userEslintPath + defaultFormatterPath);
-      } catch (e) {
-        config.formatter = require("eslint" + defaultFormatterPath);
-      }
-    } else {
-      config.formatter = require("eslint" + defaultFormatterPath);
-    }
-  }
 
   var cacheDirectory = config.cache;
   var cacheIdentifier = config.cacheIdentifier;
@@ -220,9 +203,15 @@ module.exports = function(input, map) {
 
   // Create the engine only once per config
   var configHash = objectHash(config);
+
   if (!engines[configHash]) {
     var eslint = require(config.eslintPath);
     engines[configHash] = new eslint.CLIEngine(config);
+  }
+
+  var engine = engines[configHash];
+  if (config.formatter == null || typeof config.formatter !== "function") {
+    config.formatter = engine.getFormatter("stylish");
   }
 
   webpack.cacheable();
@@ -236,7 +225,6 @@ module.exports = function(input, map) {
     resourcePath = resourcePath.substr(cwd.length + 1);
   }
 
-  var engine = engines[configHash];
   // return early if cached
   if (config.cache) {
     var callback = webpack.async();
