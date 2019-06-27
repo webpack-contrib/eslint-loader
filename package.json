@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "ava": "^0.17.0",
-    "eslint": "5.1.0 - 6",
+    "eslint": "^6.0.1",
     "eslint-config-i-am-meticulous": "^11.0.0",
     "eslint-friendly-formatter": "^2.0.4",
     "husky": "^0.14.3",
@@ -57,8 +57,5 @@
       "test/*.js"
     ],
     "verbose": true
-  },
-  "engines": {
-    "node": ">6"
   }
 }
