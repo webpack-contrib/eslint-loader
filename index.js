@@ -210,7 +210,6 @@ module.exports = function(input, map) {
   // Create the engine only once per config
   var configHash = objectHash(config);
   if (!engines[configHash]) {
-    var eslint = require(config.eslintPath);
     engines[configHash] = new eslint.CLIEngine(config);
   }
 
