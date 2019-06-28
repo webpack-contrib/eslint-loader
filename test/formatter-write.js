@@ -3,6 +3,7 @@ var fs = require("fs");
 
 var test = require("ava");
 var webpack = require("webpack");
+var CLIEngine = require("eslint").CLIEngine;
 
 var conf = require("./utils/conf");
 
@@ -17,7 +18,7 @@ test.cb(
         entry: "./test/fixtures/error.js"
       },
       {
-        formatter: require("eslint/lib/formatters/checkstyle"),
+        formatter: CLIEngine.getFormatter("checkstyle"),
         outputReport: {
           filePath: outputFilename
         }

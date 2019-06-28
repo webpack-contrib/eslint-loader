@@ -162,12 +162,19 @@ module.exports = function(input, map) {
 
   var userEslintPath = userOptions.eslintPath;
 
+  var eslintPkgPath = "eslint/package.json";
+  if (userEslintPath) {
+    eslintPkgPath = userEslintPath + "/package.json";
+  }
+
+  var eslintVersion = require(eslintPkgPath).version;
+
   var config = assign(
     // loader defaults
     {
       cacheIdentifier: JSON.stringify({
         "eslint-loader": pkg.version,
-        eslint: require(userEslintPath || "eslint").version
+        eslint: eslintVersion
       }),
       eslintPath: "eslint"
     },
@@ -188,17 +195,6 @@ module.exports = function(input, map) {
       // ignored
     }
   }
-  if (config.formatter == null || typeof config.formatter !== "function") {
-    if (userEslintPath) {
-      try {
-        config.formatter = require(userEslintPath + "/lib/formatters/stylish");
-      } catch (e) {
-        config.formatter = require("eslint/lib/formatters/stylish");
-      }
-    } else {
-      config.formatter = require("eslint/lib/formatters/stylish");
-    }
-  }
 
   var cacheDirectory = config.cache;
   var cacheIdentifier = config.cacheIdentifier;
@@ -207,9 +203,15 @@ module.exports = function(input, map) {
 
   // Create the engine only once per config
   var configHash = objectHash(config);
+
   if (!engines[configHash]) {
     var eslint = require(config.eslintPath);
     engines[configHash] = new eslint.CLIEngine(config);
+  }
+
+  var engine = engines[configHash];
+  if (config.formatter == null || typeof config.formatter !== "function") {
+    config.formatter = engine.getFormatter("stylish");
   }
 
   webpack.cacheable();
@@ -223,7 +225,6 @@ module.exports = function(input, map) {
     resourcePath = resourcePath.substr(cwd.length + 1);
   }
 
-  var engine = engines[configHash];
   // return early if cached
   if (config.cache) {
     var callback = webpack.async();
