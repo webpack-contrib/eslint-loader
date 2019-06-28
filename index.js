@@ -189,15 +189,17 @@ module.exports = function(input, map) {
     }
   }
   if (config.formatter == null || typeof config.formatter !== "function") {
+    var eslint;
     if (userEslintPath) {
       try {
-        config.formatter = require(userEslintPath + "/lib/formatters/stylish");
+        eslint = require(userEslintPath);
       } catch (e) {
-        config.formatter = require("eslint/lib/formatters/stylish");
+        eslint = require(config.eslintPath);
       }
     } else {
-      config.formatter = require("eslint/lib/formatters/stylish");
+      eslint = require(config.eslintPath);
     }
+    config.formatter = eslint.CLIEngine.getFormatter();
   }
 
   var cacheDirectory = config.cache;
