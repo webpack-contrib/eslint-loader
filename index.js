@@ -69,7 +69,9 @@ function printLinterOutput(res, config, webpack) {
         return message.severity !== 1;
       });
     }
-
+    var eslint = require(config.eslintPath);
+    var cli = new eslint.CLIEngine();
+    config.formatter = cli.getFormatter();
     // if enabled, use eslint auto-fixing where possible
     if (
       config.fix &&
@@ -77,10 +79,8 @@ function printLinterOutput(res, config, webpack) {
         res.results[0].fixableErrorCount > 0 ||
         res.results[0].fixableWarningCount > 0)
     ) {
-      var eslint = require(config.eslintPath);
       eslint.CLIEngine.outputFixes(res);
     }
-
     if (res.errorCount || res.warningCount) {
       // add filename for each results so formatter can have relevant filename
       res.results.forEach(function(r) {
@@ -183,6 +183,7 @@ module.exports = function(input, map) {
         typeof config.formatter.default === "function"
       ) {
         config.formatter = config.formatter.default;
+        console.log("default formatter", config.formatter);
       }
     } catch (_) {
       // ignored
@@ -197,15 +198,6 @@ module.exports = function(input, map) {
   }
 
   if (config.formatter == null || typeof config.formatter !== "function") {
-    if (userEslintPath) {
-      try {
-        eslint = require(userEslintPath);
-      } catch (e) {
-        eslint = require(config.eslintPath);
-      }
-    } else {
-      eslint = require(config.eslintPath);
-    }
     config.formatter = engines[configHash].getFormatter();
   }
 

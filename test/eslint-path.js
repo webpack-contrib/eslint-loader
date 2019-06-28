@@ -22,8 +22,6 @@ test.cb(
         if (err) {
           throw err;
         }
-
-        // console.log(stats.compilation.errors)
         t.true(
           stats.hasErrors(),
           "a file that does not contains error but mock eslint instance " +
