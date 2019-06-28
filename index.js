@@ -188,8 +188,15 @@ module.exports = function(input, map) {
       // ignored
     }
   }
+  var eslintPath = userEslintPath || config.eslintPath;
+  var eslint = require(eslintPath);
+  // Create the engine only once per config
+  var configHash = objectHash(config);
+  if (!engines[configHash]) {
+    engines[configHash] = new eslint.CLIEngine(config);
+  }
+
   if (config.formatter == null || typeof config.formatter !== "function") {
-    var eslint;
     if (userEslintPath) {
       try {
         eslint = require(userEslintPath);
@@ -199,19 +206,13 @@ module.exports = function(input, map) {
     } else {
       eslint = require(config.eslintPath);
     }
-    config.formatter = eslint.CLIEngine.getFormatter();
+    config.formatter = engines[configHash].getFormatter();
   }
 
   var cacheDirectory = config.cache;
   var cacheIdentifier = config.cacheIdentifier;
 
   delete config.cacheIdentifier;
-
-  // Create the engine only once per config
-  var configHash = objectHash(config);
-  if (!engines[configHash]) {
-    engines[configHash] = new eslint.CLIEngine(config);
-  }
 
   webpack.cacheable();
 
