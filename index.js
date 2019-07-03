@@ -160,19 +160,27 @@ module.exports = function(input, map) {
     loaderUtils.getOptions(webpack)
   );
 
-  var userEslintPath = userOptions.eslintPath;
-
   var eslintPkgPath = "eslint/package.json";
-  if (userEslintPath) {
-    eslintPkgPath = userEslintPath + "/package.json";
+  var userEslintPath = eslintPkgPath;
+
+  if (userOptions.eslintPath) {
+    userEslintPath = userOptions.eslintPath + "/package.json";
   }
 
-  var eslintVersion = "unknown version";
+  var eslintVersion;
 
   try {
-    eslintVersion = require(require.resolve(eslintPkgPath)).version;
+    eslintVersion = require(require.resolve(userEslintPath)).version;
   } catch (_) {
     // ignored
+  }
+
+  if (!eslintVersion) {
+    try {
+      eslintVersion = require(require.resolve(eslintPkgPath)).version;
+    } catch (_) {
+      // ignored
+    }
   }
 
   var config = assign(
@@ -180,7 +188,7 @@ module.exports = function(input, map) {
     {
       cacheIdentifier: JSON.stringify({
         "eslint-loader": pkg.version,
-        eslint: eslintVersion
+        eslint: eslintVersion || "unknown version"
       }),
       eslintPath: "eslint"
     },
