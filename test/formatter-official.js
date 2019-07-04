@@ -4,7 +4,7 @@ var webpack = require("webpack");
 
 var conf = require("./utils/conf");
 
-test.cb("eslint-loader can use oficial formatter", function(t) {
+test.cb("eslint-loader can use official formatter", function(t) {
   t.plan(1);
   webpack(
     conf(
@@ -20,7 +20,7 @@ test.cb("eslint-loader can use oficial formatter", function(t) {
         throw err;
       }
 
-      // console.log("### Here is a example of oficial formatter")
+      // console.log("### Here is a example of official formatter")
       // console.log(
       //   "# " +
       //   stats.compilation.errors[0].message
@@ -29,7 +29,7 @@ test.cb("eslint-loader can use oficial formatter", function(t) {
       // )
       t.truthy(
         stats.compilation.errors[0].message,
-        "webpack have some output with oficial formatter"
+        "webpack have some output with official formatter"
       );
       t.end();
     }
