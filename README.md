@@ -298,7 +298,11 @@ module.exports = {
 
 ## Gotchas
 
-### NoErrorsPlugin
+### NoEmitOnErrorsPlugin for `webpack >= 4`
+
+`NoEmitOnErrorsPlugin` is now automatically enabled in webpack 4, when mode is either unset, or set to production. So even ESLint warnings will fail the build. No matter what error settings are used for `eslint-loader`, except if `emitWarning` enabled.
+
+### NoErrorsPlugin for `webpack < 4`
 
 `NoErrorsPlugin` prevents webpack from outputting anything into a bundle. So even ESLint warnings
 will fail the build. No matter what error settings are used for `eslint-loader`.
@@ -316,7 +320,9 @@ See [#129](https://github.com/webpack-contrib/eslint-loader/issues/129).
 ---
 
 ## Changelog
+
 [Changelog](CHANGELOG.md)
 
 ## License
+
 [MIT](./LICENSE)
