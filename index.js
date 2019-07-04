@@ -212,23 +212,18 @@ module.exports = function(input, map) {
       try {
         config.formatter = engines[configHash].getFormatter(config.formatter);
       } catch (_) {
-        // ignored
-      }
-    }
-
-    // Try to load external formatter
-    if (typeof config.formatter === "string") {
-      try {
-        config.formatter = require(config.formatter);
-        if (
-          config.formatter &&
-          typeof config.formatter !== "function" &&
-          typeof config.formatter.default === "function"
-        ) {
-          config.formatter = config.formatter.default;
+        try {
+          config.formatter = require(config.formatter);
+          if (
+            config.formatter &&
+            typeof config.formatter !== "function" &&
+            typeof config.formatter.default === "function"
+          ) {
+            config.formatter = config.formatter.default;
+          }
+        } catch (_) {
+          // ignored
         }
-      } catch (_) {
-        // ignored
       }
     }
 
