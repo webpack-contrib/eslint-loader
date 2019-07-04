@@ -1,3 +1,8 @@
+# 2.2.1 - 2019-07-04
+
+- Fixed: path to eslint version for cache
+  ([#282](https://github.com/webpack-contrib/eslint-loader/issues/282) - @ricardogobbosouza)
+
 # 2.2.0 - 2019-07-03
 
 - [Add ESLint 6 support](https://github.com/webpack-contrib/eslint-loader/commit/b6c3938aae61c0390ac8d941af50cf36df14cfc3) by @HDuck
