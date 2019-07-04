@@ -195,21 +195,6 @@ module.exports = function(input, map) {
     userOptions
   );
 
-  if (typeof config.formatter === "string") {
-    try {
-      config.formatter = require(config.formatter);
-      if (
-        config.formatter &&
-        typeof config.formatter !== "function" &&
-        typeof config.formatter.default === "function"
-      ) {
-        config.formatter = config.formatter.default;
-      }
-    } catch (_) {
-      // ignored
-    }
-  }
-
   var cacheDirectory = config.cache;
   var cacheIdentifier = config.cacheIdentifier;
 
@@ -221,15 +206,41 @@ module.exports = function(input, map) {
   if (!engines[configHash]) {
     var eslint = require(config.eslintPath);
     engines[configHash] = new eslint.CLIEngine(config);
-  }
 
-  var engine = engines[configHash];
-  if (config.formatter == null || typeof config.formatter !== "function") {
-    config.formatter = engine.getFormatter("stylish");
+    // Try to get oficial formatter
+    if (typeof config.formatter === "string") {
+      try {
+        config.formatter = engines[configHash].getFormatter(config.formatter);
+      } catch (_) {
+        // ignored
+      }
+    }
+
+    // Try to load external formatter
+    if (typeof config.formatter === "string") {
+      try {
+        config.formatter = require(config.formatter);
+        if (
+          config.formatter &&
+          typeof config.formatter !== "function" &&
+          typeof config.formatter.default === "function"
+        ) {
+          config.formatter = config.formatter.default;
+        }
+      } catch (_) {
+        // ignored
+      }
+    }
+
+    // Get default formatter `stylish` when not defined
+    if (config.formatter == null || typeof config.formatter !== "function") {
+      config.formatter = engines[configHash].getFormatter("stylish");
+    }
   }
 
   webpack.cacheable();
 
+  var engine = engines[configHash];
   var resourcePath = webpack.resourcePath;
   var cwd = process.cwd();
 

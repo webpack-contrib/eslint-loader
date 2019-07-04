@@ -107,11 +107,11 @@ This can either be a `boolean` value or the cache directory path(ex: `'./.eslint
 If `cache: true` is used, the cache file is written to the `./node_modules/.cache` directory.
 This is the recommended usage.
 
-#### `formatter` (default: eslint stylish formatter)
+#### `formatter` (default: "stylish")
 
 Loader accepts a function that will have one argument: an array of eslint messages (object).
 The function must return the output as a string.
-You can use official eslint formatters.
+You can use official [eslint formatters](https://eslint.org/docs/user-guide/formatters/).
 
 ```js
 module.exports = {
@@ -126,7 +126,7 @@ module.exports = {
           // several examples !
 
           // default value
-          formatter: require("eslint/lib/formatters/stylish"),
+          formatter: "stylish",
 
           // community formatter
           formatter: require("eslint-friendly-formatter"),
@@ -287,7 +287,7 @@ module.exports = {
         options: {
           outputReport: {
             filePath: "checkstyle.xml",
-            formatter: require("eslint/lib/formatters/checkstyle")
+            formatter: "checkstyle"
           }
         }
       }
@@ -316,7 +316,9 @@ See [#129](https://github.com/webpack-contrib/eslint-loader/issues/129).
 ---
 
 ## Changelog
+
 [Changelog](CHANGELOG.md)
 
 ## License
+
 [MIT](./LICENSE)
