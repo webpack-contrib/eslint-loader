@@ -286,14 +286,10 @@ module.exports = function(input, map) {
 };
 
 function lint(engine, input, resourcePath, emitter) {
-  if (!emitter) {
-    return engine.executeOnText(input, resourcePath, true);
-  }
-
   try {
     return engine.executeOnText(input, resourcePath, true);
   } catch (_) {
-    emitter(_);
+    if (emitter) emitter(_);
 
     return { src: input };
   }
