@@ -24,7 +24,7 @@ test.cb(
         t.true(stats.hasWarnings());
         t.regex(
           stats.compilation.warnings[0].message,
-          /^no eslint configuration/i
+          /no eslint configuration/i
         );
         t.end();
       }
