@@ -235,6 +235,7 @@ module.exports = function(input, map) {
 
   webpack.cacheable();
 
+  var emitter = config.emitError ? webpack.emitError : webpack.emitWarning;
   var engine = engines[configHash];
   var resourcePath = webpack.resourcePath;
   var cwd = process.cwd();
@@ -255,7 +256,7 @@ module.exports = function(input, map) {
         options: config,
         source: input,
         transform: function() {
-          return lint(engine, input, resourcePath);
+          return lint(engine, input, resourcePath, emitter);
         }
       },
       function(err, res) {
@@ -276,10 +277,24 @@ module.exports = function(input, map) {
       }
     );
   }
-  printLinterOutput(lint(engine, input, resourcePath), config, webpack);
+  printLinterOutput(
+    lint(engine, input, resourcePath, emitter),
+    config,
+    webpack
+  );
   webpack.callback(null, input, map);
 };
 
-function lint(engine, input, resourcePath) {
-  return engine.executeOnText(input, resourcePath, true);
+function lint(engine, input, resourcePath, emitter) {
+  if (!emitter) {
+    return engine.executeOnText(input, resourcePath, true);
+  }
+
+  try {
+    return engine.executeOnText(input, resourcePath, true);
+  } catch (_) {
+    emitter(_);
+
+    return { src: input };
+  }
 }
