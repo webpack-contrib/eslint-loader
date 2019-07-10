@@ -23,7 +23,7 @@ test.cb(
 
         t.true(stats.hasWarnings());
         t.regex(
-          "No ESLint configuration found in /home/ricardo/code/test/fixtures.",
+          stats.compilation.warnings[0].message,
           /^no eslint configuration/i
         );
         t.end();
