@@ -1,24 +1,23 @@
-var path = require("path");
+const path = require('path');
 
-var assign = require("object-assign");
-var webpack = require("webpack");
+const webpack = require('webpack');
 
-var webpackVersion = require("./version.js");
+const webpackVersion = require('./version');
 
-var DEFAULT_CONFIG = {
+const DEFAULT_CONFIG = {
   output: {
-    path: path.join(__dirname, "..", "output") + path.sep,
-    filename: "bundle.js"
+    path: path.join(__dirname, '..', 'output') + path.sep,
+    filename: 'bundle.js',
   },
   module: {
     rules: [
       {
         test: /\.js$/,
-        use: "./index",
-        exclude: /node_modules/
-      }
-    ]
-  }
+        use: './src/index',
+        exclude: /node_modules/,
+      },
+    ],
+  },
 };
 
 /**
@@ -28,28 +27,29 @@ var DEFAULT_CONFIG = {
  * @returns {Object}
  */
 module.exports = function conf(webpackConf, loaderConf) {
-  var mode = webpackVersion < 4 ? {} : { mode: "development" };
+  const mode = webpackVersion < 4 ? {} : { mode: 'development' };
 
-  loaderConf = {
-    eslint: assign(
-      {
-        // this disables the use of .eslintignore, since it contains the fixtures
-        // folder to skip it on the global linting, but here we want the opposite
-        // (we only use .eslintignore on the test that checks this)
-        ignore: false
-      },
-      loaderConf
-    )
+  const options = {
+    eslint: {
+      // this disables the use of .eslintignore, since it contains the fixtures
+      // folder to skip it on the global linting, but here we want the opposite
+      // (we only use .eslintignore on the test that checks this)
+      ignore: false,
+      ...loaderConf,
+    },
   };
 
   // webpack v2 requires them to be added via the LoaderOptionsPlugin
   // webpack v4 needs mode option
-  return assign(DEFAULT_CONFIG, mode, webpackConf, {
+  return {
+    ...DEFAULT_CONFIG,
+    ...mode,
+    ...webpackConf,
     plugins: [
       new webpack.LoaderOptionsPlugin({
         exclude: /node_modules/,
-        options: loaderConf
-      })
-    ]
-  });
+        options,
+      }),
+    ],
+  };
 };

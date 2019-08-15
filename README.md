@@ -1,17 +1,17 @@
 # eslint-loader [![Build Status](https://travis-ci.org/webpack-contrib/eslint-loader.svg?branch=master)](https://travis-ci.org/webpack-contrib/eslint-loader)
 
-> eslint loader for webpack
+> eslint loader module for webpack
 
 ## Install
 
-```console
-$ npm install eslint-loader --save-dev
+```bash
+npm install eslint-loader --save-dev
 ```
 
 **NOTE**: You also need to install `eslint` from npm, if you haven't already:
 
-```console
-$ npm install eslint --save-dev
+```bash
+npm install eslint --save-dev
 ```
 
 ## Usage
@@ -26,13 +26,13 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: "eslint-loader",
+        loader: 'eslint-loader',
         options: {
           // eslint options (if necessary)
-        }
-      }
-    ]
-  }
+        },
+      },
+    ],
+  },
   // ...
 };
 ```
@@ -48,15 +48,15 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: ["babel-loader", "eslint-loader"]
-      }
-    ]
-  }
+        use: ['babel-loader', 'eslint-loader'],
+      },
+    ],
+  },
   // ...
 };
 ```
 
-To be safe, you can use `enforce: "pre"` section to check source files, not modified
+To be safe, you can use `enforce: 'pre'` section to check source files, not modified
 by other loaders (like `babel-loader`)
 
 ```js
@@ -65,18 +65,18 @@ module.exports = {
   module: {
     rules: [
       {
-        enforce: "pre",
+        enforce: 'pre',
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: "eslint-loader"
+        loader: 'eslint-loader',
       },
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: "babel-loader"
-      }
-    ]
-  }
+        loader: 'babel-loader',
+      },
+    ],
+  },
   // ...
 };
 ```
@@ -107,7 +107,7 @@ This can either be a `boolean` value or the cache directory path(ex: `'./.eslint
 If `cache: true` is used, the cache file is written to the `./node_modules/.cache` directory.
 This is the recommended usage.
 
-#### `formatter` (default: "stylish")
+#### `formatter` (default: 'stylish')
 
 Loader accepts a function that will have one argument: an array of eslint messages (object).
 The function must return the output as a string.
@@ -115,21 +115,21 @@ You can use official [eslint formatters](https://eslint.org/docs/user-guide/form
 
 ```js
 module.exports = {
-  entry: "...",
+  entry: '...',
   module: {
     rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: "eslint-loader",
+        loader: 'eslint-loader',
         options: {
           // several examples !
 
           // default value
-          formatter: "stylish",
+          formatter: 'stylish',
 
           // community formatter
-          formatter: require("eslint-friendly-formatter"),
+          formatter: require('eslint-friendly-formatter'),
 
           // custom formatter
           formatter: function(results) {
@@ -138,35 +138,35 @@ module.exports = {
 
             // you should return a string
             // DO NOT USE console.*() directly !
-            return "OUTPUT";
-          }
-        }
-      }
-    ]
-  }
+            return 'OUTPUT';
+          },
+        },
+      },
+    ],
+  },
 };
 ```
 
-#### `eslintPath` (default: "eslint")
+#### `eslintPath` (default: 'eslint')
 
 Path to `eslint` instance that will be used for linting.  
 If the `eslintPath` is a folder like a official eslint, or specify a `formatter` option. now you dont have to install `eslint` .
 
 ```js
 module.exports = {
-  entry: "...",
+  entry: '...',
   module: {
     rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: "eslint-loader",
+        loader: 'eslint-loader',
         options: {
-          eslintPath: path.join(__dirname, "reusable-eslint")
-        }
-      }
-    ]
-  }
+          eslintPath: path.join(__dirname, 'reusable-eslint'),
+        },
+      },
+    ],
+  },
 };
 ```
 
@@ -182,19 +182,19 @@ Loader will always return errors if this option is set to `true`.
 
 ```js
 module.exports = {
-  entry: "...",
+  entry: '...',
   module: {
     rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: "eslint-loader",
+        loader: 'eslint-loader',
         options: {
-          emitError: true
-        }
-      }
-    ]
-  }
+          emitError: true,
+        },
+      },
+    ],
+  },
 };
 ```
 
@@ -208,19 +208,19 @@ Loader will process and report errors only and ignore warnings if this option is
 
 ```js
 module.exports = {
-  entry: "...",
+  entry: '...',
   module: {
     rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: "eslint-loader",
+        loader: 'eslint-loader',
         options: {
-          quiet: true
-        }
-      }
-    ]
-  }
+          quiet: true,
+        },
+      },
+    ],
+  },
 };
 ```
 
@@ -230,19 +230,19 @@ Loader will cause the module build to fail if there are any eslint warnings.
 
 ```js
 module.exports = {
-  entry: "...",
+  entry: '...',
   module: {
     rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: "eslint-loader",
+        loader: 'eslint-loader',
         options: {
-          failOnWarning: true
-        }
-      }
-    ]
-  }
+          failOnWarning: true,
+        },
+      },
+    ],
+  },
 };
 ```
 
@@ -252,19 +252,19 @@ Loader will cause the module build to fail if there are any eslint errors.
 
 ```js
 module.exports = {
-  entry: "...",
+  entry: '...',
   module: {
     rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: "eslint-loader",
+        loader: 'eslint-loader',
         options: {
-          failOnError: true
-        }
-      }
-    ]
-  }
+          failOnError: true,
+        },
+      },
+    ],
+  },
 };
 ```
 
@@ -277,22 +277,22 @@ You can pass in a different formatter for the output file, if none is passed in 
 
 ```js
 module.exports = {
-  entry: "...",
+  entry: '...',
   module: {
     rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: "eslint-loader",
+        loader: 'eslint-loader',
         options: {
           outputReport: {
-            filePath: "checkstyle.xml",
-            formatter: "checkstyle"
-          }
-        }
-      }
-    ]
-  }
+            filePath: 'checkstyle.xml',
+            formatter: 'checkstyle',
+          },
+        },
+      },
+    ],
+  },
 };
 ```
 

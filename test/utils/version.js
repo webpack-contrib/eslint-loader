@@ -1,3 +1,3 @@
-var webpack = require("webpack/package.json").version;
+const { version } = require('webpack/package.json');
 
-module.exports = webpack[0];
+module.exports = version;

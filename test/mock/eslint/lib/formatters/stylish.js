@@ -1,3 +1,3 @@
-module.exports = function(result) {
-  return JSON.stringify(result)
-}
+module.exports = function formatter(result) {
+  return JSON.stringify(result);
+};
