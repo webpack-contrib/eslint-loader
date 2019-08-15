@@ -17,9 +17,9 @@ describe('no eslint configuration', () => {
 
     compiler.run((err, stats) => {
       expect(stats.hasWarnings()).toBe(true);
-      expect(stats.compilation.warnings[0].message).toMatch(
-        /no eslint configuration/i
-      );
+
+      const { warnings } = stats.compilation;
+      expect(warnings[0].message).toMatch(/no eslint configuration/i);
       done();
     });
   });

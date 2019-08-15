@@ -27,12 +27,11 @@ describe('formatter multiple entries', () => {
     );
 
     const compiler = webpack(config);
+
     compiler.run((err, stats) => {
       stats.compilation.errors.forEach((e) => {
-        const filename = `${config.output.path}outputReport-${basename(
-          e.module.resource,
-          '.js'
-        )}.txt`;
+        const name = basename(e.module.resource, '.js');
+        const filename = `${config.output.path}outputReport-${name}.txt`;
         const contents = readFileSync(filename, 'utf8');
         expect(e.error.message).toBe(contents);
       });

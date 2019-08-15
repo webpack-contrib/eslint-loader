@@ -15,8 +15,8 @@ const globalConfig = {
     rules: [
       {
         test: /\.js$/,
-        use: eslintLoader,
         exclude: /node_modules/,
+        use: eslintLoader,
       },
     ],
   },
@@ -56,8 +56,8 @@ describe('cache', () => {
         rules: [
           {
             test: /\.js$/,
-            use: `${eslintLoader}?cache=${cache}`,
             exclude: /node_modules/,
+            use: `${eslintLoader}?cache=${cache}`,
           },
         ],
       },
@@ -79,8 +79,8 @@ describe('cache', () => {
         rules: [
           {
             test: /\.jsx?/,
-            use: `${eslintLoader}?cache=true`,
             exclude: /node_modules/,
+            use: `${eslintLoader}?cache=true`,
           },
         ],
       },
@@ -104,8 +104,8 @@ describe('cache', () => {
         rules: [
           {
             test: /\.jsx?/,
-            use: `${eslintLoader}?cache=${cache}`,
             exclude: /node_modules/,
+            use: `${eslintLoader}?cache=${cache}`,
           },
         ],
       },
@@ -128,8 +128,8 @@ describe('cache', () => {
           rules: [
             {
               test: /\.jsx?/,
-              use: `${eslintLoader}?cache=${cache}&cacheIdentifier=a`,
               exclude: /node_modules/,
+              use: `${eslintLoader}?cache=${cache}&cacheIdentifier=a`,
             },
           ],
         },
@@ -143,8 +143,8 @@ describe('cache', () => {
           rules: [
             {
               test: /\.jsx?/,
-              use: `${eslintLoader}?cache=${cache}&cacheIdentifier=b`,
               exclude: /node_modules/,
+              use: `${eslintLoader}?cache=${cache}&cacheIdentifier=b`,
             },
           ],
         },

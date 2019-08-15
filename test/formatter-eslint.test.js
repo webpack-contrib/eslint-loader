@@ -9,6 +9,7 @@ describe('formatter eslint', () => {
         entry: './test/fixtures/error.js',
       })
     );
+
     compiler.run((err, stats) => {
       expect(stats.compilation.errors[0].message).toBeTruthy();
       done();

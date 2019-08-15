@@ -16,6 +16,7 @@ describe('eslint path', () => {
         }
       )
     );
+
     compiler.run((err, stats) => {
       expect(stats.hasErrors()).toBe(true);
       expect(stats.compilation.errors[0].message).toContain('Fake error');

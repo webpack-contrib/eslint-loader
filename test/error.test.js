@@ -9,6 +9,7 @@ describe('error', () => {
         entry: './test/fixtures/error.js',
       })
     );
+
     compiler.run((err, stats) => {
       expect(stats.hasErrors()).toBe(true);
       done();

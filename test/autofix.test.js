@@ -19,19 +19,16 @@ describe('autofix stop', () => {
 
   it('should not throw error if file ok after auto-fixing', (done) => {
     const compiler = webpack(
-      conf({
-        entry,
-        module: {
-          rules: [
-            {
-              test: /\.js$/,
-              use: './src/index?fix=true',
-              exclude: /node_modules/,
-            },
-          ],
+      conf(
+        {
+          entry,
         },
-      })
+        {
+          fix: true,
+        }
+      )
     );
+
     compiler.run((err, stats) => {
       expect(stats.hasWarnings()).toBe(false);
       expect(stats.hasErrors()).toBe(false);

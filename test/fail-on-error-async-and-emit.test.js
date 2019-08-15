@@ -17,6 +17,7 @@ describe('fail on error async and emit', () => {
         }
       )
     );
+
     compiler.run((err, stats) => {
       expect(stats.hasErrors()).toBe(true);
       done();

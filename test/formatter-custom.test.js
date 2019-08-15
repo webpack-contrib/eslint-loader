@@ -14,6 +14,7 @@ describe('formatter eslint', () => {
         }
       )
     );
+
     compiler.run((err, stats) => {
       expect(stats.compilation.errors[0].message).toBeTruthy();
       done();

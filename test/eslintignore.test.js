@@ -10,12 +10,11 @@ describe('eslintignore', () => {
           entry: './test/fixtures/ignore.js',
         },
         {
-          // we want to enable ignore, so eslint will parse .eslintignore and
-          // should skip the file specified above
           ignore: true,
         }
       )
     );
+
     compiler.run((err, stats) => {
       expect(stats.hasWarnings()).toBe(false);
       done();

@@ -22,11 +22,11 @@ describe('formatter write', () => {
     );
 
     const compiler = webpack(config);
+
     compiler.run((err, stats) => {
-      const contents = readFileSync(
-        `${config.output.path}${outputFilename}`,
-        'utf8'
-      );
+      const filePath = `${config.output.path}${outputFilename}`;
+      const contents = readFileSync(filePath, 'utf8');
+
       expect(stats.compilation.errors[0].error.message).toBe(contents);
       done();
     });

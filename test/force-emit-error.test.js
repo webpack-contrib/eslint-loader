@@ -14,6 +14,7 @@ describe('force emit error', () => {
         }
       )
     );
+
     compiler.run((err, stats) => {
       expect(stats.hasWarnings()).toBe(false);
       expect(stats.hasErrors()).toBe(true);

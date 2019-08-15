@@ -24,19 +24,16 @@ describe('autofix stop', () => {
 
   it('should not change file if there are no fixable errors/warnings', (done) => {
     const compiler = webpack(
-      conf({
-        entry,
-        module: {
-          rules: [
-            {
-              test: /\.js$/,
-              use: './src/index?fix=true',
-              exclude: /node_modules/,
-            },
-          ],
+      conf(
+        {
+          entry,
         },
-      })
+        {
+          fix: true,
+        }
+      )
     );
+
     compiler.run(() => {
       expect(changed).toBe(false);
       done();

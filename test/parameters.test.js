@@ -11,8 +11,8 @@ describe('parameters', () => {
           rules: [
             {
               test: /\.js$/,
-              use: './src/index?{rules:{semi:0}}',
               exclude: /node_modules/,
+              loader: './src/index?{rules:{semi:0},ignore:false}',
             },
           ],
         },
