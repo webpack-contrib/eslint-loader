@@ -210,7 +210,7 @@ module.exports = {
 
 Loader will always return warnings if option is set to `true`. If you're using hot module replacement, you may wish to enable this in development, or else updates will be skipped when there's an eslint error.
 
-#### `quiet` (default: `false`)
+##### `quiet` (default: `false`)
 
 Loader will process and report errors only and ignore warnings if this option is set to true
 
@@ -276,7 +276,7 @@ module.exports = {
 };
 ```
 
-##### `outputReport` (default: `false`)
+##### `outputReport` (default: `null`)
 
 Write the output of the errors to a file, for example a checkstyle xml file for use for reporting on Jenkins CI
 

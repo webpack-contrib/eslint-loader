@@ -1,29 +1,30 @@
-import loaderUtils from 'loader-utils';
+import { getOptions } from 'loader-utils';
+import validateOptions from 'schema-utils';
 import objectHash from 'object-hash';
 import createCache from 'loader-fs-cache';
 
 import pkg from '../package.json';
 
 import printLinterOutput from './printLinterOutput';
+import schema from './options.json';
 
 const cache = createCache('eslint-loader');
 const engines = {};
 
 export default function loader(content, map) {
   const webpack = this;
+  const options = getOptions(webpack) || {};
 
-  const userOptions = {
-    // user defaults
-    ...((webpack.options && webpack.options.eslint) || webpack.query || {}),
-    // loader query string
-    ...loaderUtils.getOptions(webpack),
-  };
+  validateOptions(schema, options, {
+    name: 'ESLint Loader',
+    baseDataPath: 'options',
+  });
 
   const eslintPkgPath = 'eslint/package.json';
   let userEslintPath = eslintPkgPath;
 
-  if (userOptions.eslintPath) {
-    userEslintPath = `${userOptions.eslintPath}/package.json`;
+  if (options.eslintPath) {
+    userEslintPath = `${options.eslintPath}/package.json`;
   }
 
   let eslintVersion;
@@ -48,7 +49,7 @@ export default function loader(content, map) {
       eslint: eslintVersion || 'unknown version',
     }),
     eslintPath: 'eslint',
-    ...userOptions,
+    ...options,
   };
 
   const cacheDirectory = config.cache;
