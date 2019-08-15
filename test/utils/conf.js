@@ -1,12 +1,11 @@
-const path = require('path');
+import { join, sep } from 'path';
 
-const webpack = require('webpack');
-
-const webpackVersion = require('./version');
+import { LoaderOptionsPlugin } from 'webpack';
 
 const DEFAULT_CONFIG = {
+  mode: 'development',
   output: {
-    path: path.join(__dirname, '..', 'output') + path.sep,
+    path: join(__dirname, '..', 'output') + sep,
     filename: 'bundle.js',
   },
   module: {
@@ -21,34 +20,27 @@ const DEFAULT_CONFIG = {
 };
 
 /**
- * Returns a valid config for both webpack versions 1 and 2.
+ * Returns a valid config for webpack.
  * @param webpackConf Additional webpack config to apply/override to the default
  * @param loaderConf Additional eslint config to apply/override to the default
  * @returns {Object}
  */
 module.exports = function conf(webpackConf, loaderConf) {
-  const mode = webpackVersion < 4 ? {} : { mode: 'development' };
-
-  const options = {
-    eslint: {
-      // this disables the use of .eslintignore, since it contains the fixtures
-      // folder to skip it on the global linting, but here we want the opposite
-      // (we only use .eslintignore on the test that checks this)
-      ignore: false,
-      ...loaderConf,
-    },
-  };
-
-  // webpack v2 requires them to be added via the LoaderOptionsPlugin
-  // webpack v4 needs mode option
   return {
     ...DEFAULT_CONFIG,
-    ...mode,
     ...webpackConf,
     plugins: [
-      new webpack.LoaderOptionsPlugin({
+      new LoaderOptionsPlugin({
         exclude: /node_modules/,
-        options,
+        options: {
+          eslint: {
+            // this disables the use of .eslintignore, since it contains the fixtures
+            // folder to skip it on the global linting, but here we want the opposite
+            // (we only use .eslintignore on the test that checks this)
+            ignore: false,
+            ...loaderConf,
+          },
+        },
       }),
     ],
   };
