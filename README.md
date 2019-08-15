@@ -1,4 +1,12 @@
-# eslint-loader [![Build Status](https://travis-ci.org/webpack-contrib/eslint-loader.svg?branch=master)](https://travis-ci.org/webpack-contrib/eslint-loader)
+# eslint-loader
+
+[![npm][npm]][npm-url]
+[![node][node]][node-url]
+[![deps][deps]][deps-url]
+[![tests][tests]][tests-url]
+[![coverage][cover]][cover-url]
+[![chat][chat]][chat-url]
+[![size][size]][size-url]
 
 > eslint loader module for webpack
 
@@ -318,3 +326,18 @@ See [#129](https://github.com/webpack-contrib/eslint-loader/issues/129).
 ## License
 
 [MIT](./LICENSE)
+
+[npm]: https://img.shields.io/npm/v/eslint-loader.svg
+[npm-url]: https://npmjs.com/package/eslint-loader
+[node]: https://img.shields.io/node/v/eslint-loader.svg
+[node-url]: https://nodejs.org
+[deps]: https://david-dm.org/webpack-contrib/eslint-loader.svg
+[deps-url]: https://david-dm.org/webpack-contrib/eslint-loader
+[tests]: https://dev.azure.com/webpack-contrib/eslint-loader/_apis/build/status/webpack-contrib.eslint-loader?branchName=master
+[tests-url]: https://dev.azure.com/webpack-contrib/eslint-loader/_build/latest?definitionId=4&branchName=master
+[cover]: https://codecov.io/gh/webpack-contrib/eslint-loader/branch/master/graph/badge.svg
+[cover-url]: https://codecov.io/gh/webpack-contrib/eslint-loader
+[chat]: https://badges.gitter.im/webpack/webpack.svg
+[chat-url]: https://gitter.im/webpack/webpack
+[size]: https://packagephobia.now.sh/badge?p=eslint-loader
+[size-url]: https://packagephobia.now.sh/result?p=eslint-loader
