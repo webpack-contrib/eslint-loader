@@ -19,7 +19,7 @@ describe('no eslint configuration', () => {
       expect(stats.hasWarnings()).toBe(true);
 
       const { warnings } = stats.compilation;
-      expect(warnings[0].message).toMatch(/no eslint configuration/i);
+      expect(warnings[0].message).toMatch(/No ESLint configuration/i);
       done();
     });
   });

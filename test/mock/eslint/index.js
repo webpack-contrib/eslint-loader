@@ -51,6 +51,8 @@ CLIEngine.prototype.getFormatter = function getFormatter(format) {
   }
 };
 
+CLIEngine.getFormatter = CLIEngine.prototype.getFormatter;
+
 module.exports = {
   CLIEngine,
 };

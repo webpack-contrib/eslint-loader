@@ -9,6 +9,7 @@ import conf from './utils/conf';
 
 describe('formatter multiple entries', () => {
   it('should be configured to write multiple eslint result files', (done) => {
+    const formatter = CLIEngine.getFormatter('checkstyle');
     const outputFilename = 'outputReport-[name].txt';
     const config = conf(
       {
@@ -19,9 +20,10 @@ describe('formatter multiple entries', () => {
         ],
       },
       {
-        formatter: CLIEngine.getFormatter('checkstyle'),
+        formatter,
         outputReport: {
           filePath: outputFilename,
+          formatter,
         },
       }
     );

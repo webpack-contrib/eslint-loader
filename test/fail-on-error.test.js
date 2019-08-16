@@ -2,8 +2,8 @@ import webpack from 'webpack';
 
 import conf from './utils/conf';
 
-describe('fail on error async and emit', () => {
-  it('should emits errors in async mode', (done) => {
+describe('fail on error', () => {
+  it('should emits errors', (done) => {
     const compiler = webpack(
       conf(
         {
@@ -12,7 +12,6 @@ describe('fail on error async and emit', () => {
         },
         {
           failOnError: true,
-          emitError: true,
           cache: true,
         }
       )
@@ -33,7 +32,6 @@ describe('fail on error async and emit', () => {
         },
         {
           failOnError: true,
-          emitError: true,
           cache: true,
         }
       )
