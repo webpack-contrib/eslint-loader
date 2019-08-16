@@ -3,9 +3,11 @@ import validateOptions from 'schema-utils';
 import objectHash from 'object-hash';
 import createCache from 'loader-fs-cache';
 
-import pkg from '../package.json';
+import { version } from '../package.json';
 
-import printLinterOutput from './printLinterOutput';
+import PrintLinterOutput from './PrintLinterOutput';
+
+import { getFormatter, parseResourcePath, lint } from './utils';
 import schema from './options.json';
 
 const cache = createCache('eslint-loader');
@@ -13,152 +15,78 @@ const engines = {};
 
 export default function loader(content, map) {
   const webpack = this;
-  const options = getOptions(webpack) || {};
+  const options = {
+    eslintPath: 'eslint',
+    ...getOptions(webpack),
+  };
 
   validateOptions(schema, options, {
     name: 'ESLint Loader',
     baseDataPath: 'options',
   });
 
-  const eslintPkgPath = 'eslint/package.json';
-  let userEslintPath = eslintPkgPath;
+  const { CLIEngine } = require(options.eslintPath);
+  const hash = objectHash(options);
 
-  if (options.eslintPath) {
-    userEslintPath = `${options.eslintPath}/package.json`;
+  options.formatter = getFormatter(CLIEngine, options.formatter);
+
+  if (options.outputReport && options.outputReport.formatter) {
+    options.outputReport.formatter = getFormatter(
+      CLIEngine,
+      options.outputReport.formatter
+    );
   }
 
-  let eslintVersion;
-
-  try {
-    eslintVersion = require(require.resolve(userEslintPath)).version;
-  } catch (_) {
-    // ignored
+  if (!engines[hash]) {
+    engines[hash] = new CLIEngine(options);
   }
 
-  if (!eslintVersion) {
-    try {
-      eslintVersion = require(require.resolve(eslintPkgPath)).version;
-    } catch (_) {
-      // ignored
-    }
-  }
-
-  const config = {
-    cacheIdentifier: JSON.stringify({
-      'eslint-loader': pkg.version,
-      eslint: eslintVersion || 'unknown version',
-    }),
-    eslintPath: 'eslint',
-    ...options,
-  };
-
-  const cacheDirectory = config.cache;
-  const { cacheIdentifier } = config;
-
-  delete config.cacheIdentifier;
-
-  // Create the engine only once per config
-  const configHash = objectHash(config);
-
-  if (!engines[configHash]) {
-    const eslint = require(config.eslintPath);
-    engines[configHash] = new eslint.CLIEngine(config);
-  }
-
-  // Try to get oficial formatter
-  if (typeof config.formatter === 'string') {
-    try {
-      config.formatter = engines[configHash].getFormatter(config.formatter);
-    } catch (e) {
-      try {
-        config.formatter = require(config.formatter);
-        if (
-          config.formatter &&
-          typeof config.formatter !== 'function' &&
-          typeof config.formatter.default === 'function'
-        ) {
-          config.formatter = config.formatter.default;
-        }
-      } catch (_) {
-        // ignored
-      }
-    }
-  }
-
-  // Get default formatter `stylish` when not defined
-  if (config.formatter == null || typeof config.formatter !== 'function') {
-    config.formatter = engines[configHash].getFormatter('stylish');
-  }
+  const resourcePath = parseResourcePath(webpack);
+  const emitter = options.emitError ? webpack.emitError : webpack.emitWarning;
+  const engine = engines[hash];
+  const cacheIdentifier = JSON.stringify({
+    'eslint-loader': version,
+    eslint: CLIEngine.version || 'unknown version',
+  });
 
   webpack.cacheable();
 
-  const emitter = config.emitError ? webpack.emitError : webpack.emitWarning;
-  const engine = engines[configHash];
-  let { resourcePath } = webpack;
-  const cwd = process.cwd();
+  const printLinterOutput = new PrintLinterOutput(CLIEngine, options, webpack);
 
-  // remove cwd from resource path in case webpack has been started from project
-  // root, to allow having relative paths in .eslintignore
-  if (resourcePath.indexOf(cwd) === 0) {
-    resourcePath = resourcePath.substr(cwd.length + (cwd === '/' ? 0 : 1));
-  }
-
-  // return early if cached
-  if (config.cache) {
-    const callback = webpack.async();
-
-    cache(
-      {
-        directory: cacheDirectory,
-        identifier: cacheIdentifier,
-        options: config,
-        source: content,
-        transform() {
-          return lint(engine, content, resourcePath, emitter);
-        },
-      },
-      (err, res) => {
-        if (err) {
-          return callback(err);
-        }
-
-        let error = err;
-
-        try {
-          printLinterOutput(
-            {
-              ...{},
-              ...(res || {}),
-              src: content,
-            },
-            config,
-            webpack
-          );
-        } catch (e) {
-          error = e;
-        }
-
-        return callback(error, content, map);
-      }
-    );
+  // return early if not cached
+  if (!options.cache) {
+    printLinterOutput.execute(lint(engine, content, resourcePath, emitter));
+    webpack.callback(null, content, map);
     return;
   }
 
-  printLinterOutput(
-    lint(engine, content, resourcePath, emitter),
-    config,
-    webpack
+  const callback = webpack.async();
+
+  cache(
+    {
+      directory: options.cache,
+      identifier: cacheIdentifier,
+      options,
+      source: content,
+      transform() {
+        return lint(engine, content, resourcePath, emitter);
+      },
+    },
+    (err, res) => {
+      // istanbul ignore next
+      if (err) {
+        return callback(err);
+      }
+
+      let error = err;
+
+      try {
+        printLinterOutput.execute({ ...res, src: content });
+      } catch (e) {
+        error = e;
+      }
+
+      return callback(error, content, map);
+    }
   );
-
-  webpack.callback(null, content, map);
-}
-
-function lint(engine, content, resourcePath, emitter) {
-  try {
-    return engine.executeOnText(content, resourcePath, true);
-  } catch (_) {
-    if (emitter) emitter(_);
-
-    return { src: content };
-  }
 }
