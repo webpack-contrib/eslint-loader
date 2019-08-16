@@ -1,3 +1,6 @@
+import { isAbsolute } from 'path';
+import { writeFileSync } from 'fs';
+
 import { interpolateName } from 'loader-utils';
 
 import ESLintError from './ESLintError';
@@ -103,10 +106,14 @@ export default class PrintLinterOutput {
     }
 
     const filePath = interpolateName(this.webpack, outputReport.filePath, {
-      content: results.map((r) => r.source).join('\n'),
+      content,
     });
 
-    this.webpack.emitFile(filePath, content);
+    if (isAbsolute(filePath)) {
+      writeFileSync(filePath, content);
+    } else {
+      this.webpack.emitFile(filePath, content);
+    }
   }
 
   failOnErrorOrWarning({ errorCount, warningCount }, messages) {

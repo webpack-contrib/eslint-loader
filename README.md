@@ -157,8 +157,9 @@ module.exports = {
 
 #### `eslintPath` (default: 'eslint')
 
-Path to `eslint` instance that will be used for linting.  
-If the `eslintPath` is a folder like a official eslint, or specify a `formatter` option. now you dont have to install `eslint` .
+Path to `eslint` instance that will be used for linting.
+If the `eslintPath` is a folder like a official eslint, or specify a `formatter` option.
+now you dont have to install `eslint`.
 
 ```js
 module.exports = {
@@ -208,7 +209,8 @@ module.exports = {
 
 ##### `emitWarning` (default: `false`)
 
-Loader will always return warnings if option is set to `true`. If you're using hot module replacement, you may wish to enable this in development, or else updates will be skipped when there's an eslint error.
+Loader will always return warnings if option is set to `true`. If you're using hot module replacement,
+you may wish to enable this in development, or else updates will be skipped when there's an eslint error.
 
 ##### `quiet` (default: `false`)
 
@@ -280,8 +282,9 @@ module.exports = {
 
 Write the output of the errors to a file, for example a checkstyle xml file for use for reporting on Jenkins CI
 
-The `filePath` is relative to the webpack config: output.path
-You can pass in a different formatter for the output file, if none is passed in the default/configured formatter will be used
+The `filePath` is an absolute path or relative to the webpack config: output.path
+You can pass in a different formatter for the output file,
+if none is passed in the default/configured formatter will be used
 
 ```js
 module.exports = {
@@ -308,16 +311,17 @@ module.exports = {
 
 ### NoEmitOnErrorsPlugin
 
-`NoEmitOnErrorsPlugin` is now automatically enabled in webpack 4, when mode is either unset, or set to production. So even ESLint warnings will fail the build. No matter what error settings are used for `eslint-loader`, except if `emitWarning` enabled.
+`NoEmitOnErrorsPlugin` is now automatically enabled in webpack 4, when mode is either unset,
+or set to production. So even ESLint warnings will fail the build.
+No matter what error settings are used for `eslint-loader`, except if `emitWarning` enabled.
 
 ### Defining `configFile` or using `eslint -c path/.eslintrc`
 
 Bear in mind that when you define `configFile`, `eslint` doesn't automatically look for
 `.eslintrc` files in the directory of the file to be linted.
-More information is available in official eslint documentation in section [_Using Configuration Files_](http://eslint.org/docs/user-guide/configuring#using-configuration-files).
+More information is available in official eslint documentation in section
+[_Using Configuration Files_](http://eslint.org/docs/user-guide/configuring#using-configuration-files).
 See [#129](https://github.com/webpack-contrib/eslint-loader/issues/129).
-
----
 
 ## Changelog
 
