@@ -50,11 +50,11 @@
           "properties": {
             "filePath": {
               "description": "The `filePath` is relative to the webpack config: output.path",
-              "anyOf": [{ "type": "boolean" }, { "type": "string" }]
+              "anyOf": [{ "type": "string" }]
             },
             "formatter": {
               "description": "You can pass in a different formatter for the output file, if none is passed in the default/configured formatter will be used",
-              "anyOf": [{ "type": "boolean" }, { "type": "string" }]
+              "anyOf": [{ "type": "string" }, { "instanceof": "Function" }]
             }
           }
         }
