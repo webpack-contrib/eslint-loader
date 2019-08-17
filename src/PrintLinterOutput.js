@@ -1,4 +1,4 @@
-import { isAbsolute } from 'path';
+import { isAbsolute, join } from 'path';
 import { writeFileSync } from 'fs';
 
 import { interpolateName } from 'loader-utils';
@@ -105,15 +105,19 @@ export default class PrintLinterOutput {
       content = outputReport.formatter(results);
     }
 
-    const filePath = interpolateName(this.webpack, outputReport.filePath, {
+    let filePath = interpolateName(this.webpack, outputReport.filePath, {
       content,
     });
 
-    if (isAbsolute(filePath)) {
-      writeFileSync(filePath, content);
-    } else {
-      this.webpack.emitFile(filePath, content);
+    if (!isAbsolute(filePath)) {
+      filePath = join(
+        // eslint-disable-next-line no-underscore-dangle
+        this.webpack._compiler.options.output.path,
+        filePath
+      );
     }
+
+    writeFileSync(filePath, content);
   }
 
   failOnErrorOrWarning({ errorCount, warningCount }, messages) {
