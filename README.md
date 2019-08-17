@@ -1,7 +1,6 @@
 <div align="center">
-  <a href="https://github.com/webpack/webpack">
-    <img width="200" height="200" src="https://webpack.js.org/assets/icon-square-big.svg">
-  </a>
+  <a href="https://github.com/eslint/eslint"><img width="200" height="200" src="https://cdn.worldvectorlogo.com/logos/eslint.svg"></a>
+  <a href="https://github.com/webpack/webpack"><img width="200" height="200" src="https://webpack.js.org/assets/icon-square-big.svg"></a>
 </div>
 
 [![npm][npm]][npm-url]
@@ -14,7 +13,7 @@
 
 # eslint-loader
 
-> eslint loader module for webpack
+> ESlint loader for webpack
 
 ## Install
 
