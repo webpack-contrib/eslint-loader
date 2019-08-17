@@ -39,7 +39,7 @@ describe('cache', () => {
     directory = createTestDirectory(outputDir);
     cache = createTestDirectory(cacheDir);
     rimraf.sync(defaultCacheDir);
-  }, 60000);
+  }, 30000);
 
   afterEach(() => {
     rimraf.sync(cache);

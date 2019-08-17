@@ -1,18 +1,48 @@
+import process from 'process';
 import { isAbsolute, join } from 'path';
 import { writeFileSync } from 'fs';
 
 import { interpolateName } from 'loader-utils';
 
 import ESLintError from './ESLintError';
+import createEngine from './createEngine';
 
-export default class PrintLinterOutput {
-  constructor(CLIEngine, options, webpack) {
-    this.CLIEngine = CLIEngine;
+export default class Linter {
+  constructor(loaderContext, options) {
+    this.loaderContext = loaderContext;
     this.options = options;
-    this.webpack = webpack;
+    this.resourcePath = this.parseResourcePath();
+
+    const { CLIEngine, engine } = createEngine(options);
+    this.CLIEngine = CLIEngine;
+    this.engine = engine;
   }
 
-  execute(data) {
+  parseResourcePath() {
+    const cwd = process.cwd();
+    let { resourcePath } = this.loaderContext;
+
+    // remove cwd from resource path in case webpack has been started from project
+    // root, to allow having relative paths in .eslintignore
+    // istanbul ignore next
+    if (resourcePath.indexOf(cwd) === 0) {
+      resourcePath = resourcePath.substr(cwd.length + (cwd === '/' ? 0 : 1));
+    }
+
+    return resourcePath;
+  }
+
+  lint(content) {
+    try {
+      return this.engine.executeOnText(content, this.resourcePath, true);
+    } catch (_) {
+      this.getEmitter(false)(_);
+
+      return { src: content };
+    }
+  }
+
+  printOutput(data) {
     const { options } = this;
 
     // skip ignored file warning
@@ -85,7 +115,7 @@ export default class PrintLinterOutput {
     // add filename for each results so formatter can have relevant filename
     results.forEach((r) => {
       // eslint-disable-next-line no-param-reassign
-      r.filePath = this.webpack.resourcePath;
+      r.filePath = this.loaderContext.resourcePath;
     });
 
     return results;
@@ -105,14 +135,14 @@ export default class PrintLinterOutput {
       content = outputReport.formatter(results);
     }
 
-    let filePath = interpolateName(this.webpack, outputReport.filePath, {
+    let filePath = interpolateName(this.loaderContext, outputReport.filePath, {
       content,
     });
 
     if (!isAbsolute(filePath)) {
       filePath = join(
         // eslint-disable-next-line no-underscore-dangle
-        this.webpack._compiler.options.output.path,
+        this.loaderContext._compiler.options.output.path,
         filePath
       );
     }
@@ -137,16 +167,18 @@ export default class PrintLinterOutput {
   }
 
   getEmitter({ errorCount }) {
-    const { options, webpack } = this;
+    const { options, loaderContext } = this;
 
     // default behavior: emit error only if we have errors
-    let emitter = errorCount ? webpack.emitError : webpack.emitWarning;
+    let emitter = errorCount
+      ? loaderContext.emitError
+      : loaderContext.emitWarning;
 
     // force emitError or emitWarning if user want this
     if (options.emitError) {
-      emitter = webpack.emitError;
+      emitter = loaderContext.emitError;
     } else if (options.emitWarning) {
-      emitter = webpack.emitWarning;
+      emitter = loaderContext.emitWarning;
     }
 
     return emitter;
