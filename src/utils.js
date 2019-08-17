@@ -1,3 +1,5 @@
+import process from 'process';
+
 export function lint(engine, content, resourcePath, emitter) {
   try {
     return engine.executeOnText(content, resourcePath, true);
@@ -31,6 +33,7 @@ export function parseResourcePath(webpack) {
 
   // remove cwd from resource path in case webpack has been started from project
   // root, to allow having relative paths in .eslintignore
+  // istanbul ignore next
   if (resourcePath.indexOf(cwd) === 0) {
     resourcePath = resourcePath.substr(cwd.length + (cwd === '/' ? 0 : 1));
   }
