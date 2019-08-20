@@ -1,61 +1,83 @@
 {
   "name": "eslint-loader",
   "version": "2.2.1",
-  "description": "eslint loader (for webpack)",
-  "keywords": [
-    "lint",
-    "linter",
-    "eslint",
-    "loader",
-    "webpack"
-  ],
-  "repository": "https://github.com/webpack-contrib/eslint-loader.git",
-  "author": "Maxime Thirouin",
+  "description": "ESlint loader for webpack",
   "license": "MIT",
-  "files": [
-    "index.js"
-  ],
-  "peerDependencies": {
-    "eslint": ">=1.6.0 <7.0.0",
-    "webpack": ">=2.0.0 <5.0.0"
-  },
-  "dependencies": {
-    "loader-fs-cache": "^1.0.0",
-    "loader-utils": "^1.0.2",
-    "object-assign": "^4.0.1",
-    "object-hash": "^1.1.4",
-    "rimraf": "^2.6.1"
-  },
-  "devDependencies": {
-    "ava": "^0.17.0",
-    "eslint": "^6.0.1",
-    "eslint-config-i-am-meticulous": "^11.0.0",
-    "eslint-friendly-formatter": "^2.0.4",
-    "husky": "^0.14.3",
-    "mkdirp": "^0.5.1",
-    "npmpub": "^4.0.1",
-    "prettier": "^1.13.7",
-    "pretty-quick": "^1.6.0",
-    "webpack": "^4.0.0"
+  "repository": "webpack-contrib/eslint-loader",
+  "author": "Maxime Thirouin",
+  "homepage": "https://github.com/webpack-contrib/eslint-loader",
+  "bugs": "https://github.com/webpack-contrib/eslint-loader/issues",
+  "main": "dist/cjs.js",
+  "engines": {
+    "node": ">= 8.9.0"
   },
   "scripts": {
-    "precommit": "pretty-quick --staged",
-    "lint": "eslint .",
-    "ava": "ava",
-    "test": "npm run lint && npm run ava",
-    "release": "npmpub"
+    "start": "npm run build -- -w",
+    "prebuild": "npm run clean",
+    "build": "cross-env NODE_ENV=production babel src -d dist --ignore \"src/**/*.test.js\" --copy-files",
+    "clean": "del-cli dist",
+    "commitlint": "commitlint --from=master",
+    "lint:prettier": "prettier \"{**/*,*}.{js,json,md,yml,css}\" --list-different",
+    "lint:js": "eslint --cache src test",
+    "lint": "npm-run-all -l -p \"lint:**\"",
+    "prepare": "npm run build",
+    "release": "standard-version",
+    "security": "npm audit",
+    "test:only": "cross-env NODE_ENV=test jest",
+    "test:watch": "cross-env NODE_ENV=test jest --watch",
+    "test:coverage": "cross-env NODE_ENV=test jest --collectCoverageFrom=\"src/**/*.js\" --coverage",
+    "pretest": "npm run lint",
+    "test": "cross-env NODE_ENV=test npm run test:coverage",
+    "defaults": "webpack-defaults"
   },
-  "eslintConfig": {
-    "extends": "eslint-config-i-am-meticulous",
-    "rules": {
-      "no-var": 0,
-      "prefer-const": 0
-    }
+  "files": [
+    "dist"
+  ],
+  "peerDependencies": {
+    "eslint": "^5.0.0 || ^6.0.0",
+    "webpack": "^4.0.0"
   },
-  "ava": {
-    "files": [
-      "test/*.js"
-    ],
-    "verbose": true
-  }
+  "dependencies": {
+    "loader-fs-cache": "^1.0.2",
+    "loader-utils": "^1.2.3",
+    "object-hash": "^1.3.1",
+    "schema-utils": "^2.1.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@commitlint/cli": "^8.1.0",
+    "@commitlint/config-conventional": "^8.1.0",
+    "@webpack-contrib/defaults": "^5.0.2",
+    "@webpack-contrib/eslint-config-webpack": "^3.0.0",
+    "babel-eslint": "^10.0.2",
+    "babel-jest": "^24.9.0",
+    "commitlint-azure-pipelines-cli": "^1.0.2",
+    "cross-env": "^5.2.0",
+    "del": "^5.0.0",
+    "del-cli": "^2.0.0",
+    "eslint": "^6.1.0",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-friendly-formatter": "^4.0.1",
+    "eslint-plugin-import": "^2.18.2",
+    "husky": "^3.0.3",
+    "jest": "^24.9.0",
+    "jest-junit": "^7.0.0",
+    "lint-staged": "^9.2.1",
+    "mkdirp": "^0.5.1",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^1.18.2",
+    "rimraf": "^3.0.0",
+    "standard-version": "^7.0.0",
+    "webpack": "^4.39.2",
+    "webpack-defaults": "^4.0.0"
+  },
+  "keywords": [
+    "eslint",
+    "lint",
+    "linter",
+    "loader",
+    "webpack"
+  ]
 }

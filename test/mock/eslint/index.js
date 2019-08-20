@@ -1,47 +1,47 @@
 function CLIEngine() {}
 
-CLIEngine.prototype.executeOnText = function() {
+CLIEngine.prototype.executeOnText = function executeOnText() {
   return {
     results: [
       {
-        filePath: "",
+        filePath: '',
         messages: [
           {
-            ruleId: "no-undef",
+            ruleId: 'no-undef',
             severity: 2,
-            message: "Fake error",
+            message: 'Fake error',
             line: 1,
             column: 11,
-            nodeType: "Identifier",
-            source: "var foo = stuff"
-          }
+            nodeType: 'Identifier',
+            source: 'var foo = stuff',
+          },
         ],
         errorCount: 2,
         warningCount: 0,
         fixableErrorCount: 0,
         fixableWarningCount: 0,
-        source: ""
-      }
+        source: '',
+      },
     ],
     errorCount: 2,
     warningCount: 0,
     fixableErrorCount: 0,
-    fixableWarningCount: 0
+    fixableWarningCount: 0,
   };
 };
 
-CLIEngine.prototype.getFormatter = function(format) {
-  const resolvedFormatName = format || "stylish";
+CLIEngine.prototype.getFormatter = function getFormatter(format) {
+  const resolvedFormatName = format || 'stylish';
 
-  if (typeof resolvedFormatName !== "string") {
+  if (typeof resolvedFormatName !== 'string') {
     return null;
   }
 
-  const eslintVersion = require("./package.json").version;
+  const eslintVersion = require('./package.json').version;
   const formatterPath =
-    eslintVersion >= "6.0.0"
-      ? "./lib/cli-engine/formatters/stylish"
-      : "./lib/formatters/stylish";
+    eslintVersion >= '6.0.0'
+      ? './lib/cli-engine/formatters/stylish'
+      : './lib/formatters/stylish';
 
   try {
     return require(formatterPath);
@@ -51,6 +51,8 @@ CLIEngine.prototype.getFormatter = function(format) {
   }
 };
 
+CLIEngine.getFormatter = CLIEngine.prototype.getFormatter;
+
 module.exports = {
-  CLIEngine: CLIEngine
+  CLIEngine,
 };

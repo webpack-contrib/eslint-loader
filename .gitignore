@@ -1,3 +1,20 @@
-node_modules
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+.eslintcache
 
-test/output/
+/coverage
+/dist
+/local
+/reports
+/node_modules
+/test/output/
+
+.DS_Store
+Thumbs.db
+.idea
+.vscode
+*.sublime-project
+*.sublime-workspace
+*.iml

@@ -1,17 +1,30 @@
-# eslint-loader [![Build Status](https://travis-ci.org/webpack-contrib/eslint-loader.svg?branch=master)](https://travis-ci.org/webpack-contrib/eslint-loader)
+<div align="center">
+  <a href="https://github.com/eslint/eslint"><img width="200" height="200" src="https://cdn.worldvectorlogo.com/logos/eslint.svg"></a>
+  <a href="https://github.com/webpack/webpack"><img width="200" height="200" src="https://webpack.js.org/assets/icon-square-big.svg"></a>
+</div>
 
-> eslint loader for webpack
+[![npm][npm]][npm-url]
+[![node][node]][node-url]
+[![deps][deps]][deps-url]
+[![tests][tests]][tests-url]
+[![coverage][cover]][cover-url]
+[![chat][chat]][chat-url]
+[![size][size]][size-url]
+
+# eslint-loader
+
+> ESlint loader for webpack
 
 ## Install
 
-```console
-$ npm install eslint-loader --save-dev
+```bash
+npm install eslint-loader --save-dev
 ```
 
 **NOTE**: You also need to install `eslint` from npm, if you haven't already:
 
-```console
-$ npm install eslint --save-dev
+```bash
+npm install eslint --save-dev
 ```
 
 ## Usage
@@ -26,13 +39,13 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: "eslint-loader",
+        loader: 'eslint-loader',
         options: {
           // eslint options (if necessary)
-        }
-      }
-    ]
-  }
+        },
+      },
+    ],
+  },
   // ...
 };
 ```
@@ -48,15 +61,15 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: ["babel-loader", "eslint-loader"]
-      }
-    ]
-  }
+        use: ['babel-loader', 'eslint-loader'],
+      },
+    ],
+  },
   // ...
 };
 ```
 
-To be safe, you can use `enforce: "pre"` section to check source files, not modified
+To be safe, you can use `enforce: 'pre'` section to check source files, not modified
 by other loaders (like `babel-loader`)
 
 ```js
@@ -65,18 +78,18 @@ module.exports = {
   module: {
     rules: [
       {
-        enforce: "pre",
+        enforce: 'pre',
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: "eslint-loader"
+        loader: 'eslint-loader',
       },
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: "babel-loader"
-      }
-    ]
-  }
+        loader: 'babel-loader',
+      },
+    ],
+  },
   // ...
 };
 ```
@@ -107,7 +120,7 @@ This can either be a `boolean` value or the cache directory path(ex: `'./.eslint
 If `cache: true` is used, the cache file is written to the `./node_modules/.cache` directory.
 This is the recommended usage.
 
-#### `formatter` (default: "stylish")
+#### `formatter` (default: 'stylish')
 
 Loader accepts a function that will have one argument: an array of eslint messages (object).
 The function must return the output as a string.
@@ -115,21 +128,21 @@ You can use official [eslint formatters](https://eslint.org/docs/user-guide/form
 
 ```js
 module.exports = {
-  entry: "...",
+  entry: '...',
   module: {
     rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: "eslint-loader",
+        loader: 'eslint-loader',
         options: {
           // several examples !
 
           // default value
-          formatter: "stylish",
+          formatter: 'stylish',
 
           // community formatter
-          formatter: require("eslint-friendly-formatter"),
+          formatter: require('eslint-friendly-formatter'),
 
           // custom formatter
           formatter: function(results) {
@@ -138,35 +151,36 @@ module.exports = {
 
             // you should return a string
             // DO NOT USE console.*() directly !
-            return "OUTPUT";
-          }
-        }
-      }
-    ]
-  }
+            return 'OUTPUT';
+          },
+        },
+      },
+    ],
+  },
 };
 ```
 
-#### `eslintPath` (default: "eslint")
+#### `eslintPath` (default: 'eslint')
 
-Path to `eslint` instance that will be used for linting.  
-If the `eslintPath` is a folder like a official eslint, or specify a `formatter` option. now you dont have to install `eslint` .
+Path to `eslint` instance that will be used for linting.
+If the `eslintPath` is a folder like a official eslint, or specify a `formatter` option.
+now you dont have to install `eslint`.
 
 ```js
 module.exports = {
-  entry: "...",
+  entry: '...',
   module: {
     rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: "eslint-loader",
+        loader: 'eslint-loader',
         options: {
-          eslintPath: path.join(__dirname, "reusable-eslint")
-        }
-      }
-    ]
-  }
+          eslintPath: path.join(__dirname, 'reusable-eslint'),
+        },
+      },
+    ],
+  },
 };
 ```
 
@@ -182,45 +196,46 @@ Loader will always return errors if this option is set to `true`.
 
 ```js
 module.exports = {
-  entry: "...",
+  entry: '...',
   module: {
     rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: "eslint-loader",
+        loader: 'eslint-loader',
         options: {
-          emitError: true
-        }
-      }
-    ]
-  }
+          emitError: true,
+        },
+      },
+    ],
+  },
 };
 ```
 
 ##### `emitWarning` (default: `false`)
 
-Loader will always return warnings if option is set to `true`. If you're using hot module replacement, you may wish to enable this in development, or else updates will be skipped when there's an eslint error.
+Loader will always return warnings if option is set to `true`. If you're using hot module replacement,
+you may wish to enable this in development, or else updates will be skipped when there's an eslint error.
 
-#### `quiet` (default: `false`)
+##### `quiet` (default: `false`)
 
 Loader will process and report errors only and ignore warnings if this option is set to true
 
 ```js
 module.exports = {
-  entry: "...",
+  entry: '...',
   module: {
     rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: "eslint-loader",
+        loader: 'eslint-loader',
         options: {
-          quiet: true
-        }
-      }
-    ]
-  }
+          quiet: true,
+        },
+      },
+    ],
+  },
 };
 ```
 
@@ -230,19 +245,19 @@ Loader will cause the module build to fail if there are any eslint warnings.
 
 ```js
 module.exports = {
-  entry: "...",
+  entry: '...',
   module: {
     rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: "eslint-loader",
+        loader: 'eslint-loader',
         options: {
-          failOnWarning: true
-        }
-      }
-    ]
-  }
+          failOnWarning: true,
+        },
+      },
+    ],
+  },
 };
 ```
 
@@ -252,72 +267,66 @@ Loader will cause the module build to fail if there are any eslint errors.
 
 ```js
 module.exports = {
-  entry: "...",
+  entry: '...',
   module: {
     rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: "eslint-loader",
+        loader: 'eslint-loader',
         options: {
-          failOnError: true
-        }
-      }
-    ]
-  }
+          failOnError: true,
+        },
+      },
+    ],
+  },
 };
 ```
 
-##### `outputReport` (default: `false`)
+##### `outputReport` (default: `null`)
 
 Write the output of the errors to a file, for example a checkstyle xml file for use for reporting on Jenkins CI
 
-The `filePath` is relative to the webpack config: output.path
-You can pass in a different formatter for the output file, if none is passed in the default/configured formatter will be used
+The `filePath` is an absolute path or relative to the webpack config: output.path
+You can pass in a different formatter for the output file,
+if none is passed in the default/configured formatter will be used
 
 ```js
 module.exports = {
-  entry: "...",
+  entry: '...',
   module: {
     rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: "eslint-loader",
+        loader: 'eslint-loader',
         options: {
           outputReport: {
-            filePath: "checkstyle.xml",
-            formatter: "checkstyle"
-          }
-        }
-      }
-    ]
-  }
+            filePath: 'checkstyle.xml',
+            formatter: 'checkstyle',
+          },
+        },
+      },
+    ],
+  },
 };
 ```
 
 ## Gotchas
 
-### NoEmitOnErrorsPlugin for `webpack >= 4`
+### NoEmitOnErrorsPlugin
 
-`NoEmitOnErrorsPlugin` is now automatically enabled in webpack 4, when mode is either unset, or set to production. So even ESLint warnings will fail the build. No matter what error settings are used for `eslint-loader`, except if `emitWarning` enabled.
-
-### NoErrorsPlugin for `webpack < 4`
-
-`NoErrorsPlugin` prevents webpack from outputting anything into a bundle. So even ESLint warnings
-will fail the build. No matter what error settings are used for `eslint-loader`.
-
-So if you want to see ESLint warnings in console during development using `WebpackDevServer`
-remove `NoErrorsPlugin` from webpack config.
+`NoEmitOnErrorsPlugin` is now automatically enabled in webpack 4, when mode is either unset,
+or set to production. So even ESLint warnings will fail the build.
+No matter what error settings are used for `eslint-loader`, except if `emitWarning` enabled.
 
 ### Defining `configFile` or using `eslint -c path/.eslintrc`
 
 Bear in mind that when you define `configFile`, `eslint` doesn't automatically look for
 `.eslintrc` files in the directory of the file to be linted.
-More information is available in official eslint documentation in section [_Using Configuration Files_](http://eslint.org/docs/user-guide/configuring#using-configuration-files).
+More information is available in official eslint documentation in section
+[_Using Configuration Files_](http://eslint.org/docs/user-guide/configuring#using-configuration-files).
 See [#129](https://github.com/webpack-contrib/eslint-loader/issues/129).
-
----
 
 ## Changelog
 
@@ -326,3 +335,18 @@ See [#129](https://github.com/webpack-contrib/eslint-loader/issues/129).
 ## License
 
 [MIT](./LICENSE)
+
+[npm]: https://img.shields.io/npm/v/eslint-loader.svg
+[npm-url]: https://npmjs.com/package/eslint-loader
+[node]: https://img.shields.io/node/v/eslint-loader.svg
+[node-url]: https://nodejs.org
+[deps]: https://david-dm.org/webpack-contrib/eslint-loader.svg
+[deps-url]: https://david-dm.org/webpack-contrib/eslint-loader
+[tests]: https://dev.azure.com/webpack-contrib/eslint-loader/_apis/build/status/webpack-contrib.eslint-loader?branchName=master
+[tests-url]: https://dev.azure.com/webpack-contrib/eslint-loader/_build/latest?definitionId=4&branchName=master
+[cover]: https://codecov.io/gh/webpack-contrib/eslint-loader/branch/master/graph/badge.svg
+[cover-url]: https://codecov.io/gh/webpack-contrib/eslint-loader
+[chat]: https://badges.gitter.im/webpack/webpack.svg
+[chat-url]: https://gitter.im/webpack/webpack
+[size]: https://packagephobia.now.sh/badge?p=eslint-loader
+[size-url]: https://packagephobia.now.sh/result?p=eslint-loader
