@@ -9,15 +9,14 @@ describe('autofix stop', () => {
   let changed = false;
 
   beforeAll(() => {
-    return fs
-      .createReadStream('./test/fixtures/nonfixable.js')
+    fs.createReadStream('./test/fixtures/nonfixable.js')
       .pipe(fs.createWriteStream(entry))
       .on('close', () => {
         fs.watch(entry, () => {
           changed = true;
         });
       });
-  });
+  }, 30000);
 
   afterAll(() => {
     fs.unlinkSync(entry);
