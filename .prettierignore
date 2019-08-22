@@ -2,5 +2,5 @@
 /dist
 /node_modules
 /test/fixtures
-/test/output/
+/test/output
 CHANGELOG.md
