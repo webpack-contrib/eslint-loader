@@ -8,9 +8,7 @@ describe('autofix stop', () => {
   const entry = './test/fixtures/fixable-clone.js';
 
   beforeAll(() => {
-    fs.createReadStream('./test/fixtures/fixable.js').pipe(
-      fs.createWriteStream(entry)
-    );
+    fs.copyFileSync('./test/fixtures/fixable.js', entry);
   });
 
   afterAll(() => {

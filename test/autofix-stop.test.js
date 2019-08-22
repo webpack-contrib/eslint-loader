@@ -9,13 +9,10 @@ describe('autofix stop', () => {
   let changed = false;
 
   beforeAll(() => {
-    fs.createReadStream('./test/fixtures/nonfixable.js')
-      .pipe(fs.createWriteStream(entry))
-      .on('close', () => {
-        fs.watch(entry, () => {
-          changed = true;
-        });
-      });
+    fs.copyFileSync('./test/fixtures/nonfixable.js', entry);
+    fs.watch(entry, {}, () => {
+      changed = true;
+    });
   });
 
   afterAll(() => {
