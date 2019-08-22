@@ -5,6 +5,8 @@ import del from 'del';
 import mkdirp from 'mkdirp';
 import webpack from 'webpack';
 
+jest.setTimeout(30000);
+
 const defaultCacheDir = join(__dirname, '../node_modules/.cache/eslint-loader');
 const cacheDir = join(__dirname, 'output/cache/cachefiles');
 const outputDir = join(__dirname, 'output/cache');
@@ -39,7 +41,7 @@ describe('cache', () => {
     directory = createTestDirectory(outputDir);
     cache = createTestDirectory(cacheDir);
     del.sync(defaultCacheDir);
-  }, 30000);
+  });
 
   afterEach(() => {
     del.sync(cache);

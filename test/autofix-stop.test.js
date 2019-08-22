@@ -1,6 +1,7 @@
 import fs from 'fs';
 
 import webpack from 'webpack';
+import chokidar from 'chokidar';
 
 import conf from './utils/conf';
 
@@ -11,8 +12,10 @@ describe('autofix stop', () => {
 
   beforeAll(() => {
     fs.copyFileSync('./test/fixtures/nonfixable.js', entry);
-    watcher = fs.watch(entry, (eventType, filename) => {
-      changed = eventType === 'change' && filename;
+
+    watcher = chokidar.watch(entry);
+    watcher.on('change', () => {
+      changed = true;
     });
   });
 
