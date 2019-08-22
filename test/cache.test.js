@@ -39,7 +39,7 @@ describe('cache', () => {
     directory = createTestDirectory(outputDir);
     cache = createTestDirectory(cacheDir);
     del.sync(defaultCacheDir);
-  });
+  }, 30000);
 
   afterEach(() => {
     del.sync(cache);
