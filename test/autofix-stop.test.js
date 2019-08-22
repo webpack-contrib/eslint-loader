@@ -1,5 +1,4 @@
-import fs from 'fs';
-
+import { copySync, removeSync } from 'fs-extra';
 import webpack from 'webpack';
 import chokidar from 'chokidar';
 
@@ -11,7 +10,7 @@ describe('autofix stop', () => {
   let watcher;
 
   beforeAll(() => {
-    fs.copyFileSync('./test/fixtures/nonfixable.js', entry);
+    copySync('./test/fixtures/nonfixable.js', entry);
 
     watcher = chokidar.watch(entry);
     watcher.on('change', () => {
@@ -21,7 +20,7 @@ describe('autofix stop', () => {
 
   afterAll(() => {
     watcher.close();
-    fs.unlinkSync(entry);
+    removeSync(entry);
   });
 
   it('should not change file if there are no fixable errors/warnings', (done) => {

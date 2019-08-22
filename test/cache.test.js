@@ -1,7 +1,6 @@
 import { join } from 'path';
-import { readdirSync } from 'fs';
 
-import del from 'del';
+import { readdirSync, removeSync } from 'fs-extra';
 import mkdirp from 'mkdirp';
 import webpack from 'webpack';
 
@@ -27,7 +26,7 @@ const globalConfig = {
 function createTestDirectory(dir) {
   const directory = join(dir, 'cache');
 
-  del.sync(directory);
+  removeSync(directory);
   mkdirp.sync(directory);
 
   return directory;
@@ -40,12 +39,12 @@ describe('cache', () => {
   beforeEach(() => {
     directory = createTestDirectory(outputDir);
     cache = createTestDirectory(cacheDir);
-    del.sync(defaultCacheDir);
+    removeSync(defaultCacheDir);
   });
 
   afterEach(() => {
-    del.sync(cache);
-    del.sync(directory);
+    removeSync(cache);
+    removeSync(directory);
   });
 
   it('should output files to cache directory', (done) => {

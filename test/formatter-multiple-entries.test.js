@@ -1,8 +1,7 @@
 import { basename } from 'path';
-import { readFileSync } from 'fs';
 
+import { readFileSync } from 'fs-extra';
 import { CLIEngine } from 'eslint';
-
 import webpack from 'webpack';
 
 import conf from './utils/conf';
