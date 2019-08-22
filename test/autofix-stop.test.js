@@ -16,7 +16,7 @@ describe('autofix stop', () => {
           changed = true;
         });
       });
-  }, 30000);
+  });
 
   afterAll(() => {
     fs.unlinkSync(entry);
