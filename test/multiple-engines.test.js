@@ -12,12 +12,24 @@ describe('multiple engines', () => {
             {
               test: /\.js$/,
               exclude: /node_modules/,
-              loader: "./src/index?{rules:{quotes:[1,'single']},ignore:false}",
+              loader: './src/index',
+              options: {
+                ignore: false,
+                rules: {
+                  quotes: [1, 'single'],
+                },
+              },
             },
             {
               test: /\.js$/,
               exclude: /node_modules/,
-              loader: "./src/index?{rules:{semi:[1,'always']},ignore:false}",
+              loader: './src/index',
+              options: {
+                ignore: false,
+                rules: {
+                  semi: [1, 'always'],
+                },
+              },
             },
           ],
         },
