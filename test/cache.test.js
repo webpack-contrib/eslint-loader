@@ -1,7 +1,7 @@
 import { join } from 'path';
 import { readdirSync } from 'fs';
 
-import rimraf from 'rimraf';
+import del from 'del';
 import mkdirp from 'mkdirp';
 import webpack from 'webpack';
 
@@ -25,7 +25,7 @@ const globalConfig = {
 function createTestDirectory(dir) {
   const directory = join(dir, 'cache');
 
-  rimraf.sync(directory);
+  del.sync(directory);
   mkdirp.sync(directory);
 
   return directory;
@@ -38,12 +38,12 @@ describe('cache', () => {
   beforeEach(() => {
     directory = createTestDirectory(outputDir);
     cache = createTestDirectory(cacheDir);
-    rimraf.sync(defaultCacheDir);
+    del.sync(defaultCacheDir);
   });
 
   afterEach(() => {
-    rimraf.sync(cache);
-    rimraf.sync(directory);
+    del.sync(cache);
+    del.sync(directory);
   });
 
   it('should output files to cache directory', (done) => {
