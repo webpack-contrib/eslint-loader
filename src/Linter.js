@@ -102,6 +102,11 @@ export default class Linter {
   }
 
   autoFix(res) {
+    // eslint-disable-next-line
+    console.log(res.results[0].output);
+    // eslint-disable-next-line
+    console.log(res.src);
+
     if (
       res.results[0].output !== res.src ||
       res.results[0].fixableErrorCount > 0 ||
