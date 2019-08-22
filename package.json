@@ -25,7 +25,7 @@
     "security": "npm audit",
     "test:only": "cross-env NODE_ENV=test jest --env=node",
     "test:watch": "cross-env NODE_ENV=test jest --env=node --watch",
-    "test:coverage": "cross-env NODE_ENV=test jest --env=node --collectCoverageFrom=\"src/**/*.js\" --coverage",
+    "test:coverage": "cross-env NODE_ENV=test jest --env=node --collectCoverageFrom=\"src/**/*.js\" --coverage --detectOpenHandles",
     "pretest": "npm run lint",
     "test": "cross-env NODE_ENV=test npm run test:coverage",
     "defaults": "webpack-defaults"
