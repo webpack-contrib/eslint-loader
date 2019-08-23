@@ -1,9 +1,10 @@
 import { join } from 'path';
-import { readdirSync } from 'fs';
 
-import rimraf from 'rimraf';
+import { readdirSync, removeSync } from 'fs-extra';
 import mkdirp from 'mkdirp';
 import webpack from 'webpack';
+
+jest.setTimeout(30000);
 
 const defaultCacheDir = join(__dirname, '../node_modules/.cache/eslint-loader');
 const cacheDir = join(__dirname, 'output/cache/cachefiles');
@@ -25,7 +26,7 @@ const globalConfig = {
 function createTestDirectory(dir) {
   const directory = join(dir, 'cache');
 
-  rimraf.sync(directory);
+  removeSync(directory);
   mkdirp.sync(directory);
 
   return directory;
@@ -38,12 +39,12 @@ describe('cache', () => {
   beforeEach(() => {
     directory = createTestDirectory(outputDir);
     cache = createTestDirectory(cacheDir);
-    rimraf.sync(defaultCacheDir);
-  }, 30000);
+    removeSync(defaultCacheDir);
+  });
 
   afterEach(() => {
-    rimraf.sync(cache);
-    rimraf.sync(directory);
+    removeSync(cache);
+    removeSync(directory);
   });
 
   it('should output files to cache directory', (done) => {
