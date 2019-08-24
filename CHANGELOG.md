@@ -1,3 +1,34 @@
+# Changelog
+
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+### [3.0.0](https://github.com/webpack-contrib/eslint-loader/compare/v2.2.1...v3.0.0) (2019-08-24)
+
+
+### Bugfix
+
+* fix corrupted filenames if cwd == "/"
+* cannot use string formatter in outputReport
+* no Output Report in File when build fails under webpack 4
+* add posibility to use absolute file path in outputReport.filePath
+* it should be possible to use absolute file path in outputReport.filePath
+* try load official formatter ([#285](https://github.com/webpack-contrib/eslint-loader/issues/285)) ([997cce5](https://github.com/webpack-contrib/eslint-loader/commit/997cce5))
+* emit warning/error if no config was found/given ([#286](https://github.com/webpack-contrib/eslint-loader/issues/286)) ([4204560](https://github.com/webpack-contrib/eslint-loader/commit/4204560))
+
+
+### Features
+
+* validate schema options
+
+
+### Breaking Changes
+
+* drop support for Node < 8.9.0
+* minimum supported webpack version is 4
+* minimum supported eslint version is 5
+
+
+
 # 2.2.1 - 2019-07-04
 
 - Fixed: path to eslint version for cache
