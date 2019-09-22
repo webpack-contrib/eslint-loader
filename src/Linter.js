@@ -113,10 +113,12 @@ export default class Linter {
 
   parseResults({ results }) {
     // add filename for each results so formatter can have relevant filename
-    results.forEach((r) => {
-      // eslint-disable-next-line no-param-reassign
-      r.filePath = this.loaderContext.resourcePath;
-    });
+    if (results) {
+      results.forEach((r) => {
+        // eslint-disable-next-line no-param-reassign
+        r.filePath = this.loaderContext.resourcePath;
+      });
+    }
 
     return results;
   }
