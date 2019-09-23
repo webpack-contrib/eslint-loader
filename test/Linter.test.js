@@ -12,8 +12,7 @@ describe('Linter', () => {
   const linter = new Linter(loaderContext, options);
 
   it('should parse undefined results without error', () => {
-    // eslint-disable-next-line no-undefined
-    expect(linter.parseResults({})).toEqual(undefined);
+    expect(linter.parseResults({})).toBeUndefined();
   });
 
   it('should parse results correctly', () => {
