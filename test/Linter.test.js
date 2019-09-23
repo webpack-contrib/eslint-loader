@@ -9,7 +9,10 @@ const options = {
 const res = { results: [{ filePath: '' }] };
 
 describe('Linter', () => {
-  const linter = new Linter(loaderContext, options);
+  let linter;
+  beforeAll(() => {
+    linter = new Linter(loaderContext, options);
+  });
 
   it('should parse undefined results without error', () => {
     expect(linter.parseResults({})).toBeUndefined();
