@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.0.1](https://github.com/webpack-contrib/eslint-loader/compare/v3.0.0...v3.0.1) (2019-09-25)
+
+
+### Bug Fixes
+
+* module build failed error at Linter.parseResults ([#294](https://github.com/webpack-contrib/eslint-loader/issues/294)) ([360e69c](https://github.com/webpack-contrib/eslint-loader/commit/360e69c))
+
 ### [3.0.0](https://github.com/webpack-contrib/eslint-loader/compare/v2.2.1...v3.0.0) (2019-08-24)
 
 
