@@ -1,21 +1,8 @@
-import webpack from 'webpack';
-
-import conf from './utils/conf';
+import pack from './utils/pack';
 
 describe('parameters', () => {
   it('should supports query strings parameters', (done) => {
-    const compiler = webpack(
-      conf(
-        {
-          entry: './test/fixtures/good.js',
-        },
-        {
-          rules: {
-            semi: 0,
-          },
-        }
-      )
-    );
+    const compiler = pack('good', { rules: { semi: 0 } });
 
     compiler.run((err, stats) => {
       expect(stats.hasWarnings()).toBe(false);

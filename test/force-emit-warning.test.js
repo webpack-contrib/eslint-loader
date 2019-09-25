@@ -1,19 +1,8 @@
-import webpack from 'webpack';
-
-import conf from './utils/conf';
+import pack from './utils/pack';
 
 describe('force emit warning', () => {
   it('should force to emit warning', (done) => {
-    const compiler = webpack(
-      conf(
-        {
-          entry: './test/fixtures/error.js',
-        },
-        {
-          emitWarning: true,
-        }
-      )
-    );
+    const compiler = pack('error', { emitWarning: true });
 
     compiler.run((err, stats) => {
       expect(stats.hasWarnings()).toBe(true);

@@ -1,13 +1,14 @@
-import { copySync, removeSync } from 'fs-extra';
-import webpack from 'webpack';
+import { join } from 'path';
 
-import conf from './utils/conf';
+import { copySync, removeSync } from 'fs-extra';
+
+import pack from './utils/pack';
 
 describe('autofix stop', () => {
-  const entry = './test/fixtures/fixable-clone.js';
+  const entry = join(__dirname, 'fixtures/fixable-clone.js');
 
   beforeAll(() => {
-    copySync('./test/fixtures/fixable.js', entry);
+    copySync(join(__dirname, 'fixtures/fixable.js'), entry);
   });
 
   afterAll(() => {
@@ -15,16 +16,7 @@ describe('autofix stop', () => {
   });
 
   it('should not throw error if file ok after auto-fixing', (done) => {
-    const compiler = webpack(
-      conf(
-        {
-          entry,
-        },
-        {
-          fix: true,
-        }
-      )
-    );
+    const compiler = pack('fixable-clone', { fix: true });
 
     compiler.run((err, stats) => {
       expect(stats.hasWarnings()).toBe(false);

@@ -1,16 +1,14 @@
-import { join, sep } from 'path';
+import { join } from 'path';
 
-/**
- * Returns a valid config for webpack.
- * @param webpackConf Additional webpack config to apply/override to the default
- * @param loaderConf Additional eslint config to apply/override to the default
- * @returns {Object}
- */
-module.exports = function conf(webpackConf, loaderConf) {
+export default (entry, loaderConf = {}, webpackConf = {}) => {
+  const testDir = join(__dirname, '..');
+  const fixturesDir = join(testDir, 'fixtures');
+
   return {
+    entry: typeof entry === 'string' ? join(fixturesDir, `${entry}.js`) : entry,
     mode: 'development',
     output: {
-      path: join(__dirname, '..', 'output') + sep,
+      path: join(testDir, 'output'),
       filename: 'bundle.js',
     },
     module: {
@@ -20,7 +18,7 @@ module.exports = function conf(webpackConf, loaderConf) {
           exclude: /node_modules/,
           use: [
             {
-              loader: './src/index',
+              loader: join(testDir, '../src/index'),
               options: {
                 // this disables the use of .eslintignore, since it contains the fixtures
                 // folder to skip it on the global linting, but here we want the opposite
