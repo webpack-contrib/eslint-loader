@@ -1,21 +1,11 @@
 import { join } from 'path';
 
-import webpack from 'webpack';
-
-import conf from './utils/conf';
+import pack from './utils/pack';
 
 describe('eslint path', () => {
   it('should use another instance of eslint via eslintPath config', (done) => {
-    const compiler = webpack(
-      conf(
-        {
-          entry: './test/fixtures/good.js',
-        },
-        {
-          eslintPath: join(__dirname, 'mock/eslint'),
-        }
-      )
-    );
+    const eslintPath = join(__dirname, 'mock/eslint');
+    const compiler = pack('good', { eslintPath });
 
     compiler.run((err, stats) => {
       expect(stats.hasErrors()).toBe(true);

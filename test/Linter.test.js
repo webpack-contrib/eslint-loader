@@ -1,16 +1,19 @@
 import Linter from '../src/Linter';
 
-const loaderContext = { resourcePath: 'test' };
-const options = {
-  eslintPath: 'eslint',
-  ignore: false,
-  formatter: jest.fn(),
-};
-const res = { results: [{ filePath: '' }] };
-
 describe('Linter', () => {
   let linter;
+
   beforeAll(() => {
+    const loaderContext = {
+      resourcePath: 'test',
+    };
+
+    const options = {
+      eslintPath: 'eslint',
+      ignore: false,
+      formatter: jest.fn(),
+    };
+
     linter = new Linter(loaderContext, options);
   });
 
@@ -19,6 +22,10 @@ describe('Linter', () => {
   });
 
   it('should parse results correctly', () => {
+    const res = {
+      results: [{ filePath: '' }],
+    };
+
     expect(linter.parseResults(res)).toEqual([{ filePath: 'test' }]);
   });
 });

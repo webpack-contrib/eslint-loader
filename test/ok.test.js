@@ -1,14 +1,8 @@
-import webpack from 'webpack';
-
-import conf from './utils/conf';
+import pack from './utils/pack';
 
 describe('ok', () => {
   it("should don't throw error if file is ok", (done) => {
-    const compiler = webpack(
-      conf({
-        entry: './test/fixtures/good.js',
-      })
-    );
+    const compiler = pack('good');
 
     compiler.run((err, stats) => {
       expect(stats.hasWarnings()).toBe(false);

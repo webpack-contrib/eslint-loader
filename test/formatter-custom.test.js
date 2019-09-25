@@ -1,19 +1,9 @@
-import webpack from 'webpack';
-
-import conf from './utils/conf';
+import pack from './utils/pack';
 
 describe('formatter eslint', () => {
   it('should use custom formatter as function', (done) => {
-    const compiler = webpack(
-      conf(
-        {
-          entry: './test/fixtures/error.js',
-        },
-        {
-          formatter: require('eslint-friendly-formatter'),
-        }
-      )
-    );
+    const formatter = require('eslint-friendly-formatter');
+    const compiler = pack('error', { formatter });
 
     compiler.run((err, stats) => {
       expect(stats.compilation.errors[0].message).toBeTruthy();
@@ -22,16 +12,8 @@ describe('formatter eslint', () => {
   });
 
   it('should use custom formatter as string', (done) => {
-    const compiler = webpack(
-      conf(
-        {
-          entry: './test/fixtures/error.js',
-        },
-        {
-          formatter: 'eslint-friendly-formatter',
-        }
-      )
-    );
+    const formatter = 'eslint-friendly-formatter';
+    const compiler = pack('error', { formatter });
 
     compiler.run((err, stats) => {
       expect(stats.compilation.errors[0].message).toBeTruthy();
