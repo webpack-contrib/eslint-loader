@@ -1,14 +1,8 @@
-import webpack from 'webpack';
-
-import conf from './utils/conf';
+import pack from './utils/pack';
 
 describe('formatter eslint', () => {
   it('should use eslint formatter', (done) => {
-    const compiler = webpack(
-      conf({
-        entry: './test/fixtures/error.js',
-      })
-    );
+    const compiler = pack('error');
 
     compiler.run((err, stats) => {
       expect(stats.compilation.errors[0].message).toBeTruthy();

@@ -1,19 +1,8 @@
-import webpack from 'webpack';
-
-import conf from './utils/conf';
+import pack from './utils/pack';
 
 describe('quiet', () => {
   it('should not emit warnings if quiet is set', (done) => {
-    const compiler = webpack(
-      conf(
-        {
-          entry: './test/fixtures/warn.js',
-        },
-        {
-          quiet: true,
-        }
-      )
-    );
+    const compiler = pack('warn', { quiet: true });
 
     compiler.run((err, stats) => {
       expect(stats.hasWarnings()).toBe(false);

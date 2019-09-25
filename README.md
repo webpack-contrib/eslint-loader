@@ -94,7 +94,7 @@ module.exports = {
 };
 ```
 
-### Options
+## Options
 
 You can pass [eslint options](http://eslint.org/docs/developer-guide/nodejs-api#cliengine)
 using standard webpack [loader options](https://webpack.js.org/configuration/module/#useentry).
@@ -103,14 +103,10 @@ Note that the config option you provide will be passed to the `CLIEngine`.
 This is a different set of options than what you'd specify in `package.json` or `.eslintrc`.
 See the [eslint docs](http://eslint.org/docs/developer-guide/nodejs-api#cliengine) for more detail.
 
-#### `fix` (default: false)
+### `cache`
 
-This option will enable
-[ESLint autofix feature](http://eslint.org/docs/user-guide/command-line-interface#fix).
-
-**Be careful: this option will change source files.**
-
-#### `cache` (default: false)
+- Type: `Boolean|String`
+- Default: `false`
 
 This option will enable caching of the linting results into a file.
 This is particularly useful in reducing linting time when doing a full build.
@@ -120,9 +116,57 @@ This can either be a `boolean` value or the cache directory path(ex: `'./.eslint
 If `cache: true` is used, the cache file is written to the `./node_modules/.cache` directory.
 This is the recommended usage.
 
-#### `formatter` (default: 'stylish')
+```js
+module.exports = {
+  entry: '...',
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'eslint-loader',
+        options: {
+          cache: true,
+        },
+      },
+    ],
+  },
+};
+```
 
-Loader accepts a function that will have one argument: an array of eslint messages (object).
+### `eslintPath`
+
+- Type: `String`
+- Default: `eslint`
+
+Path to `eslint` instance that will be used for linting.
+If the `eslintPath` is a folder like a official eslint, or specify a `formatter` option.
+now you dont have to install `eslint`.
+
+```js
+module.exports = {
+  entry: '...',
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'eslint-loader',
+        options: {
+          eslintPath: path.join(__dirname, 'reusable-eslint'),
+        },
+      },
+    ],
+  },
+};
+```
+
+### `formatter`
+
+- Type: `String|Function`
+- Default: `stylish`
+
+This option accepts a function that will have one argument: an array of eslint messages (object).
 The function must return the output as a string.
 You can use official [eslint formatters](https://eslint.org/docs/user-guide/formatters/).
 
@@ -160,11 +204,15 @@ module.exports = {
 };
 ```
 
-#### `eslintPath` (default: 'eslint')
+### `fix`
 
-Path to `eslint` instance that will be used for linting.
-If the `eslintPath` is a folder like a official eslint, or specify a `formatter` option.
-now you dont have to install `eslint`.
+- Type: `Boolean`
+- Default: `false`
+
+This option will enable
+[ESLint autofix feature](http://eslint.org/docs/user-guide/command-line-interface#fix).
+
+**Be careful: this option will change source files.**
 
 ```js
 module.exports = {
@@ -176,7 +224,7 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'eslint-loader',
         options: {
-          eslintPath: path.join(__dirname, 'reusable-eslint'),
+          fix: true,
         },
       },
     ],
@@ -184,15 +232,18 @@ module.exports = {
 };
 ```
 
-#### Errors and Warning
+### Errors and Warning
 
 **By default the loader will auto adjust error reporting depending
 on eslint errors/warnings counts.**
 You can still force this behavior by using `emitError` **or** `emitWarning` options:
 
-##### `emitError` (default: `false`)
+#### `emitError`
 
-Loader will always return errors if this option is set to `true`.
+- Type: `Boolean`
+- Default: `false`
+
+Will always return errors, if this option is set to `true`.
 
 ```js
 module.exports = {
@@ -212,14 +263,12 @@ module.exports = {
 };
 ```
 
-##### `emitWarning` (default: `false`)
+#### `emitWarning`
 
-Loader will always return warnings if option is set to `true`. If you're using hot module replacement,
-you may wish to enable this in development, or else updates will be skipped when there's an eslint error.
+- Type: `Boolean`
+- Default: `false`
 
-##### `quiet` (default: `false`)
-
-Loader will process and report errors only and ignore warnings if this option is set to true
+Will always return warnings, if option is set to `true`. **If you're using hot module replacement, you may wish to enable this in development, or else updates will be skipped when there's an eslint error.**
 
 ```js
 module.exports = {
@@ -231,7 +280,7 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'eslint-loader',
         options: {
-          quiet: true,
+          emitWarning: true,
         },
       },
     ],
@@ -239,31 +288,12 @@ module.exports = {
 };
 ```
 
-##### `failOnWarning` (default: `false`)
+#### `failOnError`
 
-Loader will cause the module build to fail if there are any eslint warnings.
+- Type: `Boolean`
+- Default: `false`
 
-```js
-module.exports = {
-  entry: '...',
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'eslint-loader',
-        options: {
-          failOnWarning: true,
-        },
-      },
-    ],
-  },
-};
-```
-
-##### `failOnError` (default: `false`)
-
-Loader will cause the module build to fail if there are any eslint errors.
+Will cause the module build to fail if there are any errors, if option is set to `true`.
 
 ```js
 module.exports = {
@@ -283,12 +313,65 @@ module.exports = {
 };
 ```
 
-##### `outputReport` (default: `null`)
+#### `failOnWarning`
+
+- Type: `Boolean`
+- Default: `false`
+
+Will cause the module build to fail if there are any warnings, if option is set to `true`.
+
+```js
+module.exports = {
+  entry: '...',
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'eslint-loader',
+        options: {
+          failOnWarning: true,
+        },
+      },
+    ],
+  },
+};
+```
+
+#### `quiet`
+
+- Type: `Boolean`
+- Default: `false`
+
+Will process and report errors only and ignore warnings, if this option is set to `true`.
+
+```js
+module.exports = {
+  entry: '...',
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'eslint-loader',
+        options: {
+          quiet: true,
+        },
+      },
+    ],
+  },
+};
+```
+
+#### `outputReport`
+
+- Type: `Boolean|Object`
+- Default: `false`
 
 Write the output of the errors to a file, for example a checkstyle xml file for use for reporting on Jenkins CI
 
-The `filePath` is an absolute path or relative to the webpack config: output.path
-You can pass in a different formatter for the output file,
+The `filePath` is an absolute path or relative to the webpack config: `output.path`
+You can pass in a different `formatter` for the output file,
 if none is passed in the default/configured formatter will be used
 
 ```js

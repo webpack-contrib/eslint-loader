@@ -1,21 +1,8 @@
-import webpack from 'webpack';
-
-import conf from './utils/conf';
+import pack from './utils/pack';
 
 describe('fail on warning', () => {
   it('should emits errors', (done) => {
-    const compiler = webpack(
-      conf(
-        {
-          cache: true,
-          entry: './test/fixtures/warn.js',
-        },
-        {
-          failOnWarning: true,
-          cache: true,
-        }
-      )
-    );
+    const compiler = pack('warn', { failOnWarning: true });
 
     compiler.run((err, stats) => {
       expect(stats.hasErrors()).toBe(true);
@@ -24,20 +11,19 @@ describe('fail on warning', () => {
   });
 
   it('should correctly indentifies a success', (done) => {
-    const compiler = webpack(
-      conf(
-        {
-          cache: true,
-          entry: './test/fixtures/good.js',
-        },
-        {
-          failOnWarning: true,
-          cache: true,
-        }
-      )
-    );
+    const compiler = pack('good', { failOnWarning: true });
+
     compiler.run((err, stats) => {
       expect(stats.hasErrors()).toBe(false);
+      done();
+    });
+  });
+
+  it('should emits errors when cache enabled', (done) => {
+    const compiler = pack('error', { failOnWarning: true, cache: true });
+
+    compiler.run((err, stats) => {
+      expect(stats.hasErrors()).toBe(true);
       done();
     });
   });
