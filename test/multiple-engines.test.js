@@ -1,18 +1,20 @@
-import webpack from 'webpack';
+import { join } from 'path';
 
-import conf from './utils/conf';
+import pack from './utils/pack';
 
 describe('multiple engines', () => {
   it('should will create an engine for each unique config', (done) => {
-    const compiler = webpack(
-      conf({
-        entry: './test/fixtures/good.js',
+    const loader = join(__dirname, '../src/index');
+    const compiler = pack(
+      'good',
+      {},
+      {
         module: {
           rules: [
             {
               test: /\.js$/,
               exclude: /node_modules/,
-              loader: './src/index',
+              loader,
               options: {
                 ignore: false,
                 rules: {
@@ -23,7 +25,7 @@ describe('multiple engines', () => {
             {
               test: /\.js$/,
               exclude: /node_modules/,
-              loader: './src/index',
+              loader,
               options: {
                 ignore: false,
                 rules: {
@@ -33,7 +35,7 @@ describe('multiple engines', () => {
             },
           ],
         },
-      })
+      }
     );
 
     compiler.run((err, stats) => {

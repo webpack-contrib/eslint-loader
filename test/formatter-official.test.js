@@ -1,19 +1,8 @@
-import webpack from 'webpack';
-
-import conf from './utils/conf';
+import pack from './utils/pack';
 
 describe('formatter official', () => {
   it('should use official formatter', (done) => {
-    const compiler = webpack(
-      conf(
-        {
-          entry: './test/fixtures/error.js',
-        },
-        {
-          formatter: 'table',
-        }
-      )
-    );
+    const compiler = pack('error', { formatter: 'table' });
 
     compiler.run((err, stats) => {
       expect(stats.compilation.errors[0].message).toBeTruthy();

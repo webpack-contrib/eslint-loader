@@ -1,4 +1,4 @@
-import { basename } from 'path';
+import { basename, join } from 'path';
 
 import { readFileSync } from 'fs-extra';
 import { CLIEngine } from 'eslint';
@@ -11,13 +11,11 @@ describe('formatter multiple entries', () => {
     const formatter = CLIEngine.getFormatter('checkstyle');
     const outputFilename = 'outputReport-[name].txt';
     const config = conf(
-      {
-        entry: [
-          './test/fixtures/error-multi-two.js',
-          './test/fixtures/error-multi-one.js',
-          './test/fixtures/error-multi.js',
-        ],
-      },
+      [
+        join(__dirname, 'fixtures/error-multi-two.js'),
+        join(__dirname, 'fixtures/error-multi-one.js'),
+        join(__dirname, 'fixtures/error-multi.js'),
+      ],
       {
         formatter,
         outputReport: {
@@ -32,7 +30,7 @@ describe('formatter multiple entries', () => {
     compiler.run((err, stats) => {
       stats.compilation.errors.forEach((e) => {
         const name = basename(e.module.resource, '.js');
-        const filename = `${config.output.path}outputReport-${name}.txt`;
+        const filename = join(config.output.path, `outputReport-${name}.txt`);
         const contents = readFileSync(filename, 'utf8');
         expect(e.error.message).toBe(contents);
       });

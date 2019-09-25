@@ -1,19 +1,8 @@
-import webpack from 'webpack';
-
-import conf from './utils/conf';
+import pack from './utils/pack';
 
 describe('eslintignore', () => {
   it('should ignores files present in .eslintignore', (done) => {
-    const compiler = webpack(
-      conf(
-        {
-          entry: './test/fixtures/ignore.js',
-        },
-        {
-          ignore: true,
-        }
-      )
-    );
+    const compiler = pack('ignore', { ignore: true });
 
     compiler.run((err, stats) => {
       expect(stats.hasWarnings()).toBe(false);

@@ -1,14 +1,8 @@
-import webpack from 'webpack';
-
-import conf from './utils/conf';
+import pack from './utils/pack';
 
 describe('error', () => {
   it('should return error if file is bad', (done) => {
-    const compiler = webpack(
-      conf({
-        entry: './test/fixtures/error.js',
-      })
-    );
+    const compiler = pack('error');
 
     compiler.run((err, stats) => {
       expect(stats.hasErrors()).toBe(true);
