@@ -67,6 +67,7 @@ export default class Linter {
 
     const results = this.parseResults(res);
 
+    // Do not analyze if there are no results or eslint config
     if (!results) {
       return;
     }
