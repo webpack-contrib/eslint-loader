@@ -66,6 +66,11 @@ export default class Linter {
     }
 
     const results = this.parseResults(res);
+
+    if (!results) {
+      return;
+    }
+
     const messages = options.formatter(results);
 
     this.reportOutput(results, messages);
