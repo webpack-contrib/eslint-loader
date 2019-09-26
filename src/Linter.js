@@ -1,7 +1,7 @@
 import process from 'process';
 import { isAbsolute, join } from 'path';
-import { writeFileSync } from 'fs';
 
+import { writeFileSync, ensureFileSync } from 'fs-extra';
 import { interpolateName } from 'loader-utils';
 
 import ESLintError from './ESLintError';
@@ -149,6 +149,7 @@ export default class Linter {
       );
     }
 
+    ensureFileSync(filePath);
     writeFileSync(filePath, content);
   }
 
