@@ -21,7 +21,7 @@
 npm install eslint-loader --save-dev
 ```
 
-**NOTE**: You also need to install `eslint` from npm, if you haven't already:
+**Note**: You also need to install `eslint` from npm, if you haven't already:
 
 ```bash
 npm install eslint --save-dev
@@ -29,7 +29,7 @@ npm install eslint --save-dev
 
 ## Usage
 
-In your webpack configuration
+In your webpack configuration:
 
 ```js
 module.exports = {
@@ -51,7 +51,7 @@ module.exports = {
 ```
 
 When using with transpiling loaders (like `babel-loader`), make sure they are in correct order
-(bottom to top). Otherwise files will be checked after being processed by `babel-loader`
+(bottom to top). Otherwise files will be checked after being processed by `babel-loader`:
 
 ```js
 module.exports = {
@@ -70,7 +70,7 @@ module.exports = {
 ```
 
 To be safe, you can use `enforce: 'pre'` section to check source files, not modified
-by other loaders (like `babel-loader`)
+by other loaders (like `babel-loader`):
 
 ```js
 module.exports = {
@@ -368,11 +368,11 @@ module.exports = {
 - Type: `Boolean|Object`
 - Default: `false`
 
-Write the output of the errors to a file, for example a checkstyle xml file for use for reporting on Jenkins CI
+Write the output of the errors to a file, for example a checkstyle xml file for use for reporting on Jenkins CI.
 
-The `filePath` is an absolute path or relative to the webpack config: `output.path`
+The `filePath` is an absolute path or relative to the webpack config: `output.path`.
 You can pass in a different `formatter` for the output file,
-if none is passed in the default/configured formatter will be used
+if none is passed in the default/configured formatter will be used.
 
 ```js
 module.exports = {
