@@ -83,7 +83,10 @@ export default class Linter {
 
   static skipIgnoredFileWarning(res) {
     return (
+      res &&
       res.warningCount === 1 &&
+      res.results &&
+      res.results[0] &&
       res.results[0].messages[0] &&
       res.results[0].messages[0].message &&
       res.results[0].messages[0].message.indexOf('ignore') > 1
@@ -96,7 +99,13 @@ export default class Linter {
     // quiet filter done now
     // eslint allow rules to be specified in the input between comments
     // so we can found warnings defined in the input itself
-    if (this.options.quiet && res.warningCount) {
+    if (
+      this.options.quiet &&
+      res &&
+      res.warningCount &&
+      res.results &&
+      res.results[0]
+    ) {
       res.warningCount = 0;
       res.results[0].warningCount = 0;
       res.results[0].messages = res.results[0].messages.filter(
@@ -109,9 +118,12 @@ export default class Linter {
 
   autoFix(res) {
     if (
-      res.results[0].output !== res.src ||
-      res.results[0].fixableErrorCount > 0 ||
-      res.results[0].fixableWarningCount > 0
+      res &&
+      res.results &&
+      res.results[0] &&
+      (res.results[0].output !== res.src ||
+        res.results[0].fixableErrorCount > 0 ||
+        res.results[0].fixableWarningCount > 0)
     ) {
       this.CLIEngine.outputFixes(res);
     }
