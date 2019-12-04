@@ -13,7 +13,7 @@
 
 # eslint-loader
 
-> ESlint loader for webpack
+> A ESlint loader for webpack
 
 ## Install
 
