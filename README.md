@@ -107,7 +107,7 @@ This option will enable caching of the linting results into a file. This is part
 
 This can either be a `boolean` value or the cache directory path(ex: `'./.eslint-loader-cache'`).
 
-If `cache: true` is used, the cache file is written to the `./node_modules/.cache` directory. This is the recommended usage.
+If `cache: true` is used, the cache is written to the `./node_modules/.cache/eslint-loader` directory. This is the recommended usage.
 
 ```js
 module.exports = {
