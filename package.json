@@ -1,6 +1,6 @@
 {
   "name": "eslint-loader",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "description": "A ESlint loader for webpack",
   "license": "MIT",
   "repository": "webpack-contrib/eslint-loader",

@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.0.3](https://github.com/webpack-contrib/eslint-loader/compare/v3.0.2...v3.0.3) (2019-12-06)
+
+
+### Bug Fixes
+
+* check result object ([#311](https://github.com/webpack-contrib/eslint-loader/issues/311)) ([6bb1fa6](https://github.com/webpack-contrib/eslint-loader/commit/6bb1fa68d043f00de63cda4d9babd3a2c9a50d58))
+* support webpack 5 ([#312](https://github.com/webpack-contrib/eslint-loader/issues/312)) ([c0a9d0c](https://github.com/webpack-contrib/eslint-loader/commit/c0a9d0c118155c56c41dc344460f333a9e969eaf))
+
 ### [3.0.2](https://github.com/webpack-contrib/eslint-loader/compare/v3.0.1...v3.0.2) (2019-09-27)
 
 
