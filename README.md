@@ -96,7 +96,7 @@ module.exports = {
 
 You can pass [eslint options](http://eslint.org/docs/developer-guide/nodejs-api#cliengine) using standard webpack [loader options](https://webpack.js.org/configuration/module/#useentry).
 
-Note that the config option you provide will be passed to the `CLIEngine`. This is a different set of options than what you'd specify in `package.json` or `.eslintrc`. See the [eslint docs](http://eslint.org/docs/developer-guide/nodejs-api#cliengine) for more detail.
+**Note**: That the config option you provide will be passed to the `CLIEngine`. This is a different set of options than what you'd specify in `package.json` or `.eslintrc`. See the [eslint docs](http://eslint.org/docs/developer-guide/nodejs-api#cliengine) for more detail.
 
 ### `cache`
 
