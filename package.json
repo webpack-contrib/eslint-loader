@@ -5,6 +5,9 @@
   "license": "MIT",
   "repository": "webpack-contrib/eslint-loader",
   "author": "Maxime Thirouin",
+  "contributors": [
+    "Ricardo Gobbo de Souza <ricardogobbosouza@yahoo.com.br>"
+  ],
   "homepage": "https://github.com/webpack-contrib/eslint-loader",
   "bugs": "https://github.com/webpack-contrib/eslint-loader/issues",
   "main": "dist/cjs.js",
