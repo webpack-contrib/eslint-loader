@@ -6,8 +6,6 @@ import webpack from 'webpack';
 
 import conf from './utils/conf';
 
-jest.setTimeout(30000);
-
 describe('formatter write', () => {
   it('should configured to write eslint results to a file (relative path)', (done) => {
     const outputFilename = 'outputReport-relative.txt';
