@@ -205,7 +205,7 @@ module.exports = {
           formatter: require('eslint-friendly-formatter'),
 
           // custom formatter
-          formatter: function(results) {
+          formatter: function (results) {
             // `results` format is available here
             // http://eslint.org/docs/developer-guide/nodejs-api.html#executeonfiles()
 
