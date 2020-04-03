@@ -2,8 +2,6 @@ import { join } from 'path';
 
 import pack from './utils/pack';
 
-jest.setTimeout(30000);
-
 describe('multiple engines', () => {
   it('should will create an engine for each unique config', (done) => {
     const loader = join(__dirname, '../src/index');
