@@ -1,7 +1,7 @@
 import { join } from 'path';
+import fs from 'fs';
 
 import { readdirSync, removeSync } from 'fs-extra';
-import mkdirp from 'mkdirp';
 import webpack from 'webpack';
 
 const defaultCacheDir = join(__dirname, '../node_modules/.cache/eslint-loader');
@@ -25,7 +25,7 @@ function createTestDirectory(dir) {
   const directory = join(dir, 'cache');
 
   removeSync(directory);
-  mkdirp.sync(directory);
+  fs.mkdirSync(directory, { recursive: true });
 
   return directory;
 }

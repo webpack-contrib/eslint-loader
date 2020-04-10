@@ -41,8 +41,8 @@
     "webpack": "^4.0.0 || ^5.0.0"
   },
   "dependencies": {
+    "find-cache-dir": "^3.3.1",
     "fs-extra": "^9.0.0",
-    "loader-fs-cache": "^1.0.3",
     "loader-utils": "^2.0.0",
     "object-hash": "^2.0.3",
     "schema-utils": "^2.6.5"
