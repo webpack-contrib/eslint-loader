@@ -1,6 +1,8 @@
+import createCache from 'loader-fs-cache';
+
 import { version } from '../package.json';
 
-import cache from './cache';
+const cache = createCache('eslint-loader');
 
 export default function cacheLoader(linter, content, map) {
   const { loaderContext, options, CLIEngine } = linter;
@@ -10,26 +12,31 @@ export default function cacheLoader(linter, content, map) {
     eslint: CLIEngine.version,
   });
 
-  cache({
-    cacheDirectory: options.cache,
-    cacheIdentifier,
-    cacheCompression: true,
-    options,
-    source: content,
-    transform() {
-      return linter.lint(content);
+  cache(
+    {
+      directory: options.cache,
+      identifier: cacheIdentifier,
+      options,
+      source: content,
+      transform() {
+        return linter.lint(content);
+      },
     },
-  })
-    .then((res) => {
+    (err, res) => {
+      // istanbul ignore next
+      if (err) {
+        return callback(err);
+      }
+
+      let error = err;
+
       try {
         linter.printOutput({ ...res, src: content });
-      } catch (error) {
-        return callback(error, content, map);
+      } catch (e) {
+        error = e;
       }
-      return callback(null, content, map);
-    })
-    .catch((err) => {
-      // istanbul ignore next
-      return callback(err);
-    });
+
+      return callback(error, content, map);
+    }
+  );
 }
