@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.1](https://github.com/webpack-contrib/eslint-loader/compare/v3.0.4...v4.0.1) (2020-04-24)
+
 ## [4.0.0](https://github.com/webpack-contrib/eslint-loader/compare/v3.0.4...v4.0.0) (2020-04-03)
 
 ### Breaking Changes
