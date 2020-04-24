@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.2](https://github.com/webpack-contrib/eslint-loader/compare/v3.0.4...v4.0.2) (2020-04-24)
+
+
+### Bug Fixes
+
+* use fs-extra ^8.1.0 ([7febae0](https://github.com/webpack-contrib/eslint-loader/commit/7febae056ac6271c4cf76b8e387f8fae5800a879))
+
 ### [4.0.1](https://github.com/webpack-contrib/eslint-loader/compare/v3.0.4...v4.0.1) (2020-04-24)
 
 ### Refactor
