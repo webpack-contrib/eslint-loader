@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.1](https://github.com/webpack-contrib/eslint-loader/compare/v3.0.4...v4.0.1) (2020-04-24)
+
+### Refactor
+
+* new cache implementation ([#320](https://github.com/webpack-contrib/eslint-loader/pull/320)) ([6bb1fa6](https://github.com/webpack-contrib/eslint-loader/commit/acae2be88678228e6589b40122a93f88437b8e47))
+
 ## [4.0.0](https://github.com/webpack-contrib/eslint-loader/compare/v3.0.4...v4.0.0) (2020-04-03)
 
 ### Breaking Changes
