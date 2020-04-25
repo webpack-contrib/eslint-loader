@@ -403,8 +403,8 @@ Bear in mind that when you define `configFile`, `eslint` doesn't automatically l
 [node-url]: https://nodejs.org
 [deps]: https://david-dm.org/webpack-contrib/eslint-loader.svg
 [deps-url]: https://david-dm.org/webpack-contrib/eslint-loader
-[tests]: https://dev.azure.com/webpack-contrib/eslint-loader/_apis/build/status/webpack-contrib.eslint-loader?branchName=master
-[tests-url]: https://dev.azure.com/webpack-contrib/eslint-loader/_build/latest?definitionId=4&branchName=master
+[tests]: https://github.com/webpack-contrib/eslint-loader/workflows/eslint-loader/badge.svg
+[tests-url]: https://github.com/webpack-contrib/eslint-loader/actions
 [cover]: https://codecov.io/gh/webpack-contrib/eslint-loader/branch/master/graph/badge.svg
 [cover-url]: https://codecov.io/gh/webpack-contrib/eslint-loader
 [chat]: https://badges.gitter.im/webpack/webpack.svg
