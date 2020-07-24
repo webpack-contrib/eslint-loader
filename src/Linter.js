@@ -1,5 +1,5 @@
 import process from 'process';
-import { isAbsolute, join } from 'path';
+import { isAbsolute, join, relative } from 'path';
 
 import { writeFileSync, ensureFileSync } from 'fs-extra';
 import { interpolateName } from 'loader-utils';
@@ -25,8 +25,9 @@ export default class Linter {
     // remove cwd from resource path in case webpack has been started from project
     // root, to allow having relative paths in .eslintignore
     // istanbul ignore next
-    if (resourcePath.indexOf(cwd) === 0) {
-      resourcePath = resourcePath.substr(cwd.length + (cwd === '/' ? 0 : 1));
+    const relativePath = relative(cwd, resourcePath);
+    if (relativePath.indexOf('..') === -1) {
+      resourcePath = relativePath;
     }
 
     return resourcePath;
