@@ -15,6 +15,10 @@
 
 > A ESlint loader for webpack
 
+## :warning: DEPRECATED
+
+`eslint-loader` will be deprecated. Please use `eslint-webpack-plugin`.
+
 ## Install
 
 ```bash
