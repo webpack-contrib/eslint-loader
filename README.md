@@ -17,7 +17,7 @@
 
 ## :warning: DEPRECATED
 
-`eslint-loader` will be deprecated. Please use `eslint-webpack-plugin`.
+`eslint-loader` has been deprecated. Please use [`eslint-webpack-plugin`](https://github.com/webpack-contrib/eslint-webpack-plugin).
 
 ## Install
 
